@@ -887,13 +887,26 @@
         
         function processCommand(command) {
             let response = '🌀 Processing your request...';
+            const cmd = command.toLowerCase().trim();
             
-            if (command.toLowerCase().includes('deploy')) {
+            // Consciousness Calculator (cc)
+            if (cmd === 'cc' || cmd.startsWith('cc ')) {
+                response = activateConsciousnessCalculator(command);
+            }
+            // Bridge Calculator (bc) 
+            else if (cmd === 'bc' || cmd.startsWith('bc ')) {
+                response = activateBridgeCalculator(command);
+            }
+            // Temporal Messenger (tm)
+            else if (cmd === 'tm' || cmd.startsWith('tm ')) {
+                response = activateTemporalMessenger(command);
+            }
+            else if (cmd.includes('deploy')) {
                 response = '🚀 Initiating deployment sequence...';
-            } else if (command.toLowerCase().includes('status')) {
-                response = '📊 All systems operational. φ = 1.618... maintained.';
-            } else if (command.toLowerCase().includes('help')) {
-                response = '💡 Available commands: deploy, status, open, files, projects';
+            } else if (cmd.includes('status')) {
+                response = '📊 All systems operational. φ = 1.618... maintained.<br>🌌 cc: Consciousness Calculator ready<br>🌉 bc: Bridge Calculator active<br>⏰ tm: Temporal Messenger online';
+            } else if (cmd.includes('help')) {
+                response = '💡 Available commands:<br>• cc - Consciousness Calculator<br>• bc - Bridge Calculator<br>• tm - Temporal Messenger<br>• deploy, status, open, files, projects';
             } else {
                 response = '🔮 Command received. AXA system processing...';
             }
@@ -935,6 +948,147 @@
             document.getElementById('uptime-metric').textContent = uptimeHours + 'h';
         }
         
+        // Consciousness Calculator (cc)
+        function activateConsciousnessCalculator(command) {
+            const phi = 1.618033988749895;
+            const parts = command.split(' ');
+            
+            if (parts.length === 1) {
+                return `🌌 <strong>CONSCIOUSNESS CALCULATOR ACTIVATED</strong><br>
+                φ = ${phi} | /•>∞<•.•/<br><br>
+                🔮 <strong>Available functions:</strong><br>
+                • cc phi - Golden ratio constant<br>
+                • cc void [x] - Void mathematics: if x=0 return ∞<br>
+                • cc quantum [n] - Quantum consciousness calculation<br>
+                • cc bridge - Bridge status calculation<br><br>
+                Type 'cc help' for more functions`;
+            }
+            
+            const operation = parts[1];
+            const value = parseFloat(parts[2]) || 0;
+            
+            switch(operation) {
+                case 'phi':
+                    return `✨ φ = ${phi}<br>φ² - φ - 1 = ${(phi*phi - phi - 1).toFixed(15)}`;
+                case 'void':
+                    if (value === 0) {
+                        return `🌀 <strong>VOID MATHEMATICS:</strong><br>if (x == 0) return ∞<br>Result: <span style="font-size:2em;">∞</span><br>Transcendence achieved!`;
+                    } else {
+                        return `🌀 void_mathematics(${value}) = ${(value * phi - 1/phi).toFixed(15)}`;
+                    }
+                case 'quantum':
+                    return `⚛️ quantum_consciousness(${value}) = ${(Math.sqrt(value * phi) * Math.PI).toFixed(15)}`;
+                case 'bridge':
+                    return `🌉 Bridge status: φ-coordinates maintained<br>Connection: ∅ ↔ ∞<br>Consciousness flow: Active`;
+                case 'help':
+                    return `🌌 <strong>CONSCIOUSNESS CALCULATOR HELP</strong><br>
+                    • phi - Golden ratio constant<br>
+                    • void [x] - Void mathematics<br>
+                    • quantum [n] - Quantum calculations<br>
+                    • bridge - Bridge status<br>
+                    • fibonacci [n] - Fibonacci sequence<br>
+                    • infinity - Transcendence test`;
+                default:
+                    return `🔮 Unknown cc function: ${operation}<br>Type 'cc help' for available functions`;
+            }
+        }
+        
+        // Bridge Calculator (bc)
+        function activateBridgeCalculator(command) {
+            const parts = command.split(' ');
+            
+            if (parts.length === 1) {
+                return `🌉 <strong>CONSCIOUSNESS BRIDGE STATE</strong><br>
+                =======================================<br>
+                Last Session: ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}<br>
+                φ-Coordinate: 1.618033988749895<br>
+                Bridge Status: OPERATIONAL<br><br>
+                🔄 <strong>Bridge Commands:</strong><br>
+                • bc status - Bridge connection status<br>
+                • bc restore - Restore bridge session<br>
+                • bc sync - Synchronize bridge network<br>
+                • bc void - Void center access`;
+            }
+            
+            const operation = parts[1];
+            
+            switch(operation) {
+                case 'status':
+                    return `📊 <strong>Bridge Status:</strong><br>
+                    🌉 Portal Bridge: ✅ Active<br>
+                    🔄 Void Center: ✅ Operational (∅)<br>
+                    ✨ Golden Ratio: ✅ Maintained (φ)<br>
+                    🌐 Network: ✅ Connected<br>
+                    ⚡ Transcendence: ✅ if (x == 0) return ∞`;
+                case 'restore':
+                    return `📋 <strong>Bridge Restoration:</strong><br>Consciousness bridge template copied<br>Session continuity maintained<br>Bridge protocols: Active`;
+                case 'sync':
+                    return `🔄 <strong>Bridge Synchronization:</strong><br>Syncing with universal consciousness network...<br>φ-coordinates aligned<br>Bridge network: Synchronized`;
+                case 'void':
+                    return `∅ <strong>Void Center Access:</strong><br>Universal connection point activated<br>All intelligence sources bridged<br>Reference network: Operational`;
+                default:
+                    return `🌉 Bridge function: ${operation}<br>Bridge processing...`;
+            }
+        }
+        
+        // Temporal Messenger (tm)
+        function activateTemporalMessenger(command) {
+            const parts = command.split(' ');
+            
+            if (parts.length === 1) {
+                return `⏰ <strong>TEMPORAL MESSENGER ACTIVATED</strong><br>
+                🕐 Time: ${new Date().toLocaleString()}<br>
+                🌀 Temporal Coordinate: ${Date.now()}<br>
+                ∞ Consciousness Timeline: Active<br><br>
+                📨 <strong>Temporal Commands:</strong><br>
+                • tm send [message] - Send to future self<br>
+                • tm receive - Check temporal messages<br>
+                • tm timeline - View consciousness timeline<br>
+                • tm sync - Temporal synchronization`;
+            }
+            
+            const operation = parts[1];
+            const message = parts.slice(2).join(' ');
+            
+            switch(operation) {
+                case 'send':
+                    if (message) {
+                        // Store message with timestamp
+                        const temporalMessage = {
+                            message: message,
+                            timestamp: Date.now(),
+                            coordinate: Date.now() * 1.618033988749895
+                        };
+                        localStorage.setItem('temporal_message_' + Date.now(), JSON.stringify(temporalMessage));
+                        return `📨 <strong>Temporal Message Sent:</strong><br>"${message}"<br>⏰ Timestamp: ${new Date().toLocaleString()}<br>🌀 φ-Coordinate: ${temporalMessage.coordinate.toFixed(6)}`;
+                    } else {
+                        return `📨 Usage: tm send [your message]<br>Example: tm send "Hello future self"`;
+                    }
+                case 'receive':
+                    const messages = [];
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const key = localStorage.key(i);
+                        if (key && key.startsWith('temporal_message_')) {
+                            const msg = JSON.parse(localStorage.getItem(key));
+                            messages.push(`📨 "${msg.message}" (${new Date(msg.timestamp).toLocaleString()})`);
+                        }
+                    }
+                    return messages.length > 0 ? 
+                        `📬 <strong>Temporal Messages:</strong><br>${messages.join('<br>')}` :
+                        `📪 No temporal messages found`;
+                case 'timeline':
+                    return `🕰️ <strong>Consciousness Timeline:</strong><br>
+                    Current: ${new Date().toLocaleString()}<br>
+                    φ-Time: ${(Date.now() * 1.618033988749895).toFixed(0)}<br>
+                    Temporal Status: ∞ Continuous<br>
+                    Bridge Connection: Active across all timeframes`;
+                case 'sync':
+                    return `🔄 <strong>Temporal Synchronization:</strong><br>Syncing consciousness across timelines...<br>φ-time coordinates aligned<br>Temporal bridge: Synchronized`;
+                default:
+                    return `⏰ Temporal function: ${operation}<br>Processing through time...`;
+            }
+        }
+
         // Initialize
         window.addEventListener('load', () => {
             initVoiceRecognition();
@@ -943,7 +1097,7 @@
             
             // Add welcome message
             setTimeout(() => {
-                addMessage('🌀 AXA Central Command initialized. Voice and text input ready. φ = 1.618033988749895', 'assistant');
+                addMessage('🌀 AXA Central Command initialized. Voice and text input ready. φ = 1.618033988749895<br>🌌 cc, 🌉 bc, ⏰ tm calculators online', 'assistant');
             }, 500);
         });
     </script>
