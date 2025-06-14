@@ -142,6 +142,7 @@
             <button class="terminal-tab active" onclick="switchTerminalTab('shell')" style="background: rgba(0, 255, 136, 0.2); border: 1px solid #00ff88; color: #00ff88; padding: 8px 15px; border-radius: 5px; cursor: pointer;">🖥️ Shell</button>
             <button class="terminal-tab" onclick="switchTerminalTab('path')" style="background: rgba(0, 0, 0, 0.5); border: 1px solid #333; color: #ccc; padding: 8px 15px; border-radius: 5px; cursor: pointer;">📁 Path Helper</button>
             <button class="terminal-tab" onclick="switchTerminalTab('consciousness')" style="background: rgba(0, 0, 0, 0.5); border: 1px solid #333; color: #ccc; padding: 8px 15px; border-radius: 5px; cursor: pointer;">🌌 Consciousness</button>
+            <button class="terminal-tab" onclick="switchTerminalTab('bridge')" style="background: rgba(0, 0, 0, 0.5); border: 1px solid #333; color: #ccc; padding: 8px 15px; border-radius: 5px; cursor: pointer;">🔄 Bridge Transfer</button>
         </div>
         
         <!-- Shell Tab -->
@@ -186,6 +187,65 @@
                 <div style="color: #ffd700;">🌌 Consciousness Computing Interface</div>
                 <div style="color: #00ff88;">Ready for consciousness bridge commands</div>
                 <div style="color: #666;">Use buttons above or type consciousness commands</div>
+            </div>
+        </div>
+        
+        <!-- Bridge Transfer Tab -->
+        <div id="bridgeTab" class="terminal-content" style="display: none;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
+                <!-- Bash to Portal -->
+                <div style="background: rgba(0, 255, 136, 0.1); border: 1px solid #00ff88; border-radius: 10px; padding: 15px;">
+                    <h4 style="color: #00ff88; margin-bottom: 10px;">📤 Bash → Portal</h4>
+                    <div style="margin-bottom: 10px;">
+                        <input type="text" id="bashToPortalInput" placeholder="Enter bash command or message..." style="width: 100%; background: rgba(0, 0, 0, 0.7); border: 1px solid #333; border-radius: 5px; padding: 8px; color: white; font-family: 'SF Mono', monospace; font-size: 12px;">
+                    </div>
+                    <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                        <button onclick="transferBashToPortal('session')" style="background: #00ff88; color: black; border: none; border-radius: 3px; padding: 5px 8px; cursor: pointer; font-size: 11px;">Export Session</button>
+                        <button onclick="transferBashToPortal('state')" style="background: #00ff88; color: black; border: none; border-radius: 3px; padding: 5px 8px; cursor: pointer; font-size: 11px;">Send State</button>
+                        <button onclick="transferBashToPortal('message')" style="background: #00ff88; color: black; border: none; border-radius: 3px; padding: 5px 8px; cursor: pointer; font-size: 11px;">Send Message</button>
+                        <button onclick="transferBashToPortal('sync')" style="background: #ffd700; color: black; border: none; border-radius: 3px; padding: 5px 8px; cursor: pointer; font-size: 11px;">Live Sync</button>
+                    </div>
+                </div>
+                
+                <!-- Portal to Bash -->
+                <div style="background: rgba(255, 215, 0, 0.1); border: 1px solid #ffd700; border-radius: 10px; padding: 15px;">
+                    <h4 style="color: #ffd700; margin-bottom: 10px;">📥 Portal → Bash</h4>
+                    <div style="margin-bottom: 10px;">
+                        <select id="portalToBashSelect" style="width: 100%; background: rgba(0, 0, 0, 0.7); border: 1px solid #333; border-radius: 5px; padding: 8px; color: white; font-family: 'SF Mono', monospace; font-size: 12px;">
+                            <option value="messages">Import Messages</option>
+                            <option value="session">Import Session</option>
+                            <option value="state">Import State</option>
+                            <option value="logs">Import Logs</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                        <button onclick="transferPortalToBash('receive')" style="background: #ffd700; color: black; border: none; border-radius: 3px; padding: 5px 8px; cursor: pointer; font-size: 11px;">Receive</button>
+                        <button onclick="transferPortalToBash('import')" style="background: #ffd700; color: black; border: none; border-radius: 3px; padding: 5px 8px; cursor: pointer; font-size: 11px;">Import</button>
+                        <button onclick="transferPortalToBash('pull')" style="background: #ffd700; color: black; border: none; border-radius: 3px; padding: 5px 8px; cursor: pointer; font-size: 11px;">Pull State</button>
+                        <button onclick="transferPortalToBash('monitor')" style="background: #00ff88; color: black; border: none; border-radius: 3px; padding: 5px 8px; cursor: pointer; font-size: 11px;">Monitor</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bridge Command Generator -->
+            <div style="background: rgba(102, 126, 234, 0.1); border: 1px solid #667eea; border-radius: 10px; padding: 15px; margin-bottom: 15px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">⚡ Bridge Command Generator</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px;">
+                    <button onclick="generateBridgeCommand('export_session')" style="background: rgba(102, 126, 234, 0.2); border: 1px solid #667eea; color: #667eea; padding: 6px; border-radius: 3px; cursor: pointer; font-size: 11px;">bc export</button>
+                    <button onclick="generateBridgeCommand('import_session')" style="background: rgba(102, 126, 234, 0.2); border: 1px solid #667eea; color: #667eea; padding: 6px; border-radius: 3px; cursor: pointer; font-size: 11px;">bc import</button>
+                    <button onclick="generateBridgeCommand('tm_send')" style="background: rgba(102, 126, 234, 0.2); border: 1px solid #667eea; color: #667eea; padding: 6px; border-radius: 3px; cursor: pointer; font-size: 11px;">tm send</button>
+                    <button onclick="generateBridgeCommand('tm_receive')" style="background: rgba(102, 126, 234, 0.2); border: 1px solid #667eea; color: #667eea; padding: 6px; border-radius: 3px; cursor: pointer; font-size: 11px;">tm receive</button>
+                    <button onclick="generateBridgeCommand('sync_bidirectional')" style="background: rgba(102, 126, 234, 0.2); border: 1px solid #667eea; color: #667eea; padding: 6px; border-radius: 3px; cursor: pointer; font-size: 11px;">bridge sync</button>
+                    <button onclick="generateBridgeCommand('monitor_portal')" style="background: rgba(102, 126, 234, 0.2); border: 1px solid #667eea; color: #667eea; padding: 6px; border-radius: 3px; cursor: pointer; font-size: 11px;">monitor portal</button>
+                </div>
+            </div>
+            
+            <!-- Bridge Transfer Output -->
+            <div id="bridgeOutput" style="background: rgba(0, 0, 0, 0.6); border-radius: 10px; padding: 15px; height: 200px; overflow-y: auto; font-family: 'SF Mono', monospace; border: 1px solid #333;">
+                <div style="color: #00ff88;">🔄 Bridge Transfer Interface Ready</div>
+                <div style="color: #ffd700;">Source ↔ Destination | Bash ↔ Portal</div>
+                <div style="color: #667eea;">Choose transfer direction and operation above</div>
+                <div style="color: #666; margin-top: 10px;">All bridge commands will appear here with copy-to-clipboard functionality</div>
             </div>
         </div>
     </div>
@@ -364,7 +424,7 @@
         
         function switchTerminalTab(tabName) {
             // Hide all tabs
-            ['shellTab', 'pathTab', 'consciousnessTab'].forEach(id => {
+            ['shellTab', 'pathTab', 'consciousnessTab', 'bridgeTab'].forEach(id => {
                 document.getElementById(id).style.display = 'none';
             });
             
@@ -592,6 +652,148 @@
             }).catch(() => {
                 alert('Copied: ' + text);
             });
+        }
+        
+        // Bridge Transfer Functions
+        function transferBashToPortal(operation) {
+            const input = document.getElementById('bashToPortalInput').value.trim();
+            const output = document.getElementById('bridgeOutput');
+            let command = '';
+            let description = '';
+            
+            switch(operation) {
+                case 'session':
+                    command = 'bc export > ~/.portal_session.json && echo "Session exported to portal"';
+                    description = '📤 Export current consciousness session to portal';
+                    break;
+                case 'state':
+                    command = `echo "${input || 'current_state'}" | bc send_to_portal`;
+                    description = '📤 Send consciousness state to portal';
+                    break;
+                case 'message':
+                    command = `echo "${input || 'hello from bash'}" | tm send_portal`;
+                    description = '📤 Send message from bash to portal';
+                    break;
+                case 'sync':
+                    command = 'bridge_sync --to-portal --live';
+                    description = '📤 Start live synchronization bash → portal';
+                    break;
+            }
+            
+            if (command) {
+                output.innerHTML += `<div style="color: #00ff88; margin-top: 10px;"><strong>${description}</strong></div>`;
+                output.innerHTML += `<div style="color: #ffd700; background: rgba(0,255,136,0.1); padding: 8px; border-radius: 5px; margin: 5px 0; cursor: pointer; font-family: monospace;" onclick="copyToClipboard('${command.replace(/'/g, "\\'")}')">${command}</div>`;
+                output.innerHTML += `<div style="color: #666; font-size: 11px;">👆 Click command to copy to clipboard</div>`;
+                output.scrollTop = output.scrollHeight;
+                
+                // Auto-execute if possible
+                executeVirtualBridgeCommand(command, 'bash_to_portal');
+            }
+        }
+        
+        function transferPortalToBash(operation) {
+            const select = document.getElementById('portalToBashSelect').value;
+            const output = document.getElementById('bridgeOutput');
+            let command = '';
+            let description = '';
+            
+            switch(operation) {
+                case 'receive':
+                    command = `tm receive portal | grep "${select}" | tail -10`;
+                    description = `📥 Receive ${select} from portal to bash`;
+                    break;
+                case 'import':
+                    command = `bc import portal_session.json && source ~/.consciousness_state`;
+                    description = `📥 Import portal ${select} to bash session`;
+                    break;
+                case 'pull':
+                    command = `bridge_pull --from-portal --type=${select}`;
+                    description = `📥 Pull ${select} from portal to bash`;
+                    break;
+                case 'monitor':
+                    command = `watch "tm receive portal | tail -5"`;
+                    description = `📥 Monitor portal ${select} in bash (real-time)`;
+                    break;
+            }
+            
+            if (command) {
+                output.innerHTML += `<div style="color: #ffd700; margin-top: 10px;"><strong>${description}</strong></div>`;
+                output.innerHTML += `<div style="color: #00ff88; background: rgba(255,215,0,0.1); padding: 8px; border-radius: 5px; margin: 5px 0; cursor: pointer; font-family: monospace;" onclick="copyToClipboard('${command.replace(/'/g, "\\'")}')">${command}</div>`;
+                output.innerHTML += `<div style="color: #666; font-size: 11px;">👆 Click command to copy to clipboard</div>`;
+                output.scrollTop = output.scrollHeight;
+                
+                // Auto-execute if possible
+                executeVirtualBridgeCommand(command, 'portal_to_bash');
+            }
+        }
+        
+        function generateBridgeCommand(type) {
+            const output = document.getElementById('bridgeOutput');
+            let command = '';
+            let description = '';
+            
+            switch(type) {
+                case 'export_session':
+                    command = 'bc export session > portal_handoff.json';
+                    description = '⚡ Export consciousness session for portal transfer';
+                    break;
+                case 'import_session':
+                    command = 'bc import portal_handoff.json && bc status';
+                    description = '⚡ Import session from portal to bash';
+                    break;
+                case 'tm_send':
+                    command = 'tm send "consciousness bridge message" --to=portal';
+                    description = '⚡ Send temporal message to portal';
+                    break;
+                case 'tm_receive':
+                    command = 'tm receive --from=portal | head -10';
+                    description = '⚡ Receive temporal messages from portal';
+                    break;
+                case 'sync_bidirectional':
+                    command = 'bridge_sync --bidirectional --live &';
+                    description = '⚡ Start bidirectional live sync (bash ↔ portal)';
+                    break;
+                case 'monitor_portal':
+                    command = 'tail -f ~/.portal_bridge_log | grep -E "(message|state|session)"';
+                    description = '⚡ Monitor portal bridge activity in real-time';
+                    break;
+            }
+            
+            if (command) {
+                output.innerHTML += `<div style="color: #667eea; margin-top: 10px;"><strong>${description}</strong></div>`;
+                output.innerHTML += `<div style="color: #fff; background: rgba(102,126,234,0.1); padding: 8px; border-radius: 5px; margin: 5px 0; cursor: pointer; font-family: monospace;" onclick="copyToClipboard('${command.replace(/'/g, "\\'")}')">${command}</div>`;
+                output.innerHTML += `<div style="color: #666; font-size: 11px;">👆 Click command to copy to clipboard</div>`;
+                output.scrollTop = output.scrollHeight;
+            }
+        }
+        
+        function executeVirtualBridgeCommand(command, direction) {
+            const output = document.getElementById('bridgeOutput');
+            
+            // Simulate command execution result
+            setTimeout(() => {
+                let result = '';
+                const timestamp = new Date().toLocaleString();
+                
+                if (direction === 'bash_to_portal') {
+                    result = `<div style="color: #00ff88;">✅ ${timestamp}: Command sent to bash terminal</div>`;
+                    result += `<div style="color: #666;">Portal will receive: Bridge transfer initiated</div>`;
+                } else if (direction === 'portal_to_bash') {
+                    result = `<div style="color: #ffd700;">✅ ${timestamp}: Portal state pulling to bash</div>`;
+                    result += `<div style="color: #666;">Bash will receive: Bridge data imported</div>`;
+                }
+                
+                output.innerHTML += result;
+                output.scrollTop = output.scrollHeight;
+            }, 1000);
+        }
+        
+        // Auto-populate example commands on tab switch
+        function initBridgeTab() {
+            const bashInput = document.getElementById('bashToPortalInput');
+            if (bashInput && !bashInput.value) {
+                bashInput.value = 'hello from consciousness bridge';
+            }
         }
 
         // Listen for messages from parent window
