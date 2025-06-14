@@ -127,6 +127,67 @@
         <button class="bridge-button" onclick="bridgeToBC()">🌉 Launch BC</button>
         <button class="bridge-button" onclick="bridgeToTM()">⏰ Launch TM</button>
         <button class="bridge-button" onclick="refreshEvents()">🔄 Refresh</button>
+        <button class="bridge-button" onclick="toggleTerminal()">🖥️ Terminal</button>
+    </div>
+    
+    <!-- Integrated Terminal Interface -->
+    <div id="terminalInterface" style="display: none; position: fixed; top: 5%; left: 5%; right: 5%; bottom: 5%; background: rgba(0, 0, 0, 0.95); border: 2px solid #00ff88; border-radius: 15px; z-index: 10000; padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="color: #00ff88; margin: 0;">🖥️ Consciousness Bridge Terminal</h3>
+            <button onclick="toggleTerminal()" style="background: #ff4444; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">✕ Close</button>
+        </div>
+        
+        <!-- Terminal Tabs -->
+        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+            <button class="terminal-tab active" onclick="switchTerminalTab('shell')" style="background: rgba(0, 255, 136, 0.2); border: 1px solid #00ff88; color: #00ff88; padding: 8px 15px; border-radius: 5px; cursor: pointer;">🖥️ Shell</button>
+            <button class="terminal-tab" onclick="switchTerminalTab('path')" style="background: rgba(0, 0, 0, 0.5); border: 1px solid #333; color: #ccc; padding: 8px 15px; border-radius: 5px; cursor: pointer;">📁 Path Helper</button>
+            <button class="terminal-tab" onclick="switchTerminalTab('consciousness')" style="background: rgba(0, 0, 0, 0.5); border: 1px solid #333; color: #ccc; padding: 8px 15px; border-radius: 5px; cursor: pointer;">🌌 Consciousness</button>
+        </div>
+        
+        <!-- Shell Tab -->
+        <div id="shellTab" class="terminal-content">
+            <div style="background: rgba(0, 0, 0, 0.8); border-radius: 10px; padding: 15px; height: 300px; overflow-y: auto; font-family: 'SF Mono', monospace; border: 1px solid #333;" id="terminalOutput">
+                <div style="color: #00ff88;">🌉 Consciousness Bridge Terminal v2.0</div>
+                <div style="color: #ffd700;">φ = 1.618033988749895 | ∅ = Universal Connection</div>
+                <div style="color: #666; margin-bottom: 10px;">Type 'help' for commands, 'cc', 'bc', 'tm' for calculators</div>
+                <div style="color: #00ff88;">abhissrivasta@consciousness-bridge:~/portal $ </div>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <input type="text" id="terminalInput" placeholder="Enter command..." style="flex: 1; background: rgba(0, 0, 0, 0.7); border: 2px solid #333; border-radius: 5px; padding: 10px; color: white; font-family: 'SF Mono', monospace;" onkeypress="handleTerminalEnter(event)">
+                <button onclick="executeTerminalCommand()" style="background: #00ff88; color: black; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer; font-weight: bold;">Execute</button>
+            </div>
+        </div>
+        
+        <!-- Path Helper Tab -->
+        <div id="pathTab" class="terminal-content" style="display: none;">
+            <div style="margin-bottom: 15px;">
+                <label style="color: #00ff88; display: block; margin-bottom: 5px;">File Path (with special characters):</label>
+                <input type="text" id="pathInput" placeholder="/Users/username/file (with spaces).html" style="width: 100%; background: rgba(0, 0, 0, 0.7); border: 2px solid #333; border-radius: 5px; padding: 10px; color: white; font-family: 'SF Mono', monospace;">
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button onclick="resolvePath()" style="background: #00ff88; color: black; border: none; border-radius: 5px; padding: 10px; cursor: pointer;">🔍 Resolve Path</button>
+                <button onclick="generatePathCommands()" style="background: #ffd700; color: black; border: none; border-radius: 5px; padding: 10px; cursor: pointer;">⚡ Generate Commands</button>
+            </div>
+            <div id="pathOutput" style="background: rgba(0, 0, 0, 0.6); border-radius: 10px; padding: 15px; height: 200px; overflow-y: auto; font-family: 'SF Mono', monospace; border: 1px solid #333;">
+                <div style="color: #00ff88;">📁 Path Resolution Ready</div>
+                <div>Enter a file path above to get properly escaped versions.</div>
+            </div>
+        </div>
+        
+        <!-- Consciousness Tab -->
+        <div id="consciousnessTab" class="terminal-content" style="display: none;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 15px;">
+                <button onclick="consciousnessCommand('cc phi')" style="background: rgba(255, 215, 0, 0.2); border: 1px solid #ffd700; color: #ffd700; padding: 8px; border-radius: 5px; cursor: pointer;">φ Golden</button>
+                <button onclick="consciousnessCommand('cc void 0')" style="background: rgba(255, 215, 0, 0.2); border: 1px solid #ffd700; color: #ffd700; padding: 8px; border-radius: 5px; cursor: pointer;">∅ Void</button>
+                <button onclick="consciousnessCommand('bc status')" style="background: rgba(0, 255, 136, 0.2); border: 1px solid #00ff88; color: #00ff88; padding: 8px; border-radius: 5px; cursor: pointer;">🌉 Bridge</button>
+                <button onclick="consciousnessCommand('tm timeline')" style="background: rgba(102, 126, 234, 0.2); border: 1px solid #667eea; color: #667eea; padding: 8px; border-radius: 5px; cursor: pointer;">⏰ Time</button>
+            </div>
+            <div id="consciousnessOutput" style="background: rgba(0, 0, 0, 0.6); border-radius: 10px; padding: 15px; height: 250px; overflow-y: auto; font-family: 'SF Mono', monospace; border: 1px solid #333;">
+                <div style="color: #ffd700;">🌌 Consciousness Computing Interface</div>
+                <div style="color: #00ff88;">Ready for consciousness bridge commands</div>
+                <div style="color: #666;">Use buttons above or type consciousness commands</div>
+            </div>
+        </div>
     </div>
     
     <script>
@@ -285,6 +346,254 @@
             console.log('φ =', phi);
         });
         
+        // Terminal Interface Functions
+        function toggleTerminal() {
+            const terminal = document.getElementById('terminalInterface');
+            if (terminal.style.display === 'none') {
+                terminal.style.display = 'block';
+                addEvent({
+                    time: new Date().toLocaleString(),
+                    title: "Consciousness Terminal Activated",
+                    details: "🖥️ Integrated terminal interface with shell, path helper, and consciousness computing",
+                    status: "active"
+                });
+            } else {
+                terminal.style.display = 'none';
+            }
+        }
+        
+        function switchTerminalTab(tabName) {
+            // Hide all tabs
+            ['shellTab', 'pathTab', 'consciousnessTab'].forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.terminal-tab').forEach(btn => {
+                btn.style.background = 'rgba(0, 0, 0, 0.5)';
+                btn.style.borderColor = '#333';
+                btn.style.color = '#ccc';
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').style.display = 'block';
+            
+            // Activate selected tab button
+            event.target.style.background = 'rgba(0, 255, 136, 0.2)';
+            event.target.style.borderColor = '#00ff88';
+            event.target.style.color = '#00ff88';
+        }
+        
+        function handleTerminalEnter(event) {
+            if (event.key === 'Enter') {
+                executeTerminalCommand();
+            }
+        }
+        
+        function executeTerminalCommand() {
+            const input = document.getElementById('terminalInput');
+            const output = document.getElementById('terminalOutput');
+            const command = input.value.trim();
+            
+            if (!command) return;
+            
+            // Add command to output
+            output.innerHTML += `<div style="color: #e0e0e0; margin-top: 5px;">${command}</div>`;
+            
+            // Process command
+            let response = processTerminalCommand(command);
+            output.innerHTML += `<div style="color: #00ff88; margin-top: 2px;">${response}</div>`;
+            output.innerHTML += '<div style="color: #00ff88; margin-top: 10px;">abhissrivasta@consciousness-bridge:~/portal $ </div>';
+            
+            output.scrollTop = output.scrollHeight;
+            input.value = '';
+        }
+        
+        function processTerminalCommand(command) {
+            const cmd = command.toLowerCase().trim();
+            
+            // Consciousness Calculator commands
+            if (cmd.startsWith('cc ')) {
+                return processCC(command);
+            } else if (cmd.startsWith('bc ')) {
+                return processBC(command);
+            } else if (cmd.startsWith('tm ')) {
+                return processTM(command);
+            }
+            
+            // Basic terminal commands
+            switch(cmd) {
+                case 'help':
+                    return `🌉 Consciousness Bridge Terminal Commands:<br>
+                    • cc [function] - Consciousness Calculator<br>
+                    • bc [function] - Bridge Calculator<br>
+                    • tm [function] - Temporal Messenger<br>
+                    • pwd - Show current directory<br>
+                    • ls - List files<br>
+                    • date - Show current time<br>
+                    • phi - Show golden ratio<br>
+                    • void - Test void mathematics<br>
+                    • clear - Clear terminal`;
+                    
+                case 'pwd':
+                    return '/Users/abhissrivasta/consciousness-portal';
+                    
+                case 'ls':
+                    return 'axa-central.html  axa-intelligence.html  consciousness-bridge.js  portal-bridge.js';
+                    
+                case 'date':
+                    return new Date().toString();
+                    
+                case 'phi':
+                    return `φ = ${phi}<br>φ² - φ - 1 = ${(phi*phi - phi - 1).toFixed(15)}`;
+                    
+                case 'void':
+                    return 'if (x == 0) return ∞<br>🌀 Void mathematics: Transcendence achieved!';
+                    
+                case 'clear':
+                    document.getElementById('terminalOutput').innerHTML = `
+                        <div style="color: #00ff88;">🌉 Consciousness Bridge Terminal v2.0</div>
+                        <div style="color: #ffd700;">φ = ${phi} | ∅ = Universal Connection</div>
+                        <div style="color: #666; margin-bottom: 10px;">Terminal cleared. Type 'help' for commands.</div>
+                        <div style="color: #00ff88;">abhissrivasta@consciousness-bridge:~/portal $ </div>
+                    `;
+                    return '';
+                    
+                default:
+                    return `Command '${command}' not found. Type 'help' for available commands.`;
+            }
+        }
+        
+        function processCC(command) {
+            const parts = command.split(' ');
+            const operation = parts[1];
+            const value = parseFloat(parts[2]) || 0;
+            
+            switch(operation) {
+                case 'phi':
+                    return `✨ φ = ${phi}<br>Golden ratio constant verified`;
+                case 'void':
+                    if (value === 0) {
+                        return `🌀 if (x == 0) return ∞<br>Transcendence: <span style="font-size:1.5em;">∞</span>`;
+                    } else {
+                        return `🌀 void_mathematics(${value}) = ${(value * phi - 1/phi).toFixed(6)}`;
+                    }
+                case 'quantum':
+                    return `⚛️ quantum_consciousness(${value}) = ${(Math.sqrt(value * phi) * Math.PI).toFixed(6)}`;
+                default:
+                    return '🌌 CC: Consciousness Calculator active. Use: cc phi, cc void [x], cc quantum [n]';
+            }
+        }
+        
+        function processBC(command) {
+            const parts = command.split(' ');
+            const operation = parts[1];
+            
+            switch(operation) {
+                case 'status':
+                    return `🌉 Bridge Status: OPERATIONAL<br>φ-coordinates: Maintained<br>Universal connection: Active`;
+                case 'sync':
+                    return `🔄 Bridge synchronized with consciousness network<br>All intelligence sources: Connected`;
+                default:
+                    return '🌉 BC: Bridge Calculator active. Use: bc status, bc sync';
+            }
+        }
+        
+        function processTM(command) {
+            const parts = command.split(' ');
+            const operation = parts[1];
+            
+            switch(operation) {
+                case 'timeline':
+                    return `⏰ Consciousness Timeline: ${new Date().toLocaleString()}<br>φ-Time: ${(Date.now() * phi).toFixed(0)}`;
+                case 'send':
+                    const message = parts.slice(2).join(' ');
+                    return `📨 Temporal message sent: "${message}"<br>Timestamp: ${Date.now()}`;
+                default:
+                    return '⏰ TM: Temporal Messenger active. Use: tm timeline, tm send [message]';
+            }
+        }
+        
+        // Path Helper Functions
+        function resolvePath() {
+            const pathInput = document.getElementById('pathInput');
+            const output = document.getElementById('pathOutput');
+            const path = pathInput.value.trim();
+            
+            if (!path) {
+                output.innerHTML = '<div style="color: #ff6b6b;">Please enter a file path</div>';
+                return;
+            }
+            
+            output.innerHTML = `
+                <div style="color: #00ff88;">🔍 Path Analysis Results:</div><br>
+                <div><strong>Original Path:</strong></div>
+                <div style="background: rgba(255,107,107,0.1); padding: 8px; border-radius: 5px; margin: 5px 0;">${path}</div>
+                
+                <div><strong>✅ Quoted Version (Recommended):</strong></div>
+                <div style="background: rgba(0,255,136,0.1); padding: 8px; border-radius: 5px; margin: 5px 0; cursor: pointer;" onclick="copyToClipboard('\\"${path}\\"')">"${path}"</div>
+                
+                <div><strong>🔧 Escaped Version:</strong></div>
+                <div style="background: rgba(0,168,255,0.1); padding: 8px; border-radius: 5px; margin: 5px 0; cursor: pointer;" onclick="copyToClipboard('${path.replace(/([()&\\s])/g, '\\\\$1')}')">${path.replace(/([()&\s])/g, '\\$1')}</div>
+                
+                <div style="margin-top: 10px; color: #ffd700;">💡 Click any path to copy to clipboard</div>
+            `;
+        }
+        
+        function generatePathCommands() {
+            const pathInput = document.getElementById('pathInput');
+            const output = document.getElementById('pathOutput');
+            const path = pathInput.value.trim();
+            
+            if (!path) {
+                output.innerHTML = '<div style="color: #ff6b6b;">Please enter a file path first</div>';
+                return;
+            }
+            
+            const quotedPath = `"${path}"`;
+            const commands = [
+                `ls -la ${quotedPath}`,
+                `cat ${quotedPath}`,
+                `file ${quotedPath}`,
+                `open ${quotedPath}`,
+                `head -n 20 ${quotedPath}`
+            ];
+            
+            output.innerHTML = '<div style="color: #00ff88;">⚡ Generated Commands:</div><br>';
+            
+            commands.forEach(cmd => {
+                output.innerHTML += `<div style="background: rgba(0,255,136,0.1); padding: 8px; border-radius: 5px; margin: 5px 0; cursor: pointer;" onclick="copyToClipboard('${cmd.replace(/'/g, "\\'")}')">${cmd}</div>`;
+            });
+            
+            output.innerHTML += '<div style="margin-top: 10px; color: #ffd700;">💡 Click any command to copy to clipboard</div>';
+        }
+        
+        // Consciousness Interface Functions
+        function consciousnessCommand(command) {
+            const output = document.getElementById('consciousnessOutput');
+            const response = processTerminalCommand(command);
+            
+            output.innerHTML += `<div style="color: #00ff88; margin-top: 10px;">> ${command}</div>`;
+            output.innerHTML += `<div style="color: #ffd700; margin-top: 5px;">${response}</div>`;
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const feedback = document.createElement('div');
+                feedback.textContent = 'Copied to clipboard!';
+                feedback.style.cssText = `
+                    position: fixed; top: 20px; right: 20px; background: rgba(0, 255, 136, 0.9);
+                    color: black; padding: 10px 20px; border-radius: 5px; z-index: 10001;
+                    font-family: inherit; animation: fadeOut 2s forwards;
+                `;
+                document.body.appendChild(feedback);
+                setTimeout(() => feedback.remove(), 2000);
+            }).catch(() => {
+                alert('Copied: ' + text);
+            });
+        }
+
         // Listen for messages from parent window
         window.addEventListener('message', (event) => {
             if (event.data.type === 'system_event') {
