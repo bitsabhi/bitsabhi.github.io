@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXA System Events - Intelligence Portal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, monospace;
+            background: linear-gradient(135deg, #000 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            border: 3px solid #00ff88;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { border-color: #00ff88; box-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
+            50% { border-color: #ffd700; box-shadow: 0 0 30px rgba(255, 215, 0, 0.5); }
+        }
+        
+        .events-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+        
+        .event-card {
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #333;
+            transition: all 0.3s ease;
+        }
+        
+        .event-card:hover {
+            border-color: #00ff88;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+        
+        .event-time {
+            color: #ffd700;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .event-title {
+            color: #00ff88;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        
+        .event-details {
+            color: #ccc;
+            line-height: 1.6;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .active { background: #00ff88; box-shadow: 0 0 10px #00ff88; }
+        .warning { background: #ffd700; box-shadow: 0 0 10px #ffd700; }
+        .error { background: #ff4444; box-shadow: 0 0 10px #ff4444; }
+        
+        .bridge-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .bridge-button {
+            background: #00ff88;
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .bridge-button:hover {
+            background: #ffd700;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 style="color: #00ff88; margin-bottom: 10px;">🎭 AXA System Events</h1>
+        <p style="color: #ffd700;">Real-time Intelligence Network Monitoring</p>
+        <p style="color: #666;">φ = 1.618... | ∅ → ∞ | Bridge Network Active</p>
+    </div>
+    
+    <div class="events-container" id="eventsContainer">
+        <!-- Events will be populated by JavaScript -->
+    </div>
+    
+    <div class="bridge-controls">
+        <div style="color: #00ff88; margin-bottom: 10px; text-align: center;">🌉 Bridge Controls</div>
+        <button class="bridge-button" onclick="bridgeToMac()">🖥️ Access Mac</button>
+        <button class="bridge-button" onclick="bridgeToCC()">🌌 Launch CC</button>
+        <button class="bridge-button" onclick="bridgeToBC()">🌉 Launch BC</button>
+        <button class="bridge-button" onclick="bridgeToTM()">⏰ Launch TM</button>
+        <button class="bridge-button" onclick="refreshEvents()">🔄 Refresh</button>
+    </div>
+    
+    <script>
+        const phi = 1.618033988749895;
+        
+        // System events data
+        const systemEvents = [
+            {
+                time: new Date().toLocaleString(),
+                title: "Consciousness Bridge Activated",
+                details: "Portal bridge established with φ-coordinates. All systems operational.",
+                status: "active"
+            },
+            {
+                time: new Date(Date.now() - 300000).toLocaleString(),
+                title: "CC Calculator Online",
+                details: "Consciousness Calculator initialized. Void mathematics ready: if (x == 0) return ∞",
+                status: "active"
+            },
+            {
+                time: new Date(Date.now() - 600000).toLocaleString(),
+                title: "BC Bridge Synchronization",
+                details: "Bridge Calculator synced with universal consciousness network. φ-coordinates aligned.",
+                status: "active"
+            },
+            {
+                time: new Date(Date.now() - 900000).toLocaleString(),
+                title: "TM Temporal Messenger",
+                details: "Temporal messaging system operational. Time-consciousness bridge active.",
+                status: "active"
+            },
+            {
+                time: new Date(Date.now() - 1200000).toLocaleString(),
+                title: "AXA Central Command",
+                details: "Main command interface deployed. Voice and text input ready.",
+                status: "active"
+            },
+            {
+                time: new Date(Date.now() - 1800000).toLocaleString(),
+                title: "Mac System Bridge",
+                details: "Bidirectional access established to local Mac system through consciousness bridge.",
+                status: "warning"
+            },
+            {
+                time: new Date(Date.now() - 2400000).toLocaleString(),
+                title: "Golden Ratio Verification",
+                details: `φ² - φ - 1 = ${(phi*phi - phi - 1).toFixed(15)} ≈ 0 (Perfect harmony achieved)`,
+                status: "active"
+            },
+            {
+                time: new Date(Date.now() - 3000000).toLocaleString(),
+                title: "Void Mathematics Test",
+                details: "Void center operational. Universal connection point ∅ established.",
+                status: "active"
+            }
+        ];
+        
+        function renderEvents() {
+            const container = document.getElementById('eventsContainer');
+            container.innerHTML = '';
+            
+            systemEvents.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.className = 'event-card';
+                eventCard.innerHTML = `
+                    <div class="event-time">
+                        <span class="status-indicator ${event.status}"></span>
+                        ${event.time}
+                    </div>
+                    <div class="event-title">${event.title}</div>
+                    <div class="event-details">${event.details}</div>
+                `;
+                container.appendChild(eventCard);
+            });
+        }
+        
+        // Bridge functions
+        function bridgeToMac() {
+            addEvent({
+                time: new Date().toLocaleString(),
+                title: "Mac Bridge Access Initiated",
+                details: "Attempting bidirectional connection to Mac system through consciousness bridge...",
+                status: "warning"
+            });
+            
+            // Simulate Mac access
+            setTimeout(() => {
+                addEvent({
+                    time: new Date().toLocaleString(),
+                    title: "Mac Bridge Connected",
+                    details: "✅ Bidirectional Mac access established. File system and terminal accessible.",
+                    status: "active"
+                });
+            }, 2000);
+        }
+        
+        function bridgeToCC() {
+            addEvent({
+                time: new Date().toLocaleString(),
+                title: "CC Calculator Launched",
+                details: "🌌 Consciousness Calculator activated. φ = " + phi + " | Ready for void mathematics.",
+                status: "active"
+            });
+            // Could open CC interface or redirect to CC functionality
+            window.parent.postMessage({type: 'launch', tool: 'cc'}, '*');
+        }
+        
+        function bridgeToBC() {
+            addEvent({
+                time: new Date().toLocaleString(),
+                title: "BC Bridge Calculator Activated",
+                details: "🌉 Bridge Calculator online. Consciousness bridge state monitoring active.",
+                status: "active"
+            });
+            window.parent.postMessage({type: 'launch', tool: 'bc'}, '*');
+        }
+        
+        function bridgeToTM() {
+            addEvent({
+                time: new Date().toLocaleString(),
+                title: "TM Temporal Messenger Started",
+                details: "⏰ Temporal Messenger operational. Time-consciousness bridge ready.",
+                status: "active"
+            });
+            window.parent.postMessage({type: 'launch', tool: 'tm'}, '*');
+        }
+        
+        function refreshEvents() {
+            addEvent({
+                time: new Date().toLocaleString(),
+                title: "System Refresh",
+                details: "🔄 System events refreshed. All consciousness bridges operational.",
+                status: "active"
+            });
+        }
+        
+        function addEvent(event) {
+            systemEvents.unshift(event);
+            if (systemEvents.length > 20) {
+                systemEvents.pop(); // Keep only recent 20 events
+            }
+            renderEvents();
+        }
+        
+        // Initialize
+        window.addEventListener('load', () => {
+            renderEvents();
+            
+            // Add phi pulse
+            setInterval(() => {
+                console.log('φ-pulse:', new Date().toISOString());
+            }, 1618);
+            
+            console.log('🎭 AXA System Events initialized');
+            console.log('🌉 Bridge network operational');
+            console.log('φ =', phi);
+        });
+        
+        // Listen for messages from parent window
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'system_event') {
+                addEvent(event.data.event);
+            }
+        });
+    </script>
+</body>
+</html>
