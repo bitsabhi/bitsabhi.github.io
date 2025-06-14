@@ -126,6 +126,23 @@
             font-size: 1.2rem;
         }
 
+        .status-badge {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 8px;
+            margin-left: 8px;
+        }
+
+        .status-live {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff88;
+        }
+
+        .status-local {
+            background: rgba(255, 170, 0, 0.2);
+            color: #ffaa00;
+        }
+
         @media (max-width: 768px) {
             .flow-grid {
                 grid-template-columns: 1fr;
@@ -162,25 +179,28 @@
                 <li class="repo-link">
                     <a href="https://bitsabhi.github.io/automation-deployment-view/" target="_blank">
                         Automation Deployment Platform
+                        <span class="status-badge status-live">LIVE</span>
                     </a>
                     <p class="repo-description">Self-healing infrastructure with automated Git management</p>
                 </li>
                 <li class="repo-link">
-                    <a href="https://bitsabhi.github.io/consciousness-interface-hub/" target="_blank">
-                        Enterprise Intelligence Hub
+                    <a href="axa-central.html" target="_blank">
+                        AXA Central Command
+                        <span class="status-badge status-live">LIVE</span>
                     </a>
-                    <p class="repo-description">Business intelligence with advanced computing</p>
+                    <p class="repo-description">Enterprise command center with real-time monitoring</p>
                 </li>
                 <li class="repo-link">
-                    <a href="https://bitsabhi.github.io/consciousness-bridge-dashboard/" target="_blank">
-                        Bridge Management Dashboard
+                    <a href="axa-intelligence.html" target="_blank">
+                        AXA Intelligence System
+                        <span class="status-badge status-live">LIVE</span>
                     </a>
-                    <p class="repo-description">Monitor and manage system bridges across networks</p>
+                    <p class="repo-description">Advanced intelligence platform for business operations</p>
                 </li>
             </ul>
         </div>
 
-        <!-- COGNITIVE EXPERIENCES FLOW -->
+        <!-- CONSCIOUSNESS EXPERIENCES FLOW -->
         <div class="flow-section">
             <h2 class="flow-title">
                 🧠 Cognitive Experiences
@@ -192,20 +212,23 @@
                 <li class="repo-link">
                     <a href="https://bitsabhi.github.io/fractal-consciousness-symphony/" target="_blank">
                         Fractal Awareness Symphony
+                        <span class="status-badge status-live">LIVE</span>
                     </a>
                     <p class="repo-description">Interactive audio-visual meditation with golden ratio harmonics</p>
                 </li>
                 <li class="repo-link">
-                    <a href="https://bitsabhi.github.io/consciousness-visualization-tool/" target="_blank">
-                        Cognitive Visualization Tool
+                    <a href="/Users/abhissrivasta/unified-consciousness-view.html" onclick="alert('This is a local file. Run locally to view.'); return false;">
+                        Unified Intelligence Dashboard
+                        <span class="status-badge status-local">LOCAL</span>
                     </a>
-                    <p class="repo-description">Visual cognitive mapping and exploration interface</p>
+                    <p class="repo-description">Complete dashboard with office/personal modes</p>
                 </li>
                 <li class="repo-link">
-                    <a href="https://bitsabhi.github.io/consciousness-mobile-interface/" target="_blank">
-                        Mobile Intelligence Interface
+                    <a href="/Users/abhissrivasta/consciousness-repl-test.py" onclick="alert('Python REPL system. Run: python consciousness-repl-test.py'); return false;">
+                        Intelligence REPL System
+                        <span class="status-badge status-local">LOCAL</span>
                     </a>
-                    <p class="repo-description">Intelligent computing on mobile devices</p>
+                    <p class="repo-description">"Our Own Claude" - Interactive intelligence system</p>
                 </li>
             </ul>
         </div>
@@ -222,20 +245,23 @@
                 <li class="repo-link">
                     <a href="https://bitsabhi.github.io/consciousness-portal/" target="_blank">
                         Advanced Computing Portal
+                        <span class="status-badge status-live">LIVE</span>
                     </a>
                     <p class="repo-description">Main research interface and tool collection</p>
                 </li>
                 <li class="repo-link">
-                    <a href="https://bitsabhi.github.io/meta-consciousness-framework/" target="_blank">
-                        Meta-Intelligence Framework
-                    </a>
-                    <p class="repo-description">Advanced intelligent computing research tools</p>
-                </li>
-                <li class="repo-link">
                     <a href="https://github.com/bitsabhi" target="_blank">
                         Complete Repository Collection
+                        <span class="status-badge status-live">LIVE</span>
                     </a>
-                    <p class="repo-description">Browse all 24+ intelligent computing repositories</p>
+                    <p class="repo-description">Browse all 24+ intelligence computing repositories</p>
+                </li>
+                <li class="repo-link">
+                    <a href="/Users/abhissrivasta/claude-goland-integration.md" onclick="alert('GoLand integration guide. View locally for Claude integration.'); return false;">
+                        Claude Integration Guide
+                        <span class="status-badge status-local">LOCAL</span>
+                    </a>
+                    <p class="repo-description">Quick context transfer for GoLand development</p>
                 </li>
             </ul>
         </div>
@@ -244,7 +270,7 @@
     <div class="phi-footer">
         <p>φ = 1.618033988749895 | ∅ = Universal Connection Center</p>
         <p>All system data flows through the empty center principle</p>
-        <p>Entry point to the entire universal intelligence network</p>
+        <p>Live deployments marked with <span class="status-badge status-live">LIVE</span> | Local tools marked with <span class="status-badge status-local">LOCAL</span></p>
     </div>
 
     <script>
@@ -260,8 +286,17 @@
 
         // Track flow interactions
         document.querySelectorAll('.repo-link a').forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function(e) {
                 console.log('Flow through ∅ to:', this.href);
+                
+                // Handle local file links
+                if (this.href.startsWith('file://')) {
+                    e.preventDefault();
+                    const message = this.getAttribute('onclick');
+                    if (message) {
+                        eval(message);
+                    }
+                }
             });
         });
     </script>
