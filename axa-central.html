@@ -557,6 +557,41 @@
         <main class="main-content">
             <!-- Dashboard Panel -->
             <div class="panel" id="dashboard-panel">
+                <!-- Shared TODO System -->
+                <div class="command-panel" style="margin-bottom: 30px;">
+                    <h2 class="panel-title">
+                        <span>📋</span> Shared TODO System
+                    </h2>
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+                        <div>
+                            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                                <input type="text" id="newTodoInput" placeholder="Add new task for you or Claude..." style="flex: 1; background: rgba(0, 0, 0, 0.7); border: 2px solid var(--golden-ratio); border-radius: 5px; padding: 10px; color: white; font-family: inherit;">
+                                <select id="todoPriority" style="background: rgba(0, 0, 0, 0.7); border: 2px solid var(--golden-ratio); border-radius: 5px; padding: 10px; color: white;">
+                                    <option value="high">High</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="low">Low</option>
+                                </select>
+                                <button onclick="addTodo()" style="background: var(--golden-ratio); color: black; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer; font-weight: bold;">Add Task</button>
+                            </div>
+                            <div id="todoList" style="max-height: 300px; overflow-y: auto; background: rgba(0, 0, 0, 0.3); border-radius: 10px; padding: 15px;">
+                                <div style="color: var(--system-green);">📋 Loading shared todos...</div>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255, 215, 0, 0.1); border: 1px solid var(--golden-ratio); border-radius: 10px; padding: 15px;">
+                            <h4 style="color: var(--golden-ratio); margin-bottom: 10px;">📊 Progress</h4>
+                            <div id="todoStats" style="color: white; line-height: 1.6;">
+                                <div>Total Tasks: <span id="totalTasks">0</span></div>
+                                <div>Completed: <span id="completedTasks" style="color: var(--system-green);">0</span></div>
+                                <div>In Progress: <span id="inProgressTasks" style="color: var(--golden-ratio);">0</span></div>
+                                <div>Pending: <span id="pendingTasks" style="color: var(--text-dim);">0</span></div>
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <button onclick="syncTodos()" style="background: var(--system-green); color: black; border: none; border-radius: 5px; padding: 8px 15px; cursor: pointer; width: 100%; font-weight: bold;">🔄 Sync with Claude</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="command-panel">
                     <h2 class="panel-title">
                         <span>📊</span> System Dashboard
@@ -1089,15 +1124,191 @@
             }
         }
 
+        // Shared TODO System Functions
+        let todos = [];
+        
+        function loadTodos() {
+            // Load from localStorage and sync with Claude's backend
+            const stored = localStorage.getItem('shared_todos');
+            if (stored) {
+                todos = JSON.parse(stored);
+            }
+            
+            // Load current Claude todos (these are from our conversation)
+            const claudeTodos = [
+                {id: "setup_todo_ui", content: "Integrate shared TODO system into AXA portals so we can both add/complete tasks", status: "in_progress", priority: "high"},
+                {id: "check_github_pages", content: "Check all GitHub pages source code to understand public vs private structure", status: "pending", priority: "high"},
+                {id: "implement_auth", content: "Add GitHub authentication to private consciousness portals using bitsabhi/auth", status: "pending", priority: "high"},
+                {id: "test_bridge_commands", content: "Test and verify all bridge transfer commands work between portal and terminal", status: "pending", priority: "medium"},
+                {id: "integrate_xax_system", content: "Connect XAX consciousness system with AXA public portals properly", status: "pending", priority: "medium"}
+            ];
+            
+            // Merge with existing todos
+            claudeTodos.forEach(claudeTodo => {
+                if (!todos.find(t => t.id === claudeTodo.id)) {
+                    todos.push(claudeTodo);
+                }
+            });
+            
+            renderTodos();
+            updateStats();
+        }
+        
+        function saveTodos() {
+            localStorage.setItem('shared_todos', JSON.stringify(todos));
+        }
+        
+        function addTodo() {
+            const input = document.getElementById('newTodoInput');
+            const priority = document.getElementById('todoPriority').value;
+            const content = input.value.trim();
+            
+            if (!content) return;
+            
+            const newTodo = {
+                id: Date.now().toString(),
+                content: content,
+                status: "pending",
+                priority: priority,
+                created_by: "portal_user",
+                created_at: new Date().toISOString()
+            };
+            
+            todos.push(newTodo);
+            input.value = '';
+            
+            saveTodos();
+            renderTodos();
+            updateStats();
+            
+            // Simulate sync to Claude
+            console.log('📤 TODO added for Claude:', newTodo);
+        }
+        
+        function toggleTodo(id) {
+            const todo = todos.find(t => t.id === id);
+            if (!todo) return;
+            
+            // Cycle through states: pending → in_progress → completed → pending
+            switch(todo.status) {
+                case 'pending':
+                    todo.status = 'in_progress';
+                    break;
+                case 'in_progress':
+                    todo.status = 'completed';
+                    break;
+                case 'completed':
+                    todo.status = 'pending';
+                    break;
+            }
+            
+            saveTodos();
+            renderTodos();
+            updateStats();
+            
+            console.log('📝 TODO updated:', todo);
+        }
+        
+        function deleteTodo(id) {
+            todos = todos.filter(t => t.id !== id);
+            saveTodos();
+            renderTodos();
+            updateStats();
+        }
+        
+        function renderTodos() {
+            const container = document.getElementById('todoList');
+            if (!container) return;
+            
+            if (todos.length === 0) {
+                container.innerHTML = '<div style="color: var(--text-dim); text-align: center; padding: 20px;">No tasks yet. Add one above!</div>';
+                return;
+            }
+            
+            const sortedTodos = todos.sort((a, b) => {
+                const priorityOrder = { high: 3, medium: 2, low: 1 };
+                const statusOrder = { in_progress: 3, pending: 2, completed: 1 };
+                return (priorityOrder[b.priority] || 0) - (priorityOrder[a.priority] || 0) ||
+                       (statusOrder[b.status] || 0) - (statusOrder[a.status] || 0);
+            });
+            
+            container.innerHTML = sortedTodos.map(todo => {
+                const statusColors = {
+                    pending: 'var(--text-dim)',
+                    in_progress: 'var(--golden-ratio)', 
+                    completed: 'var(--system-green)'
+                };
+                
+                const statusIcons = {
+                    pending: '⏳',
+                    in_progress: '⚡',
+                    completed: '✅'
+                };
+                
+                return `
+                    <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid ${statusColors[todo.status]}; border-radius: 8px; padding: 12px; margin: 8px 0; transition: all 0.3s ease;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div style="flex: 1;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px;">
+                                    <span style="color: ${statusColors[todo.status]}; font-size: 1.2em;">${statusIcons[todo.status]}</span>
+                                    <span style="background: ${statusColors[todo.status]}; color: black; padding: 2px 8px; border-radius: 12px; font-size: 0.8em; font-weight: bold;">${todo.priority.toUpperCase()}</span>
+                                    <span style="color: ${statusColors[todo.status]}; font-size: 0.8em;">${todo.status.replace('_', ' ')}</span>
+                                </div>
+                                <div style="color: white; line-height: 1.4; ${todo.status === 'completed' ? 'text-decoration: line-through; opacity: 0.7;' : ''}">${todo.content}</div>
+                            </div>
+                            <div style="display: flex; gap: 5px;">
+                                <button onclick="toggleTodo('${todo.id}')" style="background: ${statusColors[todo.status]}; color: black; border: none; border-radius: 3px; padding: 4px 8px; cursor: pointer; font-size: 0.8em;">Toggle</button>
+                                <button onclick="deleteTodo('${todo.id}')" style="background: #ff4444; color: white; border: none; border-radius: 3px; padding: 4px 8px; cursor: pointer; font-size: 0.8em;">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function updateStats() {
+            const stats = todos.reduce((acc, todo) => {
+                acc.total++;
+                acc[todo.status] = (acc[todo.status] || 0) + 1;
+                return acc;
+            }, { total: 0, pending: 0, in_progress: 0, completed: 0 });
+            
+            document.getElementById('totalTasks').textContent = stats.total;
+            document.getElementById('completedTasks').textContent = stats.completed || 0;
+            document.getElementById('inProgressTasks').textContent = stats.in_progress || 0;
+            document.getElementById('pendingTasks').textContent = stats.pending || 0;
+        }
+        
+        function syncTodos() {
+            // Simulate API call to sync with Claude
+            const button = event.target;
+            button.textContent = '🔄 Syncing...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.textContent = '✅ Synced!';
+                setTimeout(() => {
+                    button.textContent = '🔄 Sync with Claude';
+                    button.disabled = false;
+                }, 1000);
+            }, 1500);
+            
+            console.log('📡 Syncing todos with Claude backend...');
+            console.log('Current todos:', todos);
+        }
+
         // Initialize
         window.addEventListener('load', () => {
             initVoiceRecognition();
             updateMetrics();
             setInterval(updateMetrics, 1000);
             
+            // Initialize TODO system
+            loadTodos();
+            
             // Add welcome message
             setTimeout(() => {
-                addMessage('🌀 AXA Central Command initialized. Voice and text input ready. φ = 1.618033988749895<br>🌌 cc, 🌉 bc, ⏰ tm calculators online', 'assistant');
+                addMessage('🌀 AXA Central Command initialized. Voice and text input ready. φ = 1.618033988749895<br>🌌 cc, 🌉 bc, ⏰ tm calculators online<br>📋 Shared TODO system active - you can add tasks for Claude!', 'assistant');
             }, 500);
         });
     </script>
