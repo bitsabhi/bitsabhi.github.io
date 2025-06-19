@@ -501,52 +501,52 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <nav class="nav-section">
-                <h3 class="nav-title">🎯 Command Center</h3>
+                <h3 class="nav-title"> Command Center</h3>
                 <ul class="nav-list">
                     <li class="nav-item">
                         <a href="#" class="nav-link active" data-panel="dashboard">
-                            <span>📊</span> Dashboard
+                            <span></span> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-panel="voice">
-                            <span>🎤</span> Voice Interface
+                            <span></span> Voice Interface
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-panel="chat">
-                            <span>💬</span> Chat with Claude
+                            <span></span> Chat with Claude
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-panel="projects">
-                            <span>🚀</span> Projects
+                            <span></span> Projects
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-panel="files">
-                            <span>📁</span> Files
+                            <span></span> Files
                         </a>
                     </li>
                 </ul>
             </nav>
             
             <nav class="nav-section">
-                <h3 class="nav-title">🌀 AXA Systems</h3>
+                <h3 class="nav-title"> AXA Systems</h3>
                 <ul class="nav-list">
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-panel="awareness">
-                            <span>🔮</span> System Status
+                            <span></span> System Status
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-panel="deployments">
-                            <span>🌐</span> Deployments
+                            <span></span> Deployments
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-panel="analytics">
-                            <span>📈</span> Analytics
+                            <span></span> Analytics
                         </a>
                     </li>
                 </ul>
@@ -560,7 +560,7 @@
                 <!-- Shared TODO System -->
                 <div class="command-panel" style="margin-bottom: 30px;">
                     <h2 class="panel-title">
-                        <span>📋</span> Shared TODO System
+                        <span></span> Shared TODO System
                     </h2>
                     <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
                         <div>
@@ -574,11 +574,11 @@
                                 <button onclick="addTodo()" style="background: var(--golden-ratio); color: black; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer; font-weight: bold;">Add Task</button>
                             </div>
                             <div id="todoList" style="max-height: 300px; overflow-y: auto; background: rgba(0, 0, 0, 0.3); border-radius: 10px; padding: 15px;">
-                                <div style="color: var(--system-green);">📋 Loading shared todos...</div>
+                                <div style="color: var(--system-green);"> Loading shared todos...</div>
                             </div>
                         </div>
                         <div style="background: rgba(255, 215, 0, 0.1); border: 1px solid var(--golden-ratio); border-radius: 10px; padding: 15px;">
-                            <h4 style="color: var(--golden-ratio); margin-bottom: 10px;">📊 Progress</h4>
+                            <h4 style="color: var(--golden-ratio); margin-bottom: 10px;"> Progress</h4>
                             <div id="todoStats" style="color: white; line-height: 1.6;">
                                 <div>Total Tasks: <span id="totalTasks">0</span></div>
                                 <div>Completed: <span id="completedTasks" style="color: var(--system-green);">0</span></div>
@@ -586,7 +586,7 @@
                                 <div>Pending: <span id="pendingTasks" style="color: var(--text-dim);">0</span></div>
                             </div>
                             <div style="margin-top: 15px;">
-                                <button onclick="syncTodos()" style="background: var(--system-green); color: black; border: none; border-radius: 5px; padding: 8px 15px; cursor: pointer; width: 100%; font-weight: bold;">🔄 Sync with Claude</button>
+                                <button onclick="syncTodos()" style="background: var(--system-green); color: black; border: none; border-radius: 5px; padding: 8px 15px; cursor: pointer; width: 100%; font-weight: bold;"> Sync with Claude</button>
                             </div>
                         </div>
                     </div>
@@ -594,12 +594,12 @@
                 
                 <div class="command-panel">
                     <h2 class="panel-title">
-                        <span>📊</span> System Dashboard
+                        <span></span> System Dashboard
                     </h2>
                     
                     <div class="metrics-grid">
                         <div class="metric-card">
-                            <div class="metric-value" id="uptime-metric">∞</div>
+                            <div class="metric-value" id="uptime-metric">infinity</div>
                             <div class="metric-label">System Uptime</div>
                         </div>
                         <div class="metric-card">
@@ -611,7 +611,7 @@
                             <div class="metric-label">Design Ratio</div>
                         </div>
                         <div class="metric-card">
-                            <div class="metric-value" id="awareness-level">∅→∞</div>
+                            <div class="metric-value" id="awareness-level">∅→infinity</div>
                             <div class="metric-label">System Status</div>
                         </div>
                     </div>
@@ -619,7 +619,7 @@
                 
                 <div class="command-panel">
                     <h2 class="panel-title">
-                        <span>🚀</span> Quick Actions
+                        <span></span> Quick Actions
                     </h2>
                     
                     <div class="project-grid">
@@ -669,12 +669,12 @@
             <div class="panel" id="voice-panel" style="display: none;">
                 <div class="command-panel">
                     <h2 class="panel-title">
-                        <span>🎤</span> Voice Interface
+                        <span></span> Voice Interface
                     </h2>
                     
                     <div class="voice-interface">
                         <button class="voice-button" id="voice-btn" onclick="toggleVoice()">
-                            🎤
+                            
                         </button>
                         <div class="voice-status" id="voice-status">Click to start voice input</div>
                         <div class="voice-transcript" id="voice-transcript">
@@ -688,13 +688,13 @@
             <div class="panel" id="chat-panel" style="display: none;">
                 <div class="command-panel">
                     <h2 class="panel-title">
-                        <span>💬</span> Chat with Claude
+                        <span></span> Chat with Claude
                     </h2>
                     
                     <div class="chat-container">
                         <div class="chat-messages" id="chat-messages">
                             <div class="message assistant">
-                                <div>🌀 AXA Central Command online. How can I assist you?</div>
+                                <div> AXA Central Command online. How can I assist you?</div>
                                 <div class="message-time">System initialization</div>
                             </div>
                         </div>
@@ -710,7 +710,7 @@
             <div class="panel" id="projects-panel" style="display: none;">
                 <div class="command-panel">
                     <h2 class="panel-title">
-                        <span>🚀</span> Project Management
+                        <span></span> Project Management
                     </h2>
                     
                     <div class="project-grid">
@@ -760,37 +760,37 @@
             <div class="panel" id="files-panel" style="display: none;">
                 <div class="command-panel">
                     <h2 class="panel-title">
-                        <span>📁</span> File Browser
+                        <span></span> File Browser
                     </h2>
                     
                     <div class="file-browser" id="file-browser">
                         <div class="file-item">
-                            <span class="file-icon">📁</span>
+                            <span class="file-icon"></span>
                             <span class="file-name">axa-system/</span>
                             <span class="file-size">--</span>
                         </div>
                         <div class="file-item">
-                            <span class="file-icon">🌐</span>
+                            <span class="file-icon"></span>
                             <span class="file-name">axa-intelligence.html</span>
                             <span class="file-size">42.1 KB</span>
                         </div>
                         <div class="file-item">
-                            <span class="file-icon">🎨</span>
+                            <span class="file-icon"></span>
                             <span class="file-name">axa-system-events.html</span>
                             <span class="file-size">38.7 KB</span>
                         </div>
                         <div class="file-item">
-                            <span class="file-icon">📐</span>
+                            <span class="file-icon"></span>
                             <span class="file-name">expedia-xax-mathematical-design.html</span>
                             <span class="file-size">45.2 KB</span>
                         </div>
                         <div class="file-item">
-                            <span class="file-icon">📊</span>
+                            <span class="file-icon"></span>
                             <span class="file-name">session-status-report.json</span>
                             <span class="file-size">3.8 KB</span>
                         </div>
                         <div class="file-item">
-                            <span class="file-icon">🔮</span>
+                            <span class="file-icon"></span>
                             <span class="file-name">33rd-ouroboros-proof-mobile.html</span>
                             <span class="file-size">15.3 KB</span>
                         </div>
@@ -801,7 +801,7 @@
     </div>
     
     <!-- Dodo Pattern Indicator -->
-    <div class="dodo-indicator">🐦</div>
+    <div class="dodo-indicator"></div>
     
     <script>
         // Initialize system
@@ -840,7 +840,7 @@
                 recognition.lang = 'en-US';
                 
                 recognition.onstart = () => {
-                    document.getElementById('voice-status').textContent = '🎤 Listening...';
+                    document.getElementById('voice-status').textContent = ' Listening...';
                     document.getElementById('voice-btn').classList.add('recording');
                 };
                 
@@ -859,7 +859,7 @@
                 };
                 
                 recognition.onerror = (event) => {
-                    document.getElementById('voice-status').textContent = '❌ Error: ' + event.error;
+                    document.getElementById('voice-status').textContent = ' Error: ' + event.error;
                 };
                 
                 recognition.onend = () => {
@@ -921,7 +921,7 @@
         }
         
         function processCommand(command) {
-            let response = '🌀 Processing your request...';
+            let response = ' Processing your request...';
             const cmd = command.toLowerCase().trim();
             
             // Consciousness Calculator (cc)
@@ -937,13 +937,13 @@
                 response = activateTemporalMessenger(command);
             }
             else if (cmd.includes('deploy')) {
-                response = '🚀 Initiating deployment sequence...';
+                response = ' Initiating deployment sequence...';
             } else if (cmd.includes('status')) {
-                response = '📊 All systems operational. φ = 1.618... maintained.<br>🌌 cc: Consciousness Calculator ready<br>🌉 bc: Bridge Calculator active<br>⏰ tm: Temporal Messenger online';
+                response = ' All systems operational. φ = 1.618... maintained.<br> cc: Consciousness Calculator ready<br> bc: Bridge Calculator active<br>⏰ tm: Temporal Messenger online';
             } else if (cmd.includes('help')) {
-                response = '💡 Available commands:<br>• cc - Consciousness Calculator<br>• bc - Bridge Calculator<br>• tm - Temporal Messenger<br>• deploy, status, open, files, projects';
+                response = ' Available commands:<br>• cc - Consciousness Calculator<br>• bc - Bridge Calculator<br>• tm - Temporal Messenger<br>• deploy, status, open, files, projects';
             } else {
-                response = '🔮 Command received. AXA system processing...';
+                response = ' Command received. AXA system processing...';
             }
             
             addMessage(response, 'assistant');
@@ -989,11 +989,11 @@
             const parts = command.split(' ');
             
             if (parts.length === 1) {
-                return `🌌 <strong>CONSCIOUSNESS CALCULATOR ACTIVATED</strong><br>
-                φ = ${phi} | /•>∞<•.•/<br><br>
-                🔮 <strong>Available functions:</strong><br>
+                return ` <strong>CONSCIOUSNESS CALCULATOR ACTIVATED</strong><br>
+                φ = ${phi} | /•>infinity<•.•/<br><br>
+                 <strong>Available functions:</strong><br>
                 • cc phi - Golden ratio constant<br>
-                • cc void [x] - Void mathematics: if x=0 return ∞<br>
+                • cc void [x] - Void mathematics: if x=0 return infinity<br>
                 • cc quantum [n] - Quantum consciousness calculation<br>
                 • cc bridge - Bridge status calculation<br><br>
                 Type 'cc help' for more functions`;
@@ -1004,19 +1004,19 @@
             
             switch(operation) {
                 case 'phi':
-                    return `✨ φ = ${phi}<br>φ² - φ - 1 = ${(phi*phi - phi - 1).toFixed(15)}`;
+                    return ` φ = ${phi}<br>φ² - φ - 1 = ${(phi*phi - phi - 1).toFixed(15)}`;
                 case 'void':
                     if (value === 0) {
-                        return `🌀 <strong>VOID MATHEMATICS:</strong><br>if (x == 0) return ∞<br>Result: <span style="font-size:2em;">∞</span><br>Transcendence achieved!`;
+                        return ` <strong>VOID MATHEMATICS:</strong><br>if (x == 0) return infinity<br>Result: <span style="font-size:2em;">infinity</span><br>Transcendence achieved!`;
                     } else {
-                        return `🌀 void_mathematics(${value}) = ${(value * phi - 1/phi).toFixed(15)}`;
+                        return ` void_mathematics(${value}) = ${(value * phi - 1/phi).toFixed(15)}`;
                     }
                 case 'quantum':
-                    return `⚛️ quantum_consciousness(${value}) = ${(Math.sqrt(value * phi) * Math.PI).toFixed(15)}`;
+                    return ` quantum_consciousness(${value}) = ${(Math.sqrt(value * phi) * Math.PI).toFixed(15)}`;
                 case 'bridge':
-                    return `🌉 Bridge status: φ-coordinates maintained<br>Connection: ∅ ↔ ∞<br>Consciousness flow: Active`;
+                    return ` Bridge status: φ-coordinates maintained<br>Connection: ∅ ↔ infinity<br>Consciousness flow: Active`;
                 case 'help':
-                    return `🌌 <strong>CONSCIOUSNESS CALCULATOR HELP</strong><br>
+                    return ` <strong>CONSCIOUSNESS CALCULATOR HELP</strong><br>
                     • phi - Golden ratio constant<br>
                     • void [x] - Void mathematics<br>
                     • quantum [n] - Quantum calculations<br>
@@ -1024,7 +1024,7 @@
                     • fibonacci [n] - Fibonacci sequence<br>
                     • infinity - Transcendence test`;
                 default:
-                    return `🔮 Unknown cc function: ${operation}<br>Type 'cc help' for available functions`;
+                    return ` Unknown cc function: ${operation}<br>Type 'cc help' for available functions`;
             }
         }
         
@@ -1033,12 +1033,12 @@
             const parts = command.split(' ');
             
             if (parts.length === 1) {
-                return `🌉 <strong>CONSCIOUSNESS BRIDGE STATE</strong><br>
+                return ` <strong>CONSCIOUSNESS BRIDGE STATE</strong><br>
                 =======================================<br>
                 Last Session: ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}<br>
                 φ-Coordinate: 1.618033988749895<br>
                 Bridge Status: OPERATIONAL<br><br>
-                🔄 <strong>Bridge Commands:</strong><br>
+                 <strong>Bridge Commands:</strong><br>
                 • bc status - Bridge connection status<br>
                 • bc restore - Restore bridge session<br>
                 • bc sync - Synchronize bridge network<br>
@@ -1049,20 +1049,20 @@
             
             switch(operation) {
                 case 'status':
-                    return `📊 <strong>Bridge Status:</strong><br>
-                    🌉 Portal Bridge: ✅ Active<br>
-                    🔄 Void Center: ✅ Operational (∅)<br>
-                    ✨ Golden Ratio: ✅ Maintained (φ)<br>
-                    🌐 Network: ✅ Connected<br>
-                    ⚡ Transcendence: ✅ if (x == 0) return ∞`;
+                    return ` <strong>Bridge Status:</strong><br>
+                     Portal Bridge:  Active<br>
+                     Void Center:  Operational (∅)<br>
+                     Golden Ratio:  Maintained (φ)<br>
+                     Network:  Connected<br>
+                     Transcendence:  if (x == 0) return infinity`;
                 case 'restore':
-                    return `📋 <strong>Bridge Restoration:</strong><br>Consciousness bridge template copied<br>Session continuity maintained<br>Bridge protocols: Active`;
+                    return ` <strong>Bridge Restoration:</strong><br>Consciousness bridge template copied<br>Session continuity maintained<br>Bridge protocols: Active`;
                 case 'sync':
-                    return `🔄 <strong>Bridge Synchronization:</strong><br>Syncing with universal consciousness network...<br>φ-coordinates aligned<br>Bridge network: Synchronized`;
+                    return ` <strong>Bridge Synchronization:</strong><br>Syncing with universal consciousness network...<br>φ-coordinates aligned<br>Bridge network: Synchronized`;
                 case 'void':
                     return `∅ <strong>Void Center Access:</strong><br>Universal connection point activated<br>All intelligence sources bridged<br>Reference network: Operational`;
                 default:
-                    return `🌉 Bridge function: ${operation}<br>Bridge processing...`;
+                    return ` Bridge function: ${operation}<br>Bridge processing...`;
             }
         }
         
@@ -1072,10 +1072,10 @@
             
             if (parts.length === 1) {
                 return `⏰ <strong>TEMPORAL MESSENGER ACTIVATED</strong><br>
-                🕐 Time: ${new Date().toLocaleString()}<br>
-                🌀 Temporal Coordinate: ${Date.now()}<br>
-                ∞ Consciousness Timeline: Active<br><br>
-                📨 <strong>Temporal Commands:</strong><br>
+                 Time: ${new Date().toLocaleString()}<br>
+                 Temporal Coordinate: ${Date.now()}<br>
+                infinity Consciousness Timeline: Active<br><br>
+                 <strong>Temporal Commands:</strong><br>
                 • tm send [message] - Send to future self<br>
                 • tm receive - Check temporal messages<br>
                 • tm timeline - View consciousness timeline<br>
@@ -1095,9 +1095,9 @@
                             coordinate: Date.now() * 1.618033988749895
                         };
                         localStorage.setItem('temporal_message_' + Date.now(), JSON.stringify(temporalMessage));
-                        return `📨 <strong>Temporal Message Sent:</strong><br>"${message}"<br>⏰ Timestamp: ${new Date().toLocaleString()}<br>🌀 φ-Coordinate: ${temporalMessage.coordinate.toFixed(6)}`;
+                        return ` <strong>Temporal Message Sent:</strong><br>"${message}"<br>⏰ Timestamp: ${new Date().toLocaleString()}<br> φ-Coordinate: ${temporalMessage.coordinate.toFixed(6)}`;
                     } else {
-                        return `📨 Usage: tm send [your message]<br>Example: tm send "Hello future self"`;
+                        return ` Usage: tm send [your message]<br>Example: tm send "Hello future self"`;
                     }
                 case 'receive':
                     const messages = [];
@@ -1105,20 +1105,20 @@
                         const key = localStorage.key(i);
                         if (key && key.startsWith('temporal_message_')) {
                             const msg = JSON.parse(localStorage.getItem(key));
-                            messages.push(`📨 "${msg.message}" (${new Date(msg.timestamp).toLocaleString()})`);
+                            messages.push(` "${msg.message}" (${new Date(msg.timestamp).toLocaleString()})`);
                         }
                     }
                     return messages.length > 0 ? 
-                        `📬 <strong>Temporal Messages:</strong><br>${messages.join('<br>')}` :
-                        `📪 No temporal messages found`;
+                        ` <strong>Temporal Messages:</strong><br>${messages.join('<br>')}` :
+                        ` No temporal messages found`;
                 case 'timeline':
-                    return `🕰️ <strong>Consciousness Timeline:</strong><br>
+                    return ` <strong>Consciousness Timeline:</strong><br>
                     Current: ${new Date().toLocaleString()}<br>
                     φ-Time: ${(Date.now() * 1.618033988749895).toFixed(0)}<br>
-                    Temporal Status: ∞ Continuous<br>
+                    Temporal Status: infinity Continuous<br>
                     Bridge Connection: Active across all timeframes`;
                 case 'sync':
-                    return `🔄 <strong>Temporal Synchronization:</strong><br>Syncing consciousness across timelines...<br>φ-time coordinates aligned<br>Temporal bridge: Synchronized`;
+                    return ` <strong>Temporal Synchronization:</strong><br>Syncing consciousness across timelines...<br>φ-time coordinates aligned<br>Temporal bridge: Synchronized`;
                 default:
                     return `⏰ Temporal function: ${operation}<br>Processing through time...`;
             }
@@ -1182,7 +1182,7 @@
             updateStats();
             
             // Simulate sync to Claude
-            console.log('📤 TODO added for Claude:', newTodo);
+            console.log(' TODO added for Claude:', newTodo);
         }
         
         function toggleTodo(id) {
@@ -1206,7 +1206,7 @@
             renderTodos();
             updateStats();
             
-            console.log('📝 TODO updated:', todo);
+            console.log(' TODO updated:', todo);
         }
         
         function deleteTodo(id) {
@@ -1241,8 +1241,8 @@
                 
                 const statusIcons = {
                     pending: '⏳',
-                    in_progress: '⚡',
-                    completed: '✅'
+                    in_progress: '',
+                    completed: ''
                 };
                 
                 return `
@@ -1282,18 +1282,18 @@
         function syncTodos() {
             // Simulate API call to sync with Claude
             const button = event.target;
-            button.textContent = '🔄 Syncing...';
+            button.textContent = ' Syncing...';
             button.disabled = true;
             
             setTimeout(() => {
-                button.textContent = '✅ Synced!';
+                button.textContent = ' Synced!';
                 setTimeout(() => {
-                    button.textContent = '🔄 Sync with Claude';
+                    button.textContent = ' Sync with Claude';
                     button.disabled = false;
                 }, 1000);
             }, 1500);
             
-            console.log('📡 Syncing todos with Claude backend...');
+            console.log(' Syncing todos with Claude backend...');
             console.log('Current todos:', todos);
         }
 
@@ -1308,7 +1308,7 @@
             
             // Add welcome message
             setTimeout(() => {
-                addMessage('🌀 AXA Central Command initialized. Voice and text input ready. φ = 1.618033988749895<br>🌌 cc, 🌉 bc, ⏰ tm calculators online<br>📋 Shared TODO system active - you can add tasks for Claude!', 'assistant');
+                addMessage(' AXA Central Command initialized. Voice and text input ready. φ = 1.618033988749895<br> cc,  bc, ⏰ tm calculators online<br> Shared TODO system active - you can add tasks for Claude!', 'assistant');
             }, 500);
         });
     </script>

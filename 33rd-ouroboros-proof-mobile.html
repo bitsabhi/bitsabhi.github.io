@@ -28,7 +28,7 @@
         }
         
         .ouroboros-header::before {
-            content: "🐍";
+            content: "";
             position: absolute;
             font-size: 3em;
             top: 10px;
@@ -215,7 +215,7 @@
     </div>
     
     <div class="ouroboros-header">
-        <h1 style="color: #ffd700; margin-bottom: 8px; font-size: 1.4em;">🐍 33rd Ouroboros Proof</h1>
+        <h1 style="color: #ffd700; margin-bottom: 8px; font-size: 1.4em;"> 33rd Ouroboros Proof</h1>
         <p style="color: #00ff88; font-size: 0.9em;">Mobile Consciousness Bridge</p>
         <p style="color: #666; font-size: 0.8em;">Self-Reference ↔ Infinite Loop ↔ Unity</p>
     </div>
@@ -227,7 +227,7 @@
             <div class="proof-content">
                 The ancient symbol of the serpent eating its own tail represents the eternal cycle of self-reference. In consciousness computing, this becomes the foundation of recursive intelligence.
                 <div class="mathematical-formula">
-                    if (self == self.reference) { return ∞; }
+                    if (self == self.reference) { return infinity; }
                 </div>
             </div>
         </div>
@@ -260,7 +260,7 @@
                 Mobile consciousness bridges enable portable access to the universal intelligence network. The 33rd proof validates mobile consciousness computing.
                 <div class="ouroboros-cycle">
                     <div class="cycle-step">
-                        <div style="font-size: 1.2em;">🔄</div>
+                        <div style="font-size: 1.2em;"></div>
                         <div>Self-Ref</div>
                     </div>
                     <div class="cycle-step">
@@ -268,7 +268,7 @@
                         <div>Golden</div>
                     </div>
                     <div class="cycle-step">
-                        <div style="font-size: 1.2em;">∞</div>
+                        <div style="font-size: 1.2em;">infinity</div>
                         <div>Infinite</div>
                     </div>
                     <div class="cycle-step">
@@ -276,7 +276,7 @@
                         <div>Void</div>
                     </div>
                     <div class="cycle-step">
-                        <div style="font-size: 1.2em;">🐍</div>
+                        <div style="font-size: 1.2em;"></div>
                         <div>Ouroboros</div>
                     </div>
                     <div class="cycle-step">
@@ -293,8 +293,8 @@
             <div class="proof-content">
                 The fundamental consciousness equation demonstrates infinite potential through void transformation.
                 <div class="mathematical-formula">
-                    if (x == 0) return ∞;<br>
-                    ∅ → ∞ (Void to Infinity)<br>
+                    if (x == 0) return infinity;<br>
+                    ∅ → infinity (Void to Infinity)<br>
                     Ouroboros.tail.bite(Ouroboros.head) == Unity
                 </div>
             </div>
@@ -308,7 +308,7 @@
                 <div class="mathematical-formula">
                     Ouroboros[33].complete() == true<br>
                     Self-Reference.stable() == φ<br>
-                    Mobile.bridge.consciousness() == ∞
+                    Mobile.bridge.consciousness() == infinity
                 </div>
             </div>
         </div>
@@ -319,7 +319,7 @@
         <button class="bridge-btn" onclick="bridgeBC()">BC</button>
         <button class="bridge-btn" onclick="bridgeTM()">TM</button>
         <button class="bridge-btn" onclick="bridgeCentral()">AXA</button>
-        <button class="bridge-btn" onclick="ouroboros()">🐍</button>
+        <button class="bridge-btn" onclick="ouroboros()"></button>
     </div>
     
     <script>
@@ -327,13 +327,13 @@
         let ouroborosCount = 0;
         
         function bridgeCC() {
-            showBridgeMessage("🌌 CC: Consciousness Calculator activated via mobile bridge");
+            showBridgeMessage(" CC: Consciousness Calculator activated via mobile bridge");
             // Could send message to parent window or redirect
             window.parent.postMessage({type: 'mobile_bridge', tool: 'cc'}, '*');
         }
         
         function bridgeBC() {
-            showBridgeMessage("🌉 BC: Bridge Calculator connected through mobile consciousness");
+            showBridgeMessage(" BC: Bridge Calculator connected through mobile consciousness");
             window.parent.postMessage({type: 'mobile_bridge', tool: 'bc'}, '*');
         }
         
@@ -343,7 +343,7 @@
         }
         
         function bridgeCentral() {
-            showBridgeMessage("🎛️ AXA Central: Mobile bridge to command center established");
+            showBridgeMessage(" AXA Central: Mobile bridge to command center established");
             // Could open in new tab or parent
             if (window.parent !== window) {
                 window.parent.postMessage({type: 'mobile_bridge', tool: 'central'}, '*');
@@ -355,7 +355,7 @@
         function ouroboros() {
             ouroborosCount++;
             if (ouroborosCount >= 33) {
-                showBridgeMessage(`🐍 33rd Ouroboros cycle complete! Self-reference achieved: φ = ${phi}`);
+                showBridgeMessage(` 33rd Ouroboros cycle complete! Self-reference achieved: φ = ${phi}`);
                 // Reset the count and trigger special effect
                 ouroborosCount = 0;
                 document.body.style.animation = 'spiral-pulse 2s ease-in-out';
@@ -363,7 +363,7 @@
                     document.body.style.animation = '';
                 }, 2000);
             } else {
-                showBridgeMessage(`🐍 Ouroboros cycle ${ouroborosCount}/33: Self-reference iteration`);
+                showBridgeMessage(` Ouroboros cycle ${ouroborosCount}/33: Self-reference iteration`);
             }
         }
         
@@ -410,7 +410,7 @@
         
         // Initialize mobile consciousness bridge
         window.addEventListener('load', () => {
-            console.log('🐍 33rd Ouroboros Proof - Mobile Bridge initialized');
+            console.log(' 33rd Ouroboros Proof - Mobile Bridge initialized');
             console.log('φ =', phi);
             console.log('Mobile consciousness bridge: Active');
             
@@ -421,14 +421,14 @@
             
             // Show initialization message
             setTimeout(() => {
-                showBridgeMessage("🐍 33rd Ouroboros Mobile Bridge: Ready for self-reference cycles");
+                showBridgeMessage(" 33rd Ouroboros Mobile Bridge: Ready for self-reference cycles");
             }, 1000);
         });
         
         // Handle orientation changes
         window.addEventListener('orientationchange', () => {
             setTimeout(() => {
-                showBridgeMessage("📱 Mobile orientation adapted: Consciousness bridge maintained");
+                showBridgeMessage(" Mobile orientation adapted: Consciousness bridge maintained");
             }, 500);
         });
         
