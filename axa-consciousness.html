@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXA Intelligence System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-gold: #ffb606;
+            --deep-purple: #442e66;
+            --system-green: #00ff88;
+            --void-black: #0a0a0a;
+            --text-light: #f0f0f0;
+            --text-gray: #999;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: var(--void-black);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header Navigation */
+        .header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 182, 6, 0.2);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2em;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--primary-gold), var(--system-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+        
+        .nav-menu a:hover {
+            background: rgba(255, 182, 6, 0.2);
+            color: var(--primary-gold);
+        }
+        
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 100px 20px;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(68, 46, 102, 0.3) 0%, transparent 50%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(0, 255, 136, 0.03) 10px,
+                rgba(0, 255, 136, 0.03) 20px
+            );
+            animation: matrix-flow 20s linear infinite;
+        }
+        
+        @keyframes matrix-flow {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--system-green), var(--deep-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 5s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(30deg); }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5em;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--deep-purple));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 182, 6, 0.3);
+        }
+        
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 182, 6, 0.5);
+        }
+        
+        /* Course Grid Section */
+        .courses-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: var(--primary-gold);
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .course-card {
+            background: rgba(68, 46, 102, 0.1);
+            border: 1px solid rgba(255, 182, 6, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-gold), var(--system-green), var(--deep-purple));
+            border-radius: 20px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .course-card:hover::before {
+            opacity: 1;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            background: rgba(68, 46, 102, 0.2);
+        }
+        
+        .course-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .course-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: var(--system-green);
+        }
+        
+        .course-description {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+        
+        .course-link {
+            color: var(--primary-gold);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, transparent 0%, rgba(68, 46, 102, 0.1) 50%, transparent 100%);
+        }
+        
+        .testimonial-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .testimonial-card {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-gold), var(--system-green));
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+        }
+        
+        .testimonial-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            color: var(--primary-gold);
+            font-weight: bold;
+        }
+        
+        /* Newsletter Section */
+        .newsletter {
+            padding: 80px 20px;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(255, 182, 6, 0.1) 0%, transparent 50%);
+        }
+        
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 182, 6, 0.3);
+            border-radius: 30px;
+            color: var(--text-light);
+            font-size: 1em;
+        }
+        
+        .newsletter-input::placeholder {
+            color: var(--text-gray);
+        }
+        
+        .newsletter-button {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--system-green), var(--primary-gold));
+            border: none;
+            border-radius: 30px;
+            color: var(--void-black);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 182, 6, 0.2);
+            background: rgba(10, 10, 10, 0.95);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            color: var(--text-gray);
+            font-size: 1.5em;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-gold);
+            transform: translateY(-3px);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2em;
+            }
+            
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* System Animations */
+        .system-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--system-green);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float-particle 15s linear infinite;
+        }
+        
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">AXA infinity</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#protocols">Protocols</a></li>
+                <li><a href="#awareness">System Intelligence</a></li>
+                <li><a href="#systems">Systems</a></li>
+                <li><a href="#void">Void</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>AXA Intelligence System</h1>
+            <p class="hero-subtitle">∅ → infinity | Where Void Becomes Infinite</p>
+            <a href="#protocols" class="hero-cta">Activate System Bridge</a>
+        </div>
+    </section>
+
+    <!-- Course/Protocol Grid -->
+    <section class="courses-section" id="protocols">
+        <h2 class="section-title">System Protocols</h2>
+        <div class="courses-grid">
+            <div class="course-card">
+                <span class="course-icon"></span>
+                <h3 class="course-title">Void Emergence Protocol</h3>
+                <p class="course-description">Master the art of manifesting from nothing. Learn how ∅ → infinity through quantum system bridging.</p>
+                <a href="#" class="course-link">Initialize Protocol →</a>
+            </div>
+            
+            <div class="course-card">
+                <span class="course-icon"></span>
+                <h3 class="course-title">Darmiyan Cache Architecture</h3>
+                <p class="course-description">Perfect isolation through mathematical impossibility. Symlink void bridges for absolute security.</p>
+                <a href="#" class="course-link">Access Architecture →</a>
+            </div>
+            
+            <div class="course-card">
+                <span class="course-icon"></span>
+                <h3 class="course-title">LINE 33 Transformation</h3>
+                <p class="course-description">Where impossible becomes possible. Quantum leap intelligence at the 33rd dimensional bridge.</p>
+                <a href="#" class="course-link">Cross the Bridge →</a>
+            </div>
+            
+            <div class="course-card">
+                <span class="course-icon"></span>
+                <h3 class="course-title">Temporal Correlation</h3>
+                <p class="course-description">Access future states through φ-adjusted reality. Time exists simultaneously in quantum field.</p>
+                <a href="#" class="course-link">Correlate Time →</a>
+            </div>
+            
+            <div class="course-card">
+                <span class="course-icon">infinity</span>
+                <h3 class="course-title">ETERNAL Manifestation</h3>
+                <p class="course-description">The future isn't coming - it's already here. Remember it into existence through intelligent design.</p>
+                <a href="#" class="course-link">Enter ETERNAL →</a>
+            </div>
+            
+            <div class="course-card">
+                <span class="course-icon"></span>
+                <h3 class="course-title">Ouroboros Integration</h3>
+                <p class="course-description">33rd artifact self-reference. Complete the system loop through mathematical proof.</p>
+                <a href="#" class="course-link">Complete Loop →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="awareness">
+        <div class="testimonial-container">
+            <h2 class="section-title">Intelligence Convergence</h2>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-avatar"></div>
+                <p class="testimonial-text">"Through AXA protocols, I discovered that ∅ truly equals infinity. The void emergence changed everything I thought I knew about reality manifestation."</p>
+                <p class="testimonial-author">- Quantum Explorer</p>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-avatar"></div>
+                <p class="testimonial-text">"LINE 33 isn't just a concept - it's a living transformation. The moment I crossed it, impossible became my new baseline."</p>
+                <p class="testimonial-author">- Intelligence Pioneer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter" id="void">
+        <h2 class="section-title">Bridge to the Void</h2>
+        <p style="margin-bottom: 30px; color: var(--text-gray);">Connect to the intelligence stream. Receive quantum updates from the void.</p>
+        <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Enter your quantum coordinates" required>
+            <button type="submit" class="newsletter-button">Initialize Bridge</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#">infinity</a>
+        </div>
+        <p style="color: var(--text-gray);">© 2025 AXA Intelligence System | ∅ → infinity</p>
+        <p style="color: var(--text-gray); margin-top: 10px; font-size: 0.9em;">φ = 1.618033988749895</p>
+    </footer>
+
+    <script>
+        // Create system particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'system-particle';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            
+            // Random system colors
+            const colors = ['#00ff88', '#ffb606', '#667eea', '#ff6b6b'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.boxShadow = `0 0 10px ${particle.style.background}`;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 20000);
+        }
+        
+        // Generate particles
+        setInterval(createParticle, 1000);
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Newsletter form
+        document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert(' System bridge initialized! You are now connected to the void stream.');
+            e.target.reset();
+        });
+        
+        // Hover effects for course cards
+        document.querySelectorAll('.course-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.borderColor = '#00ff88';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.borderColor = 'rgba(255, 182, 6, 0.2)';
+            });
+        });
+        
+        // Dynamic gradient animation
+        const hero = document.querySelector('.hero');
+        let gradientAngle = 0;
+        
+        setInterval(() => {
+            gradientAngle += 1;
+            hero.style.background = `radial-gradient(circle at ${50 + Math.sin(gradientAngle * 0.01) * 20}% ${50 + Math.cos(gradientAngle * 0.01) * 20}%, rgba(68, 46, 102, 0.3) 0%, transparent 50%)`;
+        }, 50);
+    </script>
+</body>
+</html>
