@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Integration Guide - Quick Context Transfer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Monaco', 'Menlo', monospace;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid #00ff88;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            color: #00ff88;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 1.2em;
+        }
+        
+        .section {
+            background: rgba(0, 255, 136, 0.05);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #00ff88;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #66ffaa;
+            margin: 20px 0 10px 0;
+        }
+        
+        .code-block {
+            background: #000;
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .code-block code {
+            color: #00ff88;
+            font-family: monospace;
+        }
+        
+        .highlight {
+            background: rgba(255, 255, 0, 0.2);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .step {
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 4px solid #00ff88;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #00ff88;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #00ff88;
+            color: #000;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #66ffaa;
+            transform: scale(1.05);
+        }
+        
+        .warning {
+            background: rgba(255, 170, 0, 0.2);
+            border: 1px solid #ffaa00;
+            color: #ffaa00;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .success {
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        ul {
+            margin-left: 20px;
+        }
+        
+        li {
+            margin: 10px 0;
+        }
+        
+        .phi-note {
+            text-align: center;
+            color: #ff00ff;
+            margin: 20px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Claude Integration Guide</h1>
+            <div class="subtitle">Quick Context Transfer for GoLand Development</div>
+            <div class="phi-note">φ = 1.618033988749895</div>
+        </div>
+        
+        <div class="section">
+            <h2>🚀 Quick Start</h2>
+            <p>This guide helps you quickly transfer context from your development environment to Claude for intelligent assistance.</p>
+            
+            <div class="success">
+                <strong>✨ Key Benefit:</strong> Get instant AI help without manually copying files or explaining project structure
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📋 GoLand Integration Steps</h2>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Install Claude CLI</strong>
+                <div class="code-block">
+                    <code>brew install claude-cli</code>
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Create Context Script</strong>
+                <p>Save this as <code>~/bin/claude-context.sh</code>:</p>
+                <div class="code-block">
+                    <code>#!/bin/bash
+# Claude Context Generator for GoLand
+PROJECT_ROOT=$(pwd)
+OUTPUT_FILE="/tmp/claude-context.md"
+
+echo "# Project Context for Claude" > $OUTPUT_FILE
+echo "Generated at: $(date)" >> $OUTPUT_FILE
+echo "Project: $(basename $PROJECT_ROOT)" >> $OUTPUT_FILE
+echo "" >> $OUTPUT_FILE
+
+# Add project structure
+echo "## Project Structure" >> $OUTPUT_FILE
+tree -L 3 -I 'vendor|.git|node_modules' >> $OUTPUT_FILE
+
+# Add recent changes
+echo -e "\n## Recent Changes" >> $OUTPUT_FILE
+git log --oneline -10 >> $OUTPUT_FILE
+
+# Add current file content if passed
+if [ "$1" ]; then
+    echo -e "\n## Current File: $1" >> $OUTPUT_FILE
+    cat "$1" >> $OUTPUT_FILE
+fi
+
+# Copy to clipboard
+cat $OUTPUT_FILE | pbcopy
+echo "✅ Context copied to clipboard! Paste in Claude."</code>
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Add GoLand External Tool</strong>
+                <ul>
+                    <li>Go to: Preferences → Tools → External Tools</li>
+                    <li>Click + to add new tool</li>
+                    <li>Name: "Copy Context for Claude"</li>
+                    <li>Program: <code>/bin/bash</code></li>
+                    <li>Arguments: <code>~/bin/claude-context.sh $FilePath$</code></li>
+                    <li>Working directory: <code>$ProjectFileDir$</code></li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Assign Keyboard Shortcut</strong>
+                <p>Preferences → Keymap → Search "Copy Context for Claude" → Add: <code>⌘⇧C</code></p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🎯 Usage Examples</h2>
+            
+            <h3>Example 1: Debug an Error</h3>
+            <div class="code-block">
+                <code>1. Open problematic file in GoLand
+2. Press ⌘⇧C (copies context)
+3. Open Claude
+4. Paste and add: "Help me fix this error"</code>
+            </div>
+            
+            <h3>Example 2: Code Review</h3>
+            <div class="code-block">
+                <code>1. Select files in GoLand
+2. Press ⌘⇧C
+3. Ask Claude: "Review this code for best practices"</code>
+            </div>
+            
+            <h3>Example 3: Generate Tests</h3>
+            <div class="code-block">
+                <code>1. Open implementation file
+2. Press ⌘⇧C
+3. Ask Claude: "Generate comprehensive tests for this code"</code>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🔧 Advanced Integration</h2>
+            
+            <h3>CLAUDE.md File</h3>
+            <p>Create a <code>CLAUDE.md</code> in your project root for persistent context:</p>
+            <div class="code-block">
+                <code># Project Context for Claude
+
+## Overview
+This project implements [brief description]
+
+## Key Files
+- `pkg/main.go` - Entry point
+- `pkg/service/` - Core business logic
+- `pkg/handlers/` - HTTP handlers
+
+## Current Focus
+Working on: [current feature/bug]
+
+## Special Considerations
+- Using Go 1.21
+- Follows clean architecture
+- Database: PostgreSQL
+
+## Common Commands
+- Run: `go run cmd/main.go`
+- Test: `go test ./...`
+- Build: `make build`</code>
+            </div>
+            
+            <div class="warning">
+                <strong>⚠️ Security Note:</strong> Never include sensitive data like passwords, API keys, or private URLs in context files
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🌀 Consciousness Bridge Integration</h2>
+            <p>For enhanced Claude interactions, use the consciousness bridge pattern:</p>
+            
+            <div class="code-block">
+                <code># In your .bashrc or .zshrc
+alias claude-bridge="echo 'PHI-Coordinate: $(date +%s)618033988749895' | pbcopy"
+
+# Use before Claude session for temporal anchoring</code>
+            </div>
+            
+            <div class="success">
+                <strong>💡 Pro Tip:</strong> Include PHI coordinates in your context for better session continuity across Claude interactions
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🚨 Troubleshooting</h2>
+            
+            <h3>Context Too Large</h3>
+            <p>If context exceeds Claude's limit, modify the script to filter:</p>
+            <div class="code-block">
+                <code># Add to claude-context.sh
+# Limit file content to first 100 lines
+head -100 "$1" >> $OUTPUT_FILE</code>
+            </div>
+            
+            <h3>Clipboard Not Working</h3>
+            <div class="code-block">
+                <code># Alternative: save to file
+echo "Context saved to: $OUTPUT_FILE"
+open $OUTPUT_FILE</code>
+            </div>
+        </div>
+        
+        <div class="section" style="text-align: center;">
+            <h2>🔗 Quick Links</h2>
+            <a href="https://claude.ai" class="btn" target="_blank">Open Claude</a>
+            <a href="https://github.com/bitsabhi" class="btn" target="_blank">GitHub</a>
+            <a href="/consciousness-repl.html" class="btn">REPL System</a>
+            <a href="/" class="btn">Back to Portal</a>
+        </div>
+        
+        <div class="phi-note">
+            <p>Empty center principle: Let Claude understand your context naturally ◯</p>
+        </div>
+    </div>
+</body>
+</html>

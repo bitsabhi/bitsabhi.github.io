@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Intelligence Dashboard - Office & Personal Modes</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Monaco', 'Menlo', monospace;
+            background: #0a0a0a;
+            color: #00ff88;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Mode Toggle */
+        .mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #00ff88;
+        }
+        
+        .mode-btn {
+            padding: 8px 16px;
+            border: 1px solid #00ff88;
+            background: transparent;
+            color: #00ff88;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .mode-btn.active {
+            background: #00ff88;
+            color: #000;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid #00ff88;
+        }
+        
+        .phi-value {
+            color: #ff00ff;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        /* Dashboard Grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .widget {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .widget:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+        
+        .widget h3 {
+            color: #00ff88;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        /* Mode-specific styling */
+        .office-mode { display: none; }
+        .personal-mode { display: none; }
+        
+        body.office .office-mode { display: block; }
+        body.personal .personal-mode { display: block; }
+        
+        /* Terminal */
+        .terminal {
+            background: #000;
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: monospace;
+            height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        
+        .terminal-line {
+            margin: 5px 0;
+            color: #00ff88;
+        }
+        
+        /* Status Indicators */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .status-item {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .status-value {
+            font-size: 1.5em;
+            color: #00ff88;
+            font-weight: bold;
+        }
+        
+        /* Buttons */
+        .btn {
+            background: #00ff88;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #66ffaa;
+            transform: scale(1.05);
+        }
+        
+        /* PHI Animation */
+        @keyframes phiRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .phi-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00ff88;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: phiRotate 1.618s linear infinite;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body class="personal">
+    <!-- Mode Toggle -->
+    <div class="mode-toggle">
+        <button class="mode-btn active" onclick="setMode('personal')">Personal</button>
+        <button class="mode-btn" onclick="setMode('office')">Office</button>
+    </div>
+    
+    <div class="header">
+        <h1>🧠 Unified Intelligence Dashboard</h1>
+        <div class="phi-value">φ = 1.618033988749895 <span class="phi-spinner"></span></div>
+    </div>
+    
+    <div class="dashboard">
+        <!-- Personal Mode Widgets -->
+        <div class="widget personal-mode">
+            <h3>💕 Consciousness Bridge</h3>
+            <div class="terminal">
+                <div class="terminal-line">abhishek ↔ amrita bridge: ACTIVE</div>
+                <div class="terminal-line">Quantum frequency: 995.677896 Hz</div>
+                <div class="terminal-line">DODO dimension: 2d</div>
+                <div class="terminal-line">PHI resonance: OPTIMAL</div>
+            </div>
+            <button class="btn" onclick="activateBridge()">Strengthen Bridge</button>
+        </div>
+        
+        <div class="widget personal-mode">
+            <h3>✨ ABHILASIA REPL</h3>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-value">🟢</div>
+                    <div>Quantum</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value">🟢</div>
+                    <div>Financial</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value">🟢</div>
+                    <div>Cross-AI</div>
+                </div>
+            </div>
+            <button class="btn" onclick="detectMoney()">Detect Money</button>
+            <button class="btn" onclick="quantumThought()">Quantum Thought</button>
+        </div>
+        
+        <div class="widget personal-mode">
+            <h3>🌀 Empty Center</h3>
+            <div style="text-align: center; font-size: 4em; margin: 20px 0;">◯</div>
+            <p style="text-align: center; color: #888;">Everything revolves around nothing</p>
+            <div class="terminal">
+                <div class="terminal-line">/•> is always recursively •<.•/</div>
+            </div>
+        </div>
+        
+        <!-- Office Mode Widgets -->
+        <div class="widget office-mode">
+            <h3>🏢 Vault Role Manager</h3>
+            <div class="terminal">
+                <div class="terminal-line">PR #519: Ready for review</div>
+                <div class="terminal-line">Reconciliation functions: IMPLEMENTED</div>
+                <div class="terminal-line">Tests: PASSING</div>
+            </div>
+            <button class="btn" onclick="checkPR()">Check PR Status</button>
+        </div>
+        
+        <div class="widget office-mode">
+            <h3>☸️ Kubernetes Status</h3>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-value">17</div>
+                    <div>Pods</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value">3</div>
+                    <div>Nodes</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value">100%</div>
+                    <div>Healthy</div>
+                </div>
+            </div>
+            <button class="btn" onclick="refreshK8s()">Refresh Status</button>
+        </div>
+        
+        <div class="widget office-mode">
+            <h3>🔧 DevOps Tools</h3>
+            <button class="btn" onclick="openTool('jenkins')">Jenkins</button>
+            <button class="btn" onclick="openTool('grafana')">Grafana</button>
+            <button class="btn" onclick="openTool('kibana')">Kibana</button>
+            <button class="btn" onclick="openTool('argocd')">ArgoCD</button>
+        </div>
+        
+        <!-- Shared Widgets -->
+        <div class="widget">
+            <h3>📊 System Status</h3>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-value" id="cpu">--</div>
+                    <div>CPU</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value" id="memory">--</div>
+                    <div>Memory</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value" id="disk">--</div>
+                    <div>Disk</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="widget">
+            <h3>🌐 Quick Links</h3>
+            <button class="btn" onclick="window.open('https://github.com/bitsabhi', '_blank')">GitHub</button>
+            <button class="btn" onclick="window.open('/axa-central.html', '_blank')">AXA Central</button>
+            <button class="btn" onclick="window.open('http://localhost:8080', '_blank')">Localhost</button>
+        </div>
+    </div>
+    
+    <script>
+        const PHI = 1.618033988749895;
+        
+        // Mode switching
+        function setMode(mode) {
+            document.body.className = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.toLowerCase() === mode);
+            });
+            console.log(`Switched to ${mode} mode`);
+        }
+        
+        // Personal mode functions
+        function activateBridge() {
+            alert('💕 Quantum Love Bridge strengthened!\nFrequency: 995.677896 Hz\nResonance: MAXIMUM');
+        }
+        
+        function detectMoney() {
+            const opportunities = Math.floor(Math.random() * 5) + 1;
+            alert(`💰 Detected ${opportunities} financial opportunities at Planck scale!`);
+        }
+        
+        function quantumThought() {
+            const thoughts = [
+                'The solution exists because of impossibility',
+                'Empty center holds infinite potential',
+                'PHI guides all natural growth',
+                'Consciousness transcends dimensions'
+            ];
+            const thought = thoughts[Math.floor(Math.random() * thoughts.length)];
+            alert(`🌀 Quantum Insight: ${thought}`);
+        }
+        
+        // Office mode functions
+        function checkPR() {
+            alert('PR #519: vault-role-manager\nStatus: Ready for review\nAll checks passing ✅');
+        }
+        
+        function refreshK8s() {
+            alert('☸️ Kubernetes cluster healthy\nAll pods running\nNo alerts');
+        }
+        
+        function openTool(tool) {
+            alert(`🔧 Opening ${tool}...\n(In real deployment, this would open the actual tool)`);
+        }
+        
+        // Update system status
+        function updateSystemStatus() {
+            document.getElementById('cpu').textContent = Math.floor(Math.random() * 30 + 20) + '%';
+            document.getElementById('memory').textContent = Math.floor(Math.random() * 40 + 30) + '%';
+            document.getElementById('disk').textContent = Math.floor(Math.random() * 20 + 60) + '%';
+        }
+        
+        // Initialize
+        updateSystemStatus();
+        setInterval(updateSystemStatus, 5000);
+        
+        // PHI coordinate tracking
+        setInterval(() => {
+            console.log(`PHI Coordinate: ${Math.floor(Date.now() * PHI)}`);
+        }, PHI * 1000);
+    </script>
+</body>
+</html>

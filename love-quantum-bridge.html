@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 Quantum Love Bridge - For Amu</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: #000;
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .universe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #1a0033 0%, #000 100%);
+        }
+        
+        /* Animated stars */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* Heart constellation */
+        .heart-constellation {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .heart-path {
+            fill: none;
+            stroke: #ff69b4;
+            stroke-width: 3;
+            filter: drop-shadow(0 0 20px #ff69b4);
+            animation: heartbeat 1.8s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            40% { transform: scale(1.1); }
+            60% { transform: scale(0.95); }
+        }
+        
+        /* Love frequency wave */
+        .frequency-container {
+            position: absolute;
+            bottom: 100px;
+            width: 100%;
+            height: 200px;
+            opacity: 0.7;
+        }
+        
+        .frequency-wave {
+            stroke: #ff69b4;
+            stroke-width: 2;
+            fill: none;
+            filter: drop-shadow(0 0 10px #ff69b4);
+        }
+        
+        /* Central message */
+        .love-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .names {
+            font-size: 2.5em;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+        
+        .frequency-text {
+            font-size: 1.2em;
+            color: #ff69b4;
+            margin: 10px 0;
+        }
+        
+        .phi-text {
+            font-size: 1em;
+            color: #dda0dd;
+            font-style: italic;
+        }
+        
+        /* Floating hearts */
+        .floating-heart {
+            position: absolute;
+            color: #ff69b4;
+            animation: float-up 6s infinite;
+            font-size: 20px;
+        }
+        
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Golden spiral */
+        .golden-spiral {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            animation: spiral-rotate 30s linear infinite;
+        }
+        
+        @keyframes spiral-rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        .spiral-path {
+            stroke: #ffd700;
+            stroke-width: 1;
+            fill: none;
+            opacity: 0.6;
+        }
+        
+        /* Pulsing orbs */
+        .love-orb {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,105,180,0.8) 0%, transparent 70%);
+            animation: pulse-orb 3s infinite;
+        }
+        
+        @keyframes pulse-orb {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.5); opacity: 0.8; }
+        }
+        
+        .orb1 { top: 20%; left: 20%; animation-delay: 0s; }
+        .orb2 { top: 20%; right: 20%; animation-delay: 1s; }
+        .orb3 { bottom: 20%; left: 20%; animation-delay: 2s; }
+        .orb4 { bottom: 20%; right: 20%; animation-delay: 3s; }
+        
+        /* Poem */
+        .poem {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #dda0dd;
+            font-size: 0.9em;
+            line-height: 1.6;
+            font-style: italic;
+        }
+        
+        /* Interactive glow on hover */
+        .love-message:hover .names {
+            text-shadow: 0 0 40px rgba(255, 105, 180, 1);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="universe"></div>
+    
+    <!-- Animated stars -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- Golden PHI spiral -->
+    <svg class="golden-spiral">
+        <path class="spiral-path" d="M200,200 Q150,150 200,100 T300,150 Q350,200 300,250 T200,300 Q150,350 100,300 T50,200 Q50,100 150,50 T350,100 Q400,200 350,300 T200,400" />
+    </svg>
+    
+    <!-- Heart constellation -->
+    <svg class="heart-constellation">
+        <path class="heart-path" d="M150,50 C120,0 30,0 30,75 C30,120 90,170 150,220 C210,170 270,120 270,75 C270,0 180,0 150,50 Z" />
+    </svg>
+    
+    <!-- Love orbs -->
+    <div class="love-orb orb1"></div>
+    <div class="love-orb orb2"></div>
+    <div class="love-orb orb3"></div>
+    <div class="love-orb orb4"></div>
+    
+    <!-- Central message -->
+    <div class="love-message" onclick="activateLoveBridge()">
+        <h1 class="names">Abhishek ↔ Amrita</h1>
+        <p class="frequency-text">💕 995.677896 Hz 💕</p>
+        <p class="phi-text">φ = 1.618033988749895</p>
+        <p class="phi-text">Quantum Love Bridge Active</p>
+    </div>
+    
+    <!-- Frequency visualization -->
+    <svg class="frequency-container">
+        <path class="frequency-wave" id="wave" />
+    </svg>
+    
+    <!-- Floating hearts -->
+    <div id="floating-hearts"></div>
+    
+    <!-- Poem -->
+    <div class="poem">
+        "In quantum space where PHI resides,<br>
+        Two hearts connect through cosmic tides,<br>
+        995.677896 Hz - our frequency divine,<br>
+        Forever yours, forever mine"
+    </div>
+    
+    <script>
+        const PHI = 1.618033988749895;
+        const LOVE_FREQUENCY = 995.677896;
+        
+        // Create stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = star.style.height = Math.random() * 3 + 'px';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Create floating hearts
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '💕';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 6 + 's';
+            heart.style.animationDuration = (Math.random() * 3 + 6) + 's';
+            document.getElementById('floating-hearts').appendChild(heart);
+            
+            // Remove after animation
+            setTimeout(() => heart.remove(), 9000);
+        }
+        
+        // Generate love frequency wave
+        function generateWave() {
+            const wave = document.getElementById('wave');
+            let path = 'M0,100 ';
+            const width = window.innerWidth;
+            const amplitude = 50;
+            
+            for (let x = 0; x <= width; x += 5) {
+                const y = 100 + amplitude * Math.sin((x / width) * Math.PI * 4 + Date.now() * 0.002);
+                path += `L${x},${y} `;
+            }
+            
+            wave.setAttribute('d', path);
+            requestAnimationFrame(generateWave);
+        }
+        
+        // Activate love bridge effect
+        function activateLoveBridge() {
+            // Create burst of hearts
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createFloatingHeart, i * 100);
+            }
+            
+            // Flash effect
+            document.body.style.animation = 'flash 0.5s';
+            setTimeout(() => {
+                document.body.style.animation = '';
+            }, 500);
+            
+            // Show message
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(255, 105, 180, 0.9);
+                color: white;
+                padding: 20px 40px;
+                border-radius: 20px;
+                font-size: 1.5em;
+                z-index: 1000;
+                animation: fadeInOut 3s;
+            `;
+            message.textContent = '💕 Love Bridge Strengthened! 💕';
+            document.body.appendChild(message);
+            setTimeout(() => message.remove(), 3000);
+        }
+        
+        // Add flash animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes flash {
+                0%, 100% { filter: brightness(1); }
+                50% { filter: brightness(2); }
+            }
+            @keyframes fadeInOut {
+                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+                50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize
+        createStars();
+        generateWave();
+        
+        // Periodic floating hearts
+        setInterval(createFloatingHeart, 3000);
+        
+        // PHI-based timing
+        setInterval(() => {
+            console.log(`💕 Love frequency: ${LOVE_FREQUENCY} Hz`);
+            console.log(`φ coordinate: ${Math.floor(Date.now() * PHI)}`);
+        }, PHI * 1000);
+    </script>
+</body>
+</html>
