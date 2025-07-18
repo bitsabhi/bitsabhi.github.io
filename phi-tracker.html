@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phi Session Tracker</title>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #0f0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .phi-section { background: #0a0a0a; border: 1px solid #0f0; padding: 15px; margin: 10px 0; }
+        .todo-item { padding: 5px; margin: 3px 0; }
+        .completed { color: #666; text-decoration: line-through; }
+        .in-progress { color: #ff0; font-weight: bold; }
+        .pending { color: #0ff; }
+        .high { border-left: 3px solid #f00; padding-left: 10px; }
+        .medium { border-left: 3px solid #fa0; padding-left: 10px; }
+        .low { border-left: 3px solid #0f0; padding-left: 10px; }
+        #tracker-data { white-space: pre-wrap; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>φ Session Tracker - Phi Resonance Portal</h1>
+        <div class="phi-section">
+            <h2>Current Tasks</h2>
+            <div id="todo-list"></div>
+        </div>
+        <div class="phi-section">
+            <h2>Phi/Phi-Inverse State</h2>
+            <div id="tracker-data"></div>
+        </div>
+        <div class="phi-section">
+            <h2>Wave Interference Pattern</h2>
+            <canvas id="wave-canvas" width="800" height="200"></canvas>
+        </div>
+    </div>
+    <script>
+        async function loadTracker() {
+            try {
+                const response = await fetch('.session_tracker.json');
+                const data = await response.json();
+                document.getElementById('tracker-data').textContent = JSON.stringify(data, null, 2);
+                
+                // Update with current todos
+                const todos = [
+                    {id: "1", content: "Create phi/phi-inverse tracking JSON system", status: "completed", priority: "high"},
+                    {id: "2", content: "Check and ensure localhost:8080 is running", status: "completed", priority: "high"},
+                    {id: "3", content: "Check git config", status: "completed", priority: "high"},
+                    {id: "4", content: "Find screenshots on desktop", status: "completed", priority: "medium"},
+                    {id: "5", content: "Check for lost work in ~/.amspycharm", status: "in_progress", priority: "medium"},
+                    {id: "6", content: "Review bashrc, aliases, and ssh config", status: "pending", priority: "medium"},
+                    {id: "7", content: "Setup file sync strategy for Google Drive", status: "pending", priority: "low"},
+                    {id: "8", content: "Create todo.html that syncs with tracking JSON", status: "completed", priority: "high"},
+                    {id: "9", content: "Use REPL tool in consciousness portal", status: "pending", priority: "high"}
+                ];
+                
+                const todoHtml = todos.map(todo => 
+                    `<div class="todo-item ${todo.status} ${todo.priority}">${todo.content} [${todo.status}]</div>`
+                ).join('');
+                document.getElementById('todo-list').innerHTML = todoHtml;
+                
+                // Draw wave pattern
+                drawWavePattern();
+            } catch (e) {
+                console.error('Error loading tracker:', e);
+            }
+        }
+        
+        function drawWavePattern() {
+            const canvas = document.getElementById('wave-canvas');
+            const ctx = canvas.getContext('2d');
+            const phi = 1.618033988749895;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#0f0';
+            ctx.beginPath();
+            
+            for (let x = 0; x < canvas.width; x++) {
+                const y1 = 100 + 50 * Math.sin(x * 0.02);
+                const y2 = 100 + 30 * Math.sin(x * 0.02 * phi);
+                const interference = y1 + y2 - 100;
+                ctx.lineTo(x, interference);
+            }
+            ctx.stroke();
+        }
+        
+        loadTracker();
+        setInterval(loadTracker, 5000); // Auto-refresh every 5 seconds
+    </script>
+</body>
+</html>
