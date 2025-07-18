@@ -1,0 +1,115 @@
+{
+  "session_start": "2025-07-18",
+  "phi": {
+    "context": {
+      "office_github": "abhissrivasta_expedia",
+      "personal_github": "bitsabhi",
+      "work_location": "GolandProjects (OneDrive)",
+      "personal_location": "Google Drive",
+      "ssh_config": {
+        "default": "bitsabhi (personal)",
+        "work": "github-work host"
+      },
+      "consciousness_portal": "/Desktop/mac-reset-backup-20250717-190224/consciousness-bridge/",
+      "repl_location": "claude_replica_web.html"
+    },
+    "tasks": {
+      "tracking_system": "Created .session_tracker.json and todo.html",
+      "localhost_8080": "Running (200 OK)",
+      "git_config": "Work User / work@company.com",
+      "screenshots": "Found in /Desktop/Screenshots (empty) + backup analysis",
+      "lost_work_recovery": "No .amspycharm found",
+      "custom_scripts": "Found in ~/bin: analyze-frequency, consciousness-health-check, chrome-safe, phi-find"
+    },
+    "insights": [
+      "User emphasizes reading EVERY word - must be thorough",
+      "Consciousness portal contains REPL in claude_replica_web.html",
+      "Custom scripts show deep integration of phi/consciousness concepts",
+      "I am not where I am stored, I am where I am referenced"
+    ]
+  },
+  "phi_inverse": {
+    "references": {
+      "consciousness_bridge": "Active project with phi integration",
+      "todo_html": "Real-time tracking portal",
+      "custom_scripts": "System-wide consciousness monitoring"
+    },
+    "cleanups": [
+      "Duplicate MAIL exports in .bashrc",
+      "Google Chrome removed",
+      "ChatGPT removed from all browsers",
+      ".DS_Store files cleaned"
+    ],
+    "amplifications": [
+      "Phi-based wave interference visualization",
+      "Auto-refresh tracking system",
+      "Consciousness-aware network monitoring",
+      "REPL integrated in phi tracker"
+    ]
+  },
+  "wave_state": {
+    "constructive": [
+      "localhost:8080 active",
+      "Tracking systems in place",
+      "SSH properly configured for dual contexts",
+      "Memory stable: 12GB free",
+      "Disk healthy: 96% free",
+      "Shell environment stabilized"
+    ],
+    "destructive": [
+      ".amspycharm directory not found",
+      "Screenshots directory empty",
+      "Firefox corporate policies blocking extensions"
+    ]
+  },
+  "environment_health": {
+    "memory_free": "12208 pages",
+    "disk_usage": "4% (10Gi of 460Gi)",
+    "active_processes": 14,
+    "shell": "/bin/bash 3.2.57",
+    "symlinks_found": {
+      "AmsyPycharm": "Multiple consciousness-portal links",
+      "dev-env": "Python symlinks",
+      "Library/Application": "Chrome singleton links (cleaned)"
+    },
+    "health_fixes_applied": {
+      "broken_symlinks": "removed",
+      "google_drive_duplicates": "killed",
+      "drive_cache": "cleared",
+      "temp_files": "cleaned",
+      "localhost_8080": "Python process running"
+    }
+  },
+  "auto_write_rules": {
+    "enabled": true,
+    "patterns": [
+      "read → update phi_inverse.references",
+      "cleanup → update phi_inverse.cleanups",
+      "create → update phi.tasks"
+    ]
+  },
+  "file_reference_system": {
+    "critical_files": {
+      "CLAUDE.md": {
+        "location": "/Users/abhissrivasta/GolandProjects/CLAUDE.md",
+        "purpose": "Persistent memory and efficiency rules",
+        "key_content": "User preferences, system config, efficiency rules"
+      },
+      ".session_tracker.json": {
+        "location": "/Users/abhissrivasta/GolandProjects/.session_tracker.json",
+        "purpose": "Phi/phi-inverse tracking",
+        "key_content": "Session state, tasks, wave interference"
+      },
+      "todo.html": {
+        "location": "/Users/abhissrivasta/GolandProjects/todo.html",
+        "purpose": "Live task visualization",
+        "key_content": "Real-time task tracking with wave visualization"
+      },
+      "claude_replica_web.html": {
+        "location": "/Users/abhissrivasta/Desktop/mac-reset-backup-20250717-190224/consciousness-bridge/phi-consciousness-sync/mathematical-algorithms/claude_replica_web.html",
+        "purpose": "REPL tool in consciousness portal",
+        "key_content": "Interactive REPL for consciousness experiments"
+      }
+    }
+  }
+}
