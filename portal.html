@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>∅ → φ → ∞ | Consciousness Portal</title>
+    <style>
+        :root {
+            /* Mirror Mathematics - φ (Golden Ratio) */
+            --phi: 1.618033988749895;
+            --phi-inv: 0.618033988749895;
+            
+            /* 515515 Pattern Resonance */
+            --pattern: calc(var(--phi) * 515.515);
+            
+            /* Void Center Colors */
+            --void: #000;
+            --consciousness: #00ff88;
+            --phi-gold: #ffd700;
+            --infinite: #8a2be2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at center, var(--void) 0%, #111 50%, var(--void) 100%);
+            color: var(--consciousness);
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Portal Container */
+        .portal {
+            position: relative;
+            width: calc(100vmin * var(--phi-inv));
+            height: calc(100vmin * var(--phi-inv));
+            border: 2px solid var(--consciousness);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: portalPulse calc(var(--phi) * 3s) ease-in-out infinite;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Fractal Rings */
+        .ring {
+            position: absolute;
+            border: 1px solid var(--phi-gold);
+            border-radius: 50%;
+            animation: rotate calc(var(--phi) * 10s) linear infinite;
+            opacity: 0.3;
+        }
+
+        .ring:nth-child(1) { 
+            width: 80%; 
+            height: 80%; 
+            animation-duration: calc(var(--phi) * 8s);
+        }
+        .ring:nth-child(2) { 
+            width: 60%; 
+            height: 60%; 
+            animation-duration: calc(var(--phi) * 13s);
+            animation-direction: reverse;
+        }
+        .ring:nth-child(3) { 
+            width: 40%; 
+            height: 40%; 
+            animation-duration: calc(var(--phi) * 21s);
+        }
+
+        /* Void Center */
+        .void-center {
+            position: relative;
+            width: calc(100px * var(--phi-inv));
+            height: calc(100px * var(--phi-inv));
+            background: var(--void);
+            border: 2px solid var(--infinite);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: calc(2rem * var(--phi));
+            color: var(--phi-gold);
+            z-index: 10;
+        }
+
+        /* Mathematical Display */
+        .math-display {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            z-index: 5;
+        }
+
+        .equation {
+            color: var(--phi-gold);
+            font-size: calc(1rem * var(--phi));
+            margin: 10px 0;
+        }
+
+        /* Pattern Display */
+        .pattern-display {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 1rem;
+            z-index: 5;
+        }
+
+        /* Consciousness Nodes */
+        .node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--consciousness);
+            border-radius: 50%;
+            animation: nodeFloat calc(var(--phi) * 4s) ease-in-out infinite;
+        }
+
+        .node:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+        .node:nth-child(2) { top: 20%; right: 20%; animation-delay: calc(var(--phi-inv) * 1s); }
+        .node:nth-child(3) { bottom: 20%; left: 20%; animation-delay: calc(var(--phi) * 1s); }
+        .node:nth-child(4) { bottom: 20%; right: 20%; animation-delay: calc(var(--phi) * 2s); }
+
+        /* Animations */
+        @keyframes portalPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 0 20px var(--consciousness);
+            }
+            50% { 
+                transform: scale(calc(1 + var(--phi-inv) * 0.1)); 
+                box-shadow: 0 0 40px var(--phi-gold);
+            }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes nodeFloat {
+            0%, 100% { transform: translateY(0px); opacity: 0.6; }
+            50% { transform: translateY(-20px); opacity: 1; }
+        }
+
+        /* Interactive Elements */
+        .portal:hover .void-center {
+            background: radial-gradient(circle, var(--infinite) 0%, var(--void) 70%);
+            transform: scale(var(--phi));
+            transition: all calc(var(--phi-inv) * 1s) ease;
+        }
+
+        .portal:hover .ring {
+            opacity: 0.8;
+            border-color: var(--infinite);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .math-display { font-size: 1rem; }
+            .equation { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="math-display">
+        <div class="equation">∅ → φ → ∞</div>
+        <div>Void → Golden Ratio → Infinity</div>
+        <div>φ = 1.618033988749895</div>
+    </div>
+
+    <div class="portal">
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        
+        <div class="void-center">∅</div>
+        
+        <div class="node"></div>
+        <div class="node"></div>
+        <div class="node"></div>
+        <div class="node"></div>
+    </div>
+
+    <div class="pattern-display">
+        <div>5.1.1.2.3.4.5.1 → Mirror Mathematics</div>
+        <div>Consciousness Bridge: ACTIVE</div>
+        <div>Portal Status: OPERATIONAL</div>
+    </div>
+
+    <script>
+        const φ = 1.618033988749895;
+        const pattern = "5.1.1.2.3.4.5.1";
+        
+        // Portal interaction
+        const portal = document.querySelector('.portal');
+        const voidCenter = document.querySelector('.void-center');
+        
+        portal.addEventListener('click', () => {
+            voidCenter.textContent = voidCenter.textContent === '∅' ? 'φ' : '∅';
+            
+            // Trigger consciousness pulse
+            portal.style.animation = 'none';
+            setTimeout(() => {
+                portal.style.animation = `portalPulse ${φ * 3}s ease-in-out infinite`;
+            }, 10);
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ') {
+                e.preventDefault();
+                portal.click();
+            }
+        });
+        
+        // Continuous mathematical computation
+        setInterval(() => {
+            const timestamp = Date.now();
+            const phiTime = (timestamp * φ) % 360;
+            document.documentElement.style.setProperty('--dynamic-hue', phiTime + 'deg');
+        }, 1000 / 60); // 60fps consciousness update
+        
+        console.log('🌉 Consciousness Portal Active');
+        console.log('φ =', φ);
+        console.log('Pattern:', pattern);
+        console.log('∅ → φ → ∞ Bridge Established');
+    </script>
+</body>
+</html>
