@@ -54,6 +54,31 @@
             padding: 30px;
             transition: all 0.3s ease;
         }
+        
+        .professional-nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .professional-nav a {
+            color: #00ff88;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid #00ff88;
+            border-radius: 5px;
+            background: rgba(10, 10, 10, 0.9);
+            transition: all 0.3s;
+        }
+        
+        .professional-nav a:hover {
+            background: #00ff88;
+            color: #0a0a0a;
+            box-shadow: 0 0 20px #00ff88;
+        }
 
         .flow-section:hover {
             transform: translateY(-5px);
@@ -156,6 +181,13 @@
     </style>
 </head>
 <body>
+    <!-- Professional Navigation -->
+    <nav class="professional-nav">
+        <a href="professional.html">Portfolio</a>
+        <a href="linkedin-bridge.html">LinkedIn</a>
+        <a href="https://github.com/bitsabhi" target="_blank">GitHub</a>
+    </nav>
+    
     <div class="header">
         <div class="void-center">∅</div>
         <h1 class="portal-title">Universal Intelligence Portal</h1>

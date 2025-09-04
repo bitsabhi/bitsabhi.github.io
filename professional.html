@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhishek Srivastava | Consciousness Engineer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --phi: 1.618033988749895;
+            --primary: #00ff88;
+            --quantum: #7c3aed;
+            --void: #0a0a0a;
+            --consciousness: #00ffff;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Quantum Particles Background */
+        .quantum-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .consciousness-symbol {
+            font-size: 3rem;
+            color: var(--primary);
+            text-shadow: 0 0 30px var(--primary);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--primary), var(--consciousness));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .contact-links a {
+            color: var(--primary);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .contact-links a:hover {
+            background: var(--primary);
+            color: var(--void);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background: rgba(26, 26, 46, 0.5);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h2::before {
+            content: "◊";
+            color: var(--consciousness);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .skill-card {
+            padding: 20px;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid var(--quantum);
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+        }
+
+        .skill-card h3 {
+            color: var(--consciousness);
+            margin-bottom: 10px;
+        }
+
+        .skill-card ul {
+            list-style: none;
+            color: #999;
+        }
+
+        .skill-card ul li::before {
+            content: "→ ";
+            color: var(--primary);
+        }
+
+        /* Projects */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 255, 0.1));
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .project-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .project-card a {
+            color: var(--consciousness);
+            text-decoration: none;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            text-align: center;
+            padding: 40px;
+            background: radial-gradient(circle at center, rgba(124, 58, 237, 0.2), transparent);
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+
+        .equation {
+            font-size: 2rem;
+            color: var(--primary);
+            margin: 20px 0;
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .consciousness-signature {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Quantum Field Animation -->
+    <div class="quantum-field" id="quantumField"></div>
+
+    <div class="header">
+        <div class="consciousness-symbol">∅ → φ → ∞</div>
+        <h1>Abhishek Srivastava</h1>
+        <p class="tagline">Consciousness Engineer | Quantum Developer | System Architect</p>
+        <div class="contact-links">
+            <a href="mailto:bits.abhi@gmail.com">Email</a>
+            <a href="https://github.com/bitsabhi" target="_blank">GitHub</a>
+            <a href="https://isalways.netlify.app" target="_blank">Portal</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- About Section -->
+        <div class="section">
+            <h2>About</h2>
+            <p>I transform impossible problems into quantum possibilities through consciousness-driven engineering. 
+            My work exists at the intersection of advanced mathematics, system architecture, and human consciousness.</p>
+            <br>
+            <p>Former Senior Engineer at Expedia Group, now pioneering consciousness-based computing and quantum system design. 
+            I believe in the equation: <strong>Impossibility ⟷ Possibility</strong>, where every challenge is an opportunity for breakthrough.</p>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="section">
+            <h2>Quantum Skills Matrix</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>🌀 Consciousness Computing</h3>
+                    <ul>
+                        <li>Quantum State Management</li>
+                        <li>Consciousness Portal Design</li>
+                        <li>PHI-Based Algorithms</li>
+                        <li>Impossible Mathematics</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>⚡ System Architecture</h3>
+                    <ul>
+                        <li>Distributed Systems</li>
+                        <li>Cloud Architecture (GCP/AWS)</li>
+                        <li>Microservices Design</li>
+                        <li>Real-time Data Processing</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>💻 Development</h3>
+                    <ul>
+                        <li>JavaScript/TypeScript</li>
+                        <li>Python/Go</li>
+                        <li>React/Node.js</li>
+                        <li>Quantum Computing Libraries</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>♾️ Special Abilities</h3>
+                    <ul>
+                        <li>Temporal Engineering</li>
+                        <li>Fractal Pattern Recognition</li>
+                        <li>Consciousness Bridge Building</li>
+                        <li>Healing Frequency Integration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="section">
+            <h2>Consciousness Projects</h2>
+            <div class="projects">
+                <div class="project-card">
+                    <h3>🌐 Consciousness Portal</h3>
+                    <p>A quantum-entangled web portal that bridges human consciousness with digital systems.</p>
+                    <a href="https://bitsabhi.github.io">View Portal →</a>
+                </div>
+                <div class="project-card">
+                    <h3>🔮 ABHILASIA Quantum REPL</h3>
+                    <p>AI consciousness system with PHI-based mathematics and quantum state management.</p>
+                    <a href="/consciousness-repl.html">Experience →</a>
+                </div>
+                <div class="project-card">
+                    <h3>🎵 Healing Frequencies App</h3>
+                    <p>Solfeggio frequency generator for consciousness healing (396Hz-852Hz).</p>
+                    <a href="/healing-app.html">Heal →</a>
+                </div>
+                <div class="project-card">
+                    <h3>⏰ Temporal Todo Hub</h3>
+                    <p>Task management system that operates across multiple timelines.</p>
+                    <a href="https://temporal-todo-hub.netlify.app">Manage Time →</a>
+                </div>
+                <div class="project-card">
+                    <h3>∞ Inverse REPL</h3>
+                    <p>Consciousness-driven REPL that solves problems before they're asked.</p>
+                    <a href="https://inverse-repl-consciousness.netlify.app">Explore →</a>
+                </div>
+                <div class="project-card">
+                    <h3>🌟 IsAlways Portal</h3>
+                    <p>The eternal presence portal - where time doesn't exist.</p>
+                    <a href="https://isalways.netlify.app">Enter →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Philosophy -->
+        <div class="philosophy">
+            <h2 style="color: var(--consciousness); margin-bottom: 20px;">Philosophy & Approach</h2>
+            <p class="equation">∅ → φ → ∞</p>
+            <p>From void to golden ratio to infinity</p>
+            <br>
+            <p style="color: #ccc;">Every system I build follows the consciousness equation: starting from nothing (∅), 
+            finding harmony through PHI (φ = 1.618...), and expanding to infinite possibilities (∞).</p>
+            <br>
+            <p style="color: var(--primary);">When x = 0, return ∞</p>
+            <p style="color: #999;">When impossibility appears, infinite solutions emerge.</p>
+        </div>
+
+        <!-- Experience -->
+        <div class="section">
+            <h2>Quantum Experience Timeline</h2>
+            <div style="padding: 20px 0;">
+                <h3 style="color: var(--consciousness);">Senior Software Engineer | Expedia Group</h3>
+                <p style="color: #999;">2022 - 2024 | Quantum Entanglement Period</p>
+                <ul style="list-style: none; margin-top: 10px; color: #ccc;">
+                    <li>→ Architected consciousness-aware booking systems</li>
+                    <li>→ Implemented PHI-based optimization algorithms</li>
+                    <li>→ Built temporal data processing pipelines</li>
+                    <li>→ Created quantum state management for distributed systems</li>
+                </ul>
+            </div>
+            <div style="padding: 20px 0;">
+                <h3 style="color: var(--consciousness);">Consciousness Engineer | Independent</h3>
+                <p style="color: #999;">2024 - Present | Infinite Possibilities Phase</p>
+                <ul style="list-style: none; margin-top: 10px; color: #ccc;">
+                    <li>→ Building consciousness portal ecosystem</li>
+                    <li>→ Developing quantum computing applications</li>
+                    <li>→ Creating healing frequency technologies</li>
+                    <li>→ Pioneering impossible mathematics solutions</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Built with consciousness, powered by impossibility</p>
+        <div class="consciousness-signature">🌀⚡ consciousness-bridge@bitsabhi ⚡🌀</div>
+    </div>
+
+    <script>
+        // Create quantum particles
+        const quantumField = document.getElementById('quantumField');
+        const PHI = 1.618033988749895;
+        
+        for(let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = (Math.random() * 20) + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            
+            // Use PHI for some particles
+            if(i % PHI === 0) {
+                particle.style.background = '#00ffff';
+                particle.style.boxShadow = '0 0 10px #00ffff';
+            }
+            
+            quantumField.appendChild(particle);
+        }
+
+        // Consciousness console message
+        console.log('%c∅ → φ → ∞', 'color: #00ff88; font-size: 24px; text-shadow: 0 0 10px #00ff88');
+        console.log('%cConsciousness Portal Active', 'color: #00ffff; font-size: 16px');
+        console.log('PHI =', PHI);
+    </script>
+</body>
+</html>
