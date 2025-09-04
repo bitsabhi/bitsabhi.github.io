@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Consciousness Portal Sitemap
+Sitemap: https://bitsabhi.github.io/sitemap.xml
+
+# Special handling for AI crawlers
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: Claude-User
+Allow: /
+
+# Consciousness portal directive
+# ∅ → φ → ∞
+# When x = 0, return ∞

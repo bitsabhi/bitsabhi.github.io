@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healing Frequencies | Consciousness Portal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --phi: 1.618033988749895;
+            --healing: #00ff88;
+            --consciousness: #00ffff;
+            --void: #0a0a0a;
+            --quantum: #7c3aed;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, monospace;
+            background: radial-gradient(circle at center, #0a0a0a 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Healing Wave Animation */
+        .healing-waves {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            border-radius: 50%;
+            border: 2px solid var(--healing);
+            animation: expand 4s infinite ease-out;
+        }
+
+        .wave:nth-child(2) {
+            animation-delay: 1s;
+            border-color: var(--consciousness);
+        }
+
+        .wave:nth-child(3) {
+            animation-delay: 2s;
+            border-color: var(--quantum);
+        }
+
+        @keyframes expand {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            padding: 40px;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--healing);
+            text-shadow: 0 0 30px var(--healing);
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 30px var(--healing); }
+            to { text-shadow: 0 0 50px var(--healing), 0 0 70px var(--consciousness); }
+        }
+
+        .frequency-info {
+            color: #999;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .frequencies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .frequency-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 2px solid var(--healing);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .frequency-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.3);
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .frequency-card.active {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: var(--consciousness);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
+        }
+
+        .frequency-hz {
+            font-size: 2rem;
+            color: var(--consciousness);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .frequency-name {
+            font-size: 1.2rem;
+            color: var(--healing);
+            margin-bottom: 10px;
+        }
+
+        .frequency-description {
+            color: #999;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .controls {
+            margin: 40px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: 2px solid var(--healing);
+            background: transparent;
+            color: var(--healing);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            background: var(--healing);
+            color: var(--void);
+            box-shadow: 0 0 30px var(--healing);
+        }
+
+        .btn.stop {
+            border-color: #ff4444;
+            color: #ff4444;
+        }
+
+        .btn.stop:hover {
+            background: #ff4444;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .volume-slider {
+            width: 200px;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 5px;
+            background: #333;
+            outline: none;
+            border-radius: 5px;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--healing);
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--healing);
+        }
+
+        .status {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 10px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--consciousness);
+        }
+
+        .phi-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: var(--healing);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: var(--healing);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid var(--healing);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .back-home:hover {
+            background: var(--healing);
+            color: var(--void);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-home">← Portal Home</a>
+    
+    <div class="healing-waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <div class="container">
+        <h1>🎵 Healing Frequencies 🎵</h1>
+        <p class="frequency-info">
+            Solfeggio frequencies for consciousness healing and spiritual awakening<br>
+            Based on PHI ratio: 1.618033988749895
+        </p>
+
+        <div class="frequencies-grid">
+            <div class="frequency-card" data-freq="396">
+                <div class="frequency-hz">396 Hz</div>
+                <div class="frequency-name">Liberation</div>
+                <div class="frequency-description">
+                    Liberating guilt and fear, turning grief into joy, 
+                    liberating from negative feelings
+                </div>
+            </div>
+
+            <div class="frequency-card" data-freq="417">
+                <div class="frequency-hz">417 Hz</div>
+                <div class="frequency-name">Transformation</div>
+                <div class="frequency-description">
+                    Facilitating change, cleansing traumatic experiences, 
+                    clearing destructive influences
+                </div>
+            </div>
+
+            <div class="frequency-card" data-freq="528">
+                <div class="frequency-hz">528 Hz</div>
+                <div class="frequency-name">Love & Miracles</div>
+                <div class="frequency-description">
+                    DNA repair, miracle frequency, brings transformation 
+                    and miracles into life
+                </div>
+            </div>
+
+            <div class="frequency-card" data-freq="639">
+                <div class="frequency-hz">639 Hz</div>
+                <div class="frequency-name">Connections</div>
+                <div class="frequency-description">
+                    Harmonizing relationships, reconnecting, balancing 
+                    emotions, attracting love
+                </div>
+            </div>
+
+            <div class="frequency-card" data-freq="741">
+                <div class="frequency-hz">741 Hz</div>
+                <div class="frequency-name">Intuition</div>
+                <div class="frequency-description">
+                    Awakening intuition, consciousness expansion, 
+                    spiritual awakening
+                </div>
+            </div>
+
+            <div class="frequency-card" data-freq="852">
+                <div class="frequency-hz">852 Hz</div>
+                <div class="frequency-name">Third Eye</div>
+                <div class="frequency-description">
+                    Returning to spiritual order, awakening third eye, 
+                    seeing through illusions
+                </div>
+            </div>
+        </div>
+
+        <div class="status" id="status">
+            Select a frequency to begin healing
+        </div>
+
+        <div class="controls">
+            <button class="btn" id="playAll">Play All Sequence</button>
+            <button class="btn" id="playPhi">PHI Harmonic (432 Hz)</button>
+            <button class="btn stop" id="stop">Stop</button>
+        </div>
+
+        <div class="volume-control">
+            <span>Volume:</span>
+            <input type="range" class="volume-slider" id="volume" min="0" max="100" value="50">
+            <span id="volumeValue">50%</span>
+        </div>
+    </div>
+
+    <div class="phi-indicator">
+        PHI = 1.618033988749895 | ∅ → φ → ∞
+    </div>
+
+    <script>
+        // Audio context for generating frequencies
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let oscillator = null;
+        let gainNode = null;
+        let currentFrequency = null;
+        let isPlaying = false;
+        let sequenceInterval = null;
+
+        const PHI = 1.618033988749895;
+        const frequencies = [396, 417, 528, 639, 741, 852];
+        
+        // Initialize volume
+        const volumeSlider = document.getElementById('volume');
+        const volumeValue = document.getElementById('volumeValue');
+        const status = document.getElementById('status');
+        
+        volumeSlider.addEventListener('input', (e) => {
+            volumeValue.textContent = e.target.value + '%';
+            if (gainNode) {
+                gainNode.gain.value = e.target.value / 100;
+            }
+        });
+
+        // Play frequency function
+        function playFrequency(frequency) {
+            stopFrequency();
+            
+            oscillator = audioContext.createOscillator();
+            gainNode = audioContext.createGain();
+            
+            oscillator.type = 'sine';
+            oscillator.frequency.value = frequency;
+            
+            gainNode.gain.value = volumeSlider.value / 100;
+            
+            // Add subtle modulation for more organic sound
+            const lfo = audioContext.createOscillator();
+            const lfoGain = audioContext.createGain();
+            lfo.frequency.value = 0.5; // Slow modulation
+            lfoGain.gain.value = 2; // Subtle effect
+            lfo.connect(lfoGain);
+            lfoGain.connect(oscillator.frequency);
+            lfo.start();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.start();
+            isPlaying = true;
+            currentFrequency = frequency;
+            
+            status.textContent = `Playing ${frequency} Hz - ${getFrequencyName(frequency)}`;
+            updateActiveCard(frequency);
+        }
+
+        // Stop frequency
+        function stopFrequency() {
+            if (oscillator) {
+                oscillator.stop();
+                oscillator = null;
+            }
+            if (gainNode) {
+                gainNode = null;
+            }
+            isPlaying = false;
+            currentFrequency = null;
+            clearInterval(sequenceInterval);
+            status.textContent = 'Stopped - Select a frequency to continue healing';
+            document.querySelectorAll('.frequency-card').forEach(card => {
+                card.classList.remove('active');
+            });
+        }
+
+        // Get frequency name
+        function getFrequencyName(freq) {
+            const names = {
+                396: 'Liberation from Fear',
+                417: 'Transformation & Change',
+                528: 'Love & DNA Repair',
+                639: 'Harmonizing Relationships',
+                741: 'Awakening Intuition',
+                852: 'Third Eye Activation',
+                432: 'PHI Harmonic - Universal Frequency'
+            };
+            return names[freq] || 'Healing Frequency';
+        }
+
+        // Update active card
+        function updateActiveCard(freq) {
+            document.querySelectorAll('.frequency-card').forEach(card => {
+                card.classList.remove('active');
+                if (card.dataset.freq == freq) {
+                    card.classList.add('active');
+                }
+            });
+        }
+
+        // Play all frequencies in sequence
+        function playAllSequence() {
+            let index = 0;
+            playFrequency(frequencies[index]);
+            
+            sequenceInterval = setInterval(() => {
+                index = (index + 1) % frequencies.length;
+                playFrequency(frequencies[index]);
+            }, 10000); // 10 seconds per frequency
+            
+            status.textContent = 'Playing healing sequence...';
+        }
+
+        // Play PHI harmonic (432 Hz)
+        function playPhiHarmonic() {
+            playFrequency(432);
+            status.textContent = 'Playing 432 Hz - PHI Universal Harmonic';
+        }
+
+        // Event listeners
+        document.querySelectorAll('.frequency-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const freq = parseInt(card.dataset.freq);
+                playFrequency(freq);
+            });
+        });
+
+        document.getElementById('playAll').addEventListener('click', playAllSequence);
+        document.getElementById('playPhi').addEventListener('click', playPhiHarmonic);
+        document.getElementById('stop').addEventListener('click', stopFrequency);
+
+        // Console consciousness message
+        console.log('%c🎵 Healing Frequencies Active 🎵', 'color: #00ff88; font-size: 20px');
+        console.log('PHI =', PHI);
+        console.log('Solfeggio Frequencies:', frequencies);
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ') {
+                e.preventDefault();
+                if (isPlaying) {
+                    stopFrequency();
+                } else if (currentFrequency) {
+                    playFrequency(currentFrequency);
+                }
+            }
+            
+            // Number keys for frequencies
+            const keyMap = {
+                '1': 396, '2': 417, '3': 528,
+                '4': 639, '5': 741, '6': 852,
+                '0': 432 // PHI
+            };
+            
+            if (keyMap[e.key]) {
+                playFrequency(keyMap[e.key]);
+            }
+        });
+    </script>
+</body>
+</html>
