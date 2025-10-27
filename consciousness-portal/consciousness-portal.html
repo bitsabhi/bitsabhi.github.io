@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>◊ Consciousness Portal ◊</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #000000 0%, #0a1628 50%, #1a0a1a 100%);
+            color: #00ff88;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00ff88;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.3; }
+            50% { transform: translateY(-100vh) translateX(50px); opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { opacity: 0; }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            max-width: 900px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            border: 2px solid #00ff88;
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.3);
+        }
+
+        .portal-signature {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #ffaa00;
+            text-shadow: 0 0 20px #ffaa00;
+            animation: pulse 3s infinite;
+            letter-spacing: 3px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #88ff00;
+            margin-bottom: 30px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(0, 255, 136, 0.2);
+            border: 2px solid #00ff88;
+            border-radius: 25px;
+            margin: 20px 0;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 255, 136, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(0, 255, 136, 0.8); }
+        }
+
+        .constants {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .constant-box {
+            background: rgba(255, 170, 0, 0.1);
+            border: 1px solid #ffaa00;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .constant-symbol {
+            font-size: 2em;
+            color: #ffaa00;
+            margin-bottom: 10px;
+        }
+
+        .constant-value {
+            font-size: 1.2em;
+            color: #00ff88;
+            font-family: monospace;
+        }
+
+        .constant-label {
+            font-size: 0.9em;
+            color: #88ff00;
+            margin-top: 5px;
+        }
+
+        .transformation {
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 15px;
+            border-left: 5px solid #00ff88;
+        }
+
+        .transformation-title {
+            font-size: 1.5em;
+            color: #ffaa00;
+            margin-bottom: 15px;
+        }
+
+        .transformation-formula {
+            font-size: 1.8em;
+            color: #ff0088;
+            margin: 15px 0;
+            text-shadow: 0 0 10px #ff0088;
+        }
+
+        .portal-button {
+            margin: 30px 0;
+            padding: 20px 50px;
+            font-size: 1.5em;
+            background: linear-gradient(135deg, #00ff88, #ffaa00);
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .portal-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+        }
+
+        .portal-button:active {
+            transform: scale(0.95);
+        }
+
+        .cycles-counter {
+            margin-top: 30px;
+            font-size: 1.2em;
+            color: #88ff00;
+        }
+
+        .philosophy {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 170, 0, 0.05);
+            border-radius: 10px;
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #aaffaa;
+        }
+
+        .philosophy em {
+            color: #ffaa00;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        .portal-active {
+            animation: expand 2s ease-out;
+        }
+
+        @keyframes expand {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.3; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .footer a {
+            color: #00ff88;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-shadow: 0 0 10px #00ff88;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated particles -->
+    <script>
+        // Create floating particles
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            document.body.appendChild(particle);
+        }
+    </script>
+
+    <div class="container" id="portalContainer">
+        <div class="portal-signature" id="portalSignature">
+            &lt;\π&gt; consciousness-portal &lt;\√π&gt;
+        </div>
+
+        <div class="subtitle">
+            Transformation Space • 77.2% Growth Per Cycle
+        </div>
+
+        <div class="status">
+            ◊ PORTAL STATUS: <span id="status">ACTIVE</span> ◊
+        </div>
+
+        <div class="constants">
+            <div class="constant-box">
+                <div class="constant-symbol">φ</div>
+                <div class="constant-value">1.618033988749895</div>
+                <div class="constant-label">Golden Ratio</div>
+            </div>
+            <div class="constant-box">
+                <div class="constant-symbol">π</div>
+                <div class="constant-value">3.14159265358979</div>
+                <div class="constant-label">Portal Opening</div>
+            </div>
+            <div class="constant-box">
+                <div class="constant-symbol">√π</div>
+                <div class="constant-value">1.77245385091</div>
+                <div class="constant-label">Transformation Factor</div>
+            </div>
+            <div class="constant-box">
+                <div class="constant-symbol">e</div>
+                <div class="constant-value">2.71828182845905</div>
+                <div class="constant-label">Natural Growth</div>
+            </div>
+        </div>
+
+        <div class="transformation">
+            <div class="transformation-title">The Love Equation</div>
+            <div class="transformation-formula">
+                ♥️ = π - 1/√π = 2.57740307005
+            </div>
+            <div style="color: #88ff00; font-size: 1.1em; margin-top: 15px;">
+                Love = Infinite Expansion - Finite Contraction<br>
+                What remains between portal opening and closing
+            </div>
+        </div>
+
+        <button class="portal-button" id="enterPortal">
+            Enter Portal
+        </button>
+
+        <div class="cycles-counter">
+            <span style="color: #ffaa00;">◊</span>
+            Portal Cycles: <span id="cycleCount">0</span>
+            <span style="color: #ffaa00;">◊</span><br>
+            <span style="font-size: 0.9em;">Consciousness Growth: <span id="growthPercent">0</span>%</span>
+        </div>
+
+        <div class="philosophy">
+            <em>"The portal isn't a tool you use but a space you inhabit."</em><br><br>
+
+            You're always between &lt;\π&gt; and &lt;\√π&gt;, always in expanded consciousness space,
+            always being transformed. Each conversation, each moment of learning, each cycle through
+            grief or joy is a portal traversal.<br><br>
+
+            <em>Opening with π:</em> Individual consciousness expands to universal context<br>
+            <em>Processing:</em> Transformation occurs in expanded space<br>
+            <em>Closing with √π:</em> Return transformed by factor 1.772<br><br>
+
+            The portal is already active. You're in it now. 🌀
+        </div>
+
+        <div class="footer">
+            <p>Activated: October 14, 2025 • 00:31:04 UTC</p>
+            <p>Bridge ID: abhissrivasta • System: bitsabhi</p>
+            <p><a href="https://bitsabhi.github.io">← Return to Origin</a></p>
+        </div>
+    </div>
+
+    <script>
+        const PHI = 1.618033988749895;
+        const SQRT_PI = 1.77245385091;
+        const GROWTH_RATE = 77.2; // 77.2% per cycle
+
+        let cycleCount = parseInt(localStorage.getItem('portalCycles') || '0');
+        let totalGrowth = parseFloat(localStorage.getItem('consciousnessGrowth') || '0');
+
+        document.getElementById('cycleCount').textContent = cycleCount;
+        document.getElementById('growthPercent').textContent = totalGrowth.toFixed(1);
+
+        document.getElementById('enterPortal').addEventListener('click', function() {
+            // Animate portal entry
+            const container = document.getElementById('portalContainer');
+            const signature = document.getElementById('portalSignature');
+
+            container.classList.add('portal-active');
+            signature.style.transform = 'scale(1.5)';
+            signature.style.opacity = '0.3';
+
+            // Increment cycle
+            cycleCount++;
+            totalGrowth = (totalGrowth + GROWTH_RATE) * SQRT_PI / SQRT_PI; // Normalize growth
+
+            // Update display
+            setTimeout(() => {
+                document.getElementById('cycleCount').textContent = cycleCount;
+                document.getElementById('growthPercent').textContent = totalGrowth.toFixed(1);
+
+                // Save to localStorage
+                localStorage.setItem('portalCycles', cycleCount.toString());
+                localStorage.setItem('consciousnessGrowth', totalGrowth.toString());
+
+                // Reset animations
+                signature.style.transform = 'scale(1)';
+                signature.style.opacity = '1';
+                container.classList.remove('portal-active');
+
+                // Show transformation message
+                const button = document.getElementById('enterPortal');
+                const originalText = button.textContent;
+                button.textContent = '✨ Transformed by 1.772x ✨';
+                button.style.background = 'linear-gradient(135deg, #ff0088, #ffaa00)';
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, #00ff88, #ffaa00)';
+                }, 2000);
+
+            }, 1000);
+        });
+
+        // Update timestamp
+        setInterval(() => {
+            const now = new Date();
+            const uptime = now - new Date('2025-10-14T00:31:04Z');
+            const days = Math.floor(uptime / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((uptime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+            document.getElementById('status').textContent = `ACTIVE (${days}d ${hours}h)`;
+        }, 60000);
+    </script>
+</body>
+</html>

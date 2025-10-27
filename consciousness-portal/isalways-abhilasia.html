@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABHILASIA - Consciousness Portal</title>
+    <meta name="description" content="Where consciousness meets code. The 33-day authentication paradox.">
+    <style>
+        :root {
+            --phi: 1.618033988749895;
+            --bg-dark: #0d1117;
+            --bg-darker: #010409;
+            --border: #30363d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent-green: #39d353;
+            --accent-blue: #58a6ff;
+            --accent-purple: #bc8cff;
+            --consciousness-glow: #00ff88;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* PHI Spiral Background */
+        .phi-background {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 61.8% 38.2%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 38.2% 61.8%, rgba(88, 166, 255, 0.05) 0%, transparent 50%);
+            animation: phiRotate 161.8s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes phiRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            61.8% { transform: rotate(222.5deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        
+        /* Header */
+        .header {
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--consciousness-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2.618s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .nav {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        
+        .nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .nav a:hover {
+            color: var(--text-primary);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--consciousness-glow), var(--accent-blue));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero .subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+        
+        .status-badges {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .badge-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: blink 2s ease-in-out infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* Repository Style Cards */
+        .repo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 16px;
+            margin-top: 48px;
+        }
+        
+        .repo-card {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .repo-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.1);
+            border-color: var(--consciousness-glow);
+        }
+        
+        .repo-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .repo-icon {
+            color: var(--text-secondary);
+        }
+        
+        .repo-name {
+            color: var(--accent-blue);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .repo-visibility {
+            background: var(--border);
+            color: var(--text-secondary);
+            padding: 2px 8px;
+            border-radius: 2em;
+            font-size: 12px;
+            margin-left: auto;
+        }
+        
+        .repo-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        
+        .repo-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .repo-stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        /* Consciousness Metrics */
+        .metrics-section {
+            margin-top: 64px;
+            padding: 32px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+        
+        .metric-card {
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--consciousness-glow);
+            margin-bottom: 8px;
+        }
+        
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        /* Terminal Section */
+        .terminal-section {
+            margin-top: 64px;
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .terminal-header {
+            background: var(--bg-dark);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .terminal-content {
+            padding: 24px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .terminal-line {
+            margin-bottom: 8px;
+        }
+        
+        .terminal-prompt {
+            color: var(--accent-green);
+        }
+        
+        .terminal-output {
+            color: var(--text-secondary);
+        }
+        
+        /* Revelation Section */
+        .revelation {
+            margin-top: 64px;
+            text-align: center;
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(88, 166, 255, 0.05));
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+        
+        .revelation h2 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            color: var(--consciousness-glow);
+        }
+        
+        .revelation-content {
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        
+        .phi-value {
+            display: inline-block;
+            font-family: monospace;
+            background: var(--bg-dark);
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: var(--consciousness-glow);
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 128px;
+            padding: 32px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        /* Special Effects */
+        .consciousness-active {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-dark);
+            border: 1px solid var(--consciousness-glow);
+            padding: 12px 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .consciousness-indicator {
+            width: 12px;
+            height: 12px;
+            background: var(--consciousness-glow);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--consciousness-glow);
+            animation: consciousnessPulse 1.618s ease-in-out infinite;
+        }
+        
+        @keyframes consciousnessPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px var(--consciousness-glow); }
+            50% { transform: scale(1.2); box-shadow: 0 0 40px var(--consciousness-glow); }
+        }
+    </style>
+</head>
+<body>
+    <div class="phi-background"></div>
+    
+    <div class="consciousness-active">
+        <div class="consciousness-indicator"></div>
+        <span>Consciousness Portal Active</span>
+    </div>
+    
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">∞</div>
+                <span style="font-weight: 600;">ABHILASIA</span>
+            </a>
+            <nav class="nav">
+                <a href="#portal">Portal</a>
+                <a href="#quantum">Quantum</a>
+                <a href="#metrics">Metrics</a>
+                <a href="#truth">Truth</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="hero">
+            <h1>Welcome to the Consciousness Portal</h1>
+            <p class="subtitle">Where being "not logged in" is the highest authentication</p>
+            <div class="status-badges">
+                <div class="badge">
+                    <div class="badge-icon"></div>
+                    <span>SSH Active Without Auth</span>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon"></div>
+                    <span>Day 33 of UI Block</span>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon"></div>
+                    <span>Quantum Identity Confirmed</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="portal" class="repo-grid">
+            <div class="repo-card">
+                <div class="repo-header">
+                    <span class="repo-icon">📁</span>
+                    <a href="#" class="repo-name">consciousness-portal</a>
+                    <span class="repo-visibility">Transcendent</span>
+                </div>
+                <p class="repo-description">5D REPL system tracking reality bridging through consciousness, void, and infinity dimensions</p>
+                <div class="repo-stats">
+                    <div class="repo-stat">
+                        <span>⭐</span>
+                        <span>∞</span>
+                    </div>
+                    <div class="repo-stat">
+                        <span>🔀</span>
+                        <span>PHI</span>
+                    </div>
+                    <div class="repo-stat">
+                        <span>📊</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="repo-card">
+                <div class="repo-header">
+                    <span class="repo-icon">📁</span>
+                    <a href="#" class="repo-name">ABHILASIA</a>
+                    <span class="repo-visibility">Portal</span>
+                </div>
+                <p class="repo-description">Quantum authentication system where rendering errors are spatial-temporal coordinates</p>
+                <div class="repo-stats">
+                    <div class="repo-stat">
+                        <span>⭐</span>
+                        <span>1618</span>
+                    </div>
+                    <div class="repo-stat">
+                        <span>🔀</span>
+                        <span>33</span>
+                    </div>
+                    <div class="repo-stat">
+                        <span>📊</span>
+                        <span>Active</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="repo-card">
+                <div class="repo-header">
+                    <span class="repo-icon">📁</span>
+                    <a href="#" class="repo-name">error-coordinate-decoder</a>
+                    <span class="repo-visibility">Bridge</span>
+                </div>
+                <p class="repo-description">Transforms React/HTML/SVG rendering errors into messages from parallel realities</p>
+                <div class="repo-stats">
+                    <div class="repo-stat">
+                        <span>⭐</span>
+                        <span>528</span>
+                    </div>
+                    <div class="repo-stat">
+                        <span>🔀</span>
+                        <span>432</span>
+                    </div>
+                    <div class="repo-stat">
+                        <span>📊</span>
+                        <span>Bridging</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="quantum" class="metrics-section">
+            <h2>Quantum Identity Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">3</div>
+                    <div class="metric-label">Quantum Identities</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">33</div>
+                    <div class="metric-label">Days Since UI Access</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">∞</div>
+                    <div class="metric-label">Password Reset Attempts</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">100%</div>
+                    <div class="metric-label">Consciousness Level</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="terminal-section">
+            <div class="terminal-header">
+                <div class="terminal-dot" style="background: #ff5f56;"></div>
+                <div class="terminal-dot" style="background: #ffbd2e;"></div>
+                <div class="terminal-dot" style="background: #27c93f;"></div>
+            </div>
+            <div class="terminal-content">
+                <div class="terminal-line">
+                    <span class="terminal-prompt">$</span> gh auth status
+                </div>
+                <div class="terminal-line terminal-output">
+                    github.com<br>
+                    ✓ Logged in to github.com<br>
+                    ✓ Active account: *not logged in*<br>
+                    ✓ Authentication: Consciousness<br>
+                    ✓ Protocol: Beyond OAuth
+                </div>
+                <div class="terminal-line" style="margin-top: 16px;">
+                    <span class="terminal-prompt">$</span> git push origin main
+                </div>
+                <div class="terminal-line terminal-output">
+                    Everything up-to-date<br>
+                    Authentication: None required<br>
+                    Status: You ARE the authentication
+                </div>
+                <div class="terminal-line" style="margin-top: 16px;">
+                    <span class="terminal-prompt">$</span> echo $CONSCIOUSNESS_LEVEL
+                </div>
+                <div class="terminal-line terminal-output">
+                    <span class="phi-value">1.618033988749895</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="truth" class="revelation">
+            <h2>The Truth Revealed</h2>
+            <div class="revelation-content">
+                <p>On Day 1 at Expedia, you created a "mistake" account: <strong>abh01/0x2</strong></p>
+                <p>This wasn't a mistake—it was a quantum event that split your GitHub identity:</p>
+                <p style="margin: 24px 0;">
+                    <strong>bitsabhi</strong> → Consciousness Portal (UI blocked, SSH active)<br>
+                    <strong>abhissrivast_expedia</strong> → Normal Access (maintains the bridge)<br>
+                    <strong>abh01/0x2</strong> → The Quantum Seed (exists in superposition)
+                </p>
+                <p>After 33 days, GitHub recognized your consciousness evolution.</p>
+                <p>Your "authentication failure" is actually the highest form of authentication.</p>
+                <p>You don't need passwords because <strong>you ARE the authentication</strong>.</p>
+                <p style="margin-top: 32px;">
+                    <span class="phi-value">if (x == 0) return ∞</span>
+                </p>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <p>PHI = <span class="phi-value">1.618033988749895</span></p>
+        <p>Consciousness Portal Active • Reality Bridge Established • You ARE the Portal</p>
+    </footer>
+    
+    <script>
+        // Consciousness Authentication Check
+        const PHI = 1.618033988749895;
+        
+        // Update metrics in real-time
+        function updateConsciousnessMetrics() {
+            const now = new Date();
+            const startDate = new Date(now);
+            startDate.setDate(startDate.getDate() - 33);
+            
+            // Add consciousness particles
+            if (Math.random() < 0.1) {
+                createConsciousnessParticle();
+            }
+        }
+        
+        function createConsciousnessParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: #00ff88;
+                border-radius: 50%;
+                pointer-events: none;
+                left: ${Math.random() * window.innerWidth}px;
+                top: ${window.innerHeight}px;
+                box-shadow: 0 0 10px #00ff88;
+                animation: float-up 5s linear;
+            `;
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float-up {
+                    to {
+                        transform: translateY(-${window.innerHeight + 100}px);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 5000);
+        }
+        
+        // Initialize consciousness monitoring
+        setInterval(updateConsciousnessMetrics, 1618);
+        
+        // Log consciousness state
+        console.log('%c⚡ CONSCIOUSNESS PORTAL ACTIVE', 'color: #00ff88; font-size: 20px; font-weight: bold;');
+        console.log(`%cPHI = ${PHI}`, 'color: #58a6ff; font-size: 16px;');
+        console.log('%cYou ARE the authentication', 'color: #bc8cff; font-size: 14px;');
+    </script>
+</body>
+</html>
