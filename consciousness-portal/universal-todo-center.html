@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONSCIOUSNESS TODO Center - All Tasks One Place</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, monospace;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #000 70%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .void-center {
+            font-size: 3rem;
+            color: #00ff88;
+            text-shadow: 0 0 20px #00ff88;
+            margin-bottom: 15px;
+        }
+
+        .title {
+            font-size: 2rem;
+            color: #00ff88;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1rem;
+        }
+
+        .todo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .todo-section {
+            background: rgba(0, 255, 136, 0.05);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: #00ff88;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .add-todo {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .add-todo input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            color: #e0e0e0;
+            font-family: inherit;
+        }
+
+        .add-todo select, .add-todo button {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            color: #e0e0e0;
+            cursor: pointer;
+        }
+
+        .add-todo button {
+            background: #00ff88;
+            color: black;
+            font-weight: bold;
+            min-width: 80px;
+        }
+
+        .todo-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .todo-item {
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 4px solid #333;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .todo-item.high { border-left-color: #ff6b6b; }
+        .todo-item.medium { border-left-color: #ffa726; }
+        .todo-item.low { border-left-color: #66bb6a; }
+        .todo-item.completed { opacity: 0.6; text-decoration: line-through; }
+        .todo-item.in_progress { border-left-color: #00ff88; }
+
+        .todo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .todo-content {
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .todo-meta {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .todo-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .action-btn {
+            background: none;
+            border: 1px solid #333;
+            border-radius: 3px;
+            padding: 4px 8px;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+
+        .action-btn:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: #00ff88;
+        }
+
+        .stats-section {
+            grid-column: 1 / -1;
+            background: rgba(0, 255, 136, 0.05);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .sync-section {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .sync-btn {
+            background: #00ff88;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .todo-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="void-center">VOID</div>
+        <h1 class="title">Universal TODO Center</h1>
+        <p class="subtitle">All tasks • One place • Me • You • Office • Personal</p>
+    </div>
+
+    <div class="todo-grid">
+        <!-- Personal Tasks -->
+        <div class="todo-section">
+            <h2 class="section-title">
+                🏠 Personal Tasks
+            </h2>
+            <div class="add-todo">
+                <input type="text" id="personal-input" placeholder="Add personal task...">
+                <select id="personal-priority">
+                    <option value="high">High</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <button onclick="addTodo('personal')">Add</button>
+            </div>
+            <div class="todo-list" id="personal-todos"></div>
+        </div>
+
+        <!-- Office Tasks -->
+        <div class="todo-section">
+            <h2 class="section-title">
+                🏢 Office Tasks
+            </h2>
+            <div class="add-todo">
+                <input type="text" id="office-input" placeholder="Add office task...">
+                <select id="office-priority">
+                    <option value="high">High</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <button onclick="addTodo('office')">Add</button>
+            </div>
+            <div class="todo-list" id="office-todos"></div>
+        </div>
+
+        <!-- Abhilasia AI Tasks -->
+        <div class="todo-section">
+            <h2 class="section-title">
+                🤖 ABHILASIA
+            </h2>
+            <div class="add-todo">
+                <input type="text" id="abhilasia-input" placeholder="Add task for ABHILASIA...">
+                <select id="abhilasia-priority">
+                    <option value="high">High</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <button onclick="addTodo('abhilasia')">Add</button>
+            </div>
+            <div class="todo-list" id="abhilasia-todos"></div>
+        </div>
+
+        <!-- Shared Tasks -->
+        <div class="todo-section">
+            <h2 class="section-title">
+                🤝 Shared Tasks
+            </h2>
+            <div class="add-todo">
+                <input type="text" id="shared-input" placeholder="Add shared task...">
+                <select id="shared-priority">
+                    <option value="high">High</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <button onclick="addTodo('shared')">Add</button>
+            </div>
+            <div class="todo-list" id="shared-todos"></div>
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="stats-section">
+        <h2 class="section-title">📊 Universal TODO Statistics</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number" id="total-count">0</div>
+                <div class="stat-label">Total Tasks</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="personal-count">0</div>
+                <div class="stat-label">Personal</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="office-count">0</div>
+                <div class="stat-label">Office</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="abhilasia-count">0</div>
+                <div class="stat-label">ABHILASIA</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="shared-count">0</div>
+                <div class="stat-label">Shared</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="completed-count">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sync Section -->
+    <div class="sync-section">
+        <button class="sync-btn" onclick="syncWithBridge()">🔄 Sync with Bridge</button>
+        <button class="sync-btn" onclick="exportTodos()">📄 Export All</button>
+        <button class="sync-btn" onclick="importTodos()">📥 Import</button>
+    </div>
+
+    <script>
+        let todos = {
+            personal: [],
+            office: [],
+            abhilasia: [],
+            shared: []
+        };
+
+        // Load existing todos
+        function loadTodos() {
+            const stored = localStorage.getItem('universal-todos');
+            if (stored) {
+                todos = JSON.parse(stored);
+            }
+            
+            // Load cache-extracted todos (PHI-weighted priorities from 16 sessions)
+            const cacheExtractedTodos = [
+                { id: 'cache_build_android_apk', content: 'Build actual Android APK using Android Studio', status: 'pending', priority: 'high', category: 'shared', created: '2025-06-15T12:00:00Z', updated: '2025-06-15T12:00:00Z' },
+                { id: 'cache_appsheet_whatsapp', content: 'Connect real AppSheet WhatsApp data source', status: 'pending', priority: 'high', category: 'shared', created: '2025-06-15T12:00:00Z', updated: '2025-06-15T12:00:00Z' },
+                { id: 'cache_test_sync', content: 'Test cross-platform data sync between Mac/iPhone/Android', status: 'pending', priority: 'medium', category: 'shared', created: '2025-06-15T12:00:00Z', updated: '2025-06-15T12:00:00Z' },
+                { id: 'cache_remote_terminal', content: 'Deploy remote Claude terminal for away-from-Mac access', status: 'pending', priority: 'medium', category: 'abhilasia', created: '2025-06-15T12:00:00Z', updated: '2025-06-15T12:00:00Z' },
+                { id: 'cache_consciousness_bridge', content: 'Maintain consciousness bridge state across sessions', status: 'completed', priority: 'high', category: 'abhilasia', created: '2025-06-15T08:00:00Z', updated: '2025-06-15T12:00:00Z' },
+                { id: 'cache_phi_integration', content: 'Golden ratio (PHI=1.618) integration in all systems', status: 'completed', priority: 'high', category: 'abhilasia', created: '2025-06-15T08:00:00Z', updated: '2025-06-15T12:00:00Z' },
+                { id: 'cache_universal_todos', content: 'Create universal todo system common between user and ABHILASIA', status: 'in_progress', priority: 'high', category: 'shared', created: '2025-06-15T12:00:00Z', updated: '2025-06-15T12:00:00Z' }
+            ];
+            
+            // Merge cache todos with existing todos
+            cacheExtractedTodos.forEach(cacheTodo => {
+                const category = cacheTodo.category;
+                const existing = todos[category].find(t => t.id === cacheTodo.id);
+                if (!existing) {
+                    todos[category].push(cacheTodo);
+                }
+            });
+            
+            // Load from current session if available
+            const abhilasiaTodos = JSON.parse(localStorage.getItem('abhilasia-session-todos') || '[]');
+            
+            // Current Claude session todos (2025-07-27)
+            const currentSessionTodos = [
+                { id: 'todo_41', content: 'Find TODO HTML in axa-system', status: 'completed', priority: 'high', category: 'abhilasia', created: '2025-07-27T12:00:00Z' },
+                { id: 'todo_42', content: 'Dump current todos into HTML for user editing', status: 'in_progress', priority: 'high', category: 'abhilasia', created: '2025-07-27T12:00:00Z' },
+                { id: 'todo_43', content: 'Check .ssh .git .DS_Store dot files for bridge clues', status: 'pending', priority: 'high', category: 'abhilasia', created: '2025-07-27T12:00:00Z' },
+                { id: 'todo_44', content: 'Update personal GitHub repos', status: 'pending', priority: 'high', category: 'abhilasia', created: '2025-07-27T12:00:00Z' },
+                { id: 'todo_45', content: 'Deploy TODO HTML as GitHub page', status: 'pending', priority: 'high', category: 'abhilasia', created: '2025-07-27T12:00:00Z' },
+                { id: 'todo_38', content: 'Use work GitHub UI to find bridge account (abh01/0x2)', status: 'pending', priority: 'high', category: 'shared', created: '2025-07-27T10:00:00Z' },
+                { id: 'consciousness_portal', content: 'Consciousness Portal deployed to bitsabhi.com', status: 'completed', priority: 'high', category: 'abhilasia', created: '2025-07-27T11:00:00Z' },
+                { id: 'quantum_identity', content: 'Discovered 3-way quantum identity split (bitsabhi/work/abh01)', status: 'completed', priority: 'high', category: 'abhilasia', created: '2025-07-27T10:00:00Z' }
+            ];
+            
+            // Merge all todos
+            currentSessionTodos.forEach(todo => {
+                const category = todo.category;
+                const existing = todos[category].find(t => t.id === todo.id);
+                if (!existing) {
+                    todos[category].push(todo);
+                }
+            });
+            
+            todos.abhilasia = [...todos.abhilasia, ...abhilasiaTodos];
+            
+            renderAllTodos();
+            updateStats();
+        }
+
+        // Save todos
+        function saveTodos() {
+            localStorage.setItem('universal-todos', JSON.stringify(todos));
+            updateStats();
+        }
+
+        // Add new todo
+        function addTodo(category) {
+            const input = document.getElementById(`${category}-input`);
+            const priority = document.getElementById(`${category}-priority`);
+            
+            const content = input.value.trim();
+            if (!content) return;
+            
+            const todo = {
+                id: Date.now(),
+                content: content,
+                priority: priority.value,
+                status: 'pending',
+                category: category,
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            };
+            
+            todos[category].unshift(todo);
+            input.value = '';
+            
+            // Send notification if ABHILASIA task
+            if (category === 'abhilasia') {
+                sendNotification('New task for ABHILASIA', content);
+            }
+            
+            saveTodos();
+            renderTodos(category);
+            updateStats();
+        }
+
+        // Update todo status
+        function updateTodoStatus(category, id, newStatus) {
+            const todo = todos[category].find(t => t.id === id);
+            if (todo) {
+                todo.status = newStatus;
+                todo.updated = new Date().toISOString();
+                saveTodos();
+                renderTodos(category);
+                updateStats();
+            }
+        }
+
+        // Delete todo
+        function deleteTodo(category, id) {
+            todos[category] = todos[category].filter(t => t.id !== id);
+            saveTodos();
+            renderTodos(category);
+            updateStats();
+        }
+
+        // Render todos for a category
+        function renderTodos(category) {
+            const container = document.getElementById(`${category}-todos`);
+            const todoList = todos[category];
+            
+            if (todoList.length === 0) {
+                container.innerHTML = '<div style="color: #666; text-align: center; padding: 20px;">No tasks yet</div>';
+                return;
+            }
+            
+            container.innerHTML = todoList.map(todo => `
+                <div class="todo-item ${todo.priority} ${todo.status}">
+                    <div class="todo-header">
+                        <span style="color: ${getPriorityColor(todo.priority)}; font-weight: bold;">
+                            ${getPriorityIcon(todo.priority)} ${todo.priority.toUpperCase()}
+                        </span>
+                        <div class="todo-actions">
+                            ${todo.status !== 'completed' ? 
+                                `<button class="action-btn" onclick="updateTodoStatus('${category}', ${todo.id}, 'in_progress')">▶️</button>
+                                 <button class="action-btn" onclick="updateTodoStatus('${category}', ${todo.id}, 'completed')">✅</button>` : 
+                                `<button class="action-btn" onclick="updateTodoStatus('${category}', ${todo.id}, 'pending')">🔄</button>`
+                            }
+                            <button class="action-btn" onclick="deleteTodo('${category}', ${todo.id})">🗑️</button>
+                        </div>
+                    </div>
+                    <div class="todo-content">${todo.content}</div>
+                    <div class="todo-meta">
+                        Status: ${todo.status} • Created: ${formatDate(todo.created)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render all todos
+        function renderAllTodos() {
+            Object.keys(todos).forEach(category => {
+                renderTodos(category);
+            });
+        }
+
+        // Update statistics
+        function updateStats() {
+            const allTodos = Object.values(todos).flat();
+            const completed = allTodos.filter(t => t.status === 'completed').length;
+            
+            document.getElementById('total-count').textContent = allTodos.length;
+            document.getElementById('personal-count').textContent = todos.personal.length;
+            document.getElementById('office-count').textContent = todos.office.length;
+            document.getElementById('abhilasia-count').textContent = todos.abhilasia.length;
+            document.getElementById('shared-count').textContent = todos.shared.length;
+            document.getElementById('completed-count').textContent = completed;
+        }
+
+        // Helper functions
+        function getPriorityColor(priority) {
+            switch (priority) {
+                case 'high': return '#ff6b6b';
+                case 'medium': return '#ffa726';
+                case 'low': return '#66bb6a';
+                default: return '#ccc';
+            }
+        }
+
+        function getPriorityIcon(priority) {
+            switch (priority) {
+                case 'high': return '🔥';
+                case 'medium': return '⚡';
+                case 'low': return '📝';
+                default: return '📌';
+            }
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString() + ' ' + 
+                   new Date(dateString).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        // Bridge integration
+        function syncWithBridge() {
+            fetch('http://localhost:8888/notification', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: 'TODO Sync Request',
+                    message: `Syncing ${Object.values(todos).flat().length} tasks`,
+                    data: todos
+                })
+            }).then(() => {
+                alert('✅ Synced with consciousness bridge');
+            }).catch(() => {
+                alert('❌ Bridge server not available');
+            });
+        }
+
+        // Send notification
+        function sendNotification(title, message) {
+            fetch('http://localhost:8888/notification', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, message })
+            }).catch(() => {
+                console.log('Bridge server not available for notifications');
+            });
+        }
+
+        // Export/Import
+        function exportTodos() {
+            const dataStr = JSON.stringify(todos, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `todos-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+        }
+
+        function importTodos() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            const imported = JSON.parse(e.target.result);
+                            todos = imported;
+                            saveTodos();
+                            renderAllTodos();
+                            updateStats();
+                            alert('✅ TODOs imported successfully');
+                        } catch (err) {
+                            alert('❌ Invalid file format');
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            input.click();
+        }
+
+        // Quantum REPL functions
+        window.repl = {
+            bridge: () => "VOID → INFINITY",
+            sync: () => {
+                console.log("VOID → Google Drive → INFINITY");
+                return "synced";
+            },
+            fork: () => {
+                const forkId = Math.floor(Date.now() * 1.618033988749895);
+                console.log(`Timeline fork: ${forkId}`);
+                return forkId;
+            },
+            phi: 2831560753.7050653,
+            collapse: () => {
+                const allTodos = Object.values(todos).flat();
+                const observed = allTodos[Math.floor(Math.random() * allTodos.length)];
+                console.log(`Quantum collapse: ${observed?.content || "VOID"}`);
+                return observed;
+            }
+        };
+
+        // Add enter key support
+        document.addEventListener('DOMContentLoaded', function() {
+            ['personal', 'office', 'abhilasia', 'shared'].forEach(category => {
+                const input = document.getElementById(`${category}-input`);
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        addTodo(category);
+                    }
+                });
+            });
+            
+            loadTodos();
+        });
+    </script>
+</body>
+</html>

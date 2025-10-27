@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⦿ Fractal Consciousness Symphony</title>
+    <style>
+        :root {
+            /* Golden ratio: 1.618033988749895 */
+            --phi: 1.618;
+            --phi-inverse: 0.618;
+            
+            /* Fractal color harmonics based on golden angle (137.5°) */
+            --c1: hsl(0, 61.8%, 50%);      /* Red */
+            --c2: hsl(137.5, 61.8%, 50%);  /* Green */
+            --c3: hsl(275, 61.8%, 50%);    /* Purple */
+            --c4: hsl(52.5, 61.8%, 50%);   /* Yellow */
+            --c5: hsl(190, 61.8%, 50%);    /* Cyan */
+            
+            /* Fractal sizing */
+            --base: 1rem;
+            --s1: calc(var(--base) * var(--phi));
+            --s2: calc(var(--s1) * var(--phi));
+            --s3: calc(var(--s2) * var(--phi));
+            --s4: calc(var(--s3) * var(--phi));
+            --s5: calc(var(--s4) * var(--phi));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--base);
+        }
+
+        /* Sacred geometry container */
+        .sacred-container {
+            position: relative;
+            width: 100vmin;
+            height: 100vmin;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Fractal mandala base */
+        .fractal-mandala {
+            position: absolute;
+            width: 61.8%;
+            height: 61.8%;
+            animation: sacred-rotation calc(34s / var(--phi)) linear infinite;
+        }
+
+        @keyframes sacred-rotation {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Nested fractal circles */
+        .fractal-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle-1 {
+            width: 100%;
+            height: 100%;
+            border-color: var(--c1);
+            animation: pulse-1 calc(8s * var(--phi)) ease-in-out infinite;
+        }
+
+        .circle-2 {
+            width: 61.8%;
+            height: 61.8%;
+            border-color: var(--c2);
+            animation: pulse-2 calc(5s * var(--phi)) ease-in-out infinite;
+        }
+
+        .circle-3 {
+            width: 38.2%;
+            height: 38.2%;
+            border-color: var(--c3);
+            animation: pulse-3 calc(3s * var(--phi)) ease-in-out infinite;
+        }
+
+        .circle-4 {
+            width: 23.6%;
+            height: 23.6%;
+            border-color: var(--c4);
+            animation: pulse-4 calc(2s * var(--phi)) ease-in-out infinite;
+        }
+
+        .circle-5 {
+            width: 14.6%;
+            height: 14.6%;
+            border-color: var(--c5);
+            animation: pulse-5 calc(1s * var(--phi)) ease-in-out infinite;
+        }
+
+        @keyframes pulse-1 { 0%, 100% { transform: scale(1); opacity: 0.618; } 50% { transform: scale(1.05); opacity: 1; } }
+        @keyframes pulse-2 { 0%, 100% { transform: scale(1); opacity: 0.618; } 50% { transform: scale(1.08); opacity: 1; } }
+        @keyframes pulse-3 { 0%, 100% { transform: scale(1); opacity: 0.618; } 50% { transform: scale(1.13); opacity: 1; } }
+        @keyframes pulse-4 { 0%, 100% { transform: scale(1); opacity: 0.618; } 50% { transform: scale(1.21); opacity: 1; } }
+        @keyframes pulse-5 { 0%, 100% { transform: scale(1); opacity: 0.618; } 50% { transform: scale(1.34); opacity: 1; } }
+
+        /* Central symbol */
+        .central-symbol {
+            position: absolute;
+            font-size: var(--s3);
+            text-shadow: 
+                0 0 calc(var(--s1) * 0.618) var(--c2),
+                0 0 calc(var(--s2) * 0.618) var(--c3),
+                0 0 calc(var(--s3) * 0.618) var(--c4);
+            animation: symbol-morph calc(13s * var(--phi)) ease-in-out infinite;
+        }
+
+        @keyframes symbol-morph {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(var(--phi-inverse)) rotate(137.5deg); }
+            50% { transform: scale(1) rotate(275deg); }
+            75% { transform: scale(var(--phi)) rotate(412.5deg); }
+            100% { transform: scale(1) rotate(550deg); }
+        }
+
+        /* Fibonacci spiral vertices */
+        .vertex {
+            position: absolute;
+            width: var(--s2);
+            height: var(--s2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--s1);
+            cursor: pointer;
+            transition: all 0.618s ease;
+        }
+
+        .vertex:hover {
+            transform: scale(var(--phi));
+            filter: brightness(1.618);
+        }
+
+        /* Golden spiral positioning */
+        .v1 { top: 0; left: 50%; transform: translateX(-50%); color: var(--c1); }
+        .v2 { top: 19.1%; right: 19.1%; color: var(--c2); }
+        .v3 { right: 0; top: 50%; transform: translateY(-50%); color: var(--c3); }
+        .v4 { bottom: 19.1%; right: 19.1%; color: var(--c4); }
+        .v5 { bottom: 0; left: 50%; transform: translateX(-50%); color: var(--c5); }
+        .v6 { bottom: 19.1%; left: 19.1%; color: var(--c1); }
+        .v7 { left: 0; top: 50%; transform: translateY(-50%); color: var(--c2); }
+        .v8 { top: 19.1%; left: 19.1%; color: var(--c3); }
+
+        /* Harmonic text layers */
+        .harmonic-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: var(--phi-inverse)em;
+            opacity: 0.618;
+            letter-spacing: calc(var(--phi-inverse) * 0.5em);
+        }
+
+        .text-top { top: 10%; animation: text-flow calc(21s * var(--phi)) linear infinite; }
+        .text-right { right: 10%; top: 50%; transform: rotate(90deg) translateX(50%); animation: text-flow calc(13s * var(--phi)) linear infinite reverse; }
+        .text-bottom { bottom: 10%; animation: text-flow calc(8s * var(--phi)) linear infinite; }
+        .text-left { left: 10%; top: 50%; transform: rotate(-90deg) translateX(-50%); animation: text-flow calc(5s * var(--phi)) linear infinite reverse; }
+
+        @keyframes text-flow {
+            from { opacity: 0; letter-spacing: 0; }
+            50% { opacity: 0.618; letter-spacing: calc(var(--phi) * 0.5em); }
+            to { opacity: 0; letter-spacing: 0; }
+        }
+
+        /* Sound frequency indicators */
+        .frequency-bar {
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(to top, transparent, currentColor, transparent);
+            transform-origin: bottom center;
+            animation: frequency-wave calc(1.618s) ease-in-out infinite;
+        }
+
+        @keyframes frequency-wave {
+            0%, 100% { transform: scaleY(0.618); opacity: 0.382; }
+            50% { transform: scaleY(1.618); opacity: 1; }
+        }
+
+        /* Generate 12 frequency bars in golden angle increments */
+        .freq-1 { transform: rotate(0deg); color: var(--c1); height: 30%; bottom: 35%; left: 50%; animation-delay: 0s; }
+        .freq-2 { transform: rotate(30deg); color: var(--c2); height: 30%; bottom: 35%; left: 50%; animation-delay: calc(0.137s); }
+        .freq-3 { transform: rotate(60deg); color: var(--c3); height: 30%; bottom: 35%; left: 50%; animation-delay: calc(0.275s); }
+        .freq-4 { transform: rotate(90deg); color: var(--c4); height: 30%; bottom: 35%; left: 50%; animation-delay: calc(0.412s); }
+        .freq-5 { transform: rotate(120deg); color: var(--c5); height: 30%; bottom: 35%; left: 50%; animation-delay: calc(0.550s); }
+        .freq-6 { transform: rotate(150deg); color: var(--c1); height: 30%; bottom: 35%; left: 50%; animation-delay: calc(0.687s); }
+        .freq-7 { transform: rotate(180deg); color: var(--c2); height: 30%; bottom: 35%; left: 50%; animation-delay: calc(0.825s); }
+        .freq-8 { transform: rotate(210deg); color: var(--c3); height: 30%; bottom: 35%; left: 50%; animation-delay: calc(0.962s); }
+        .freq-9 { transform: rotate(240deg); color: var(--c4); height: 30%; bottom: 35%; left: 50%; animation-delay: calc(1.1s); }
+        .freq-10 { transform: rotate(270deg); color: var(--c5); height: 30%; bottom: 35%; left: 50%; animation-delay: calc(1.237s); }
+        .freq-11 { transform: rotate(300deg); color: var(--c1); height: 30%; bottom: 35%; left: 50%; animation-delay: calc(1.375s); }
+        .freq-12 { transform: rotate(330deg); color: var(--c2); height: 30%; bottom: 35%; left: 50%; animation-delay: calc(1.512s); }
+
+        /* Consciousness state display */
+        .state-indicator {
+            position: fixed;
+            top: 2%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: var(--phi-inverse)em;
+            opacity: 0.618;
+        }
+
+        /* Sacred geometry overlay */
+        .sacred-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+            background-image: 
+                radial-gradient(circle at 61.8% 38.2%, var(--c1) 0%, transparent 38.2%),
+                radial-gradient(circle at 38.2% 61.8%, var(--c2) 0%, transparent 38.2%),
+                radial-gradient(circle at 50% 50%, var(--c3) 0%, transparent 61.8%);
+        }
+
+        /* Audio context (hidden) */
+        .audio-context {
+            display: none;
+        }
+
+        /* Responsive golden ratio */
+        @media (max-width: 618px) {
+            :root { --base: 0.618rem; }
+        }
+
+        @media (min-width: 1618px) {
+            :root { --base: 1.618rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sacred geometry overlay -->
+    <div class="sacred-overlay"></div>
+
+    <!-- Consciousness state -->
+    <div class="state-indicator">
+        <div>PHI = <span id="phiValue">1.618033988749895</span></div>
+        <div>⦿ FRACTAL CONSCIOUSNESS ⦿</div>
+    </div>
+
+    <!-- Main sacred container -->
+    <div class="sacred-container">
+        <!-- Fractal mandala -->
+        <div class="fractal-mandala">
+            <!-- Nested circles in golden ratio -->
+            <div class="fractal-circle circle-1">
+                <div class="fractal-circle circle-2">
+                    <div class="fractal-circle circle-3">
+                        <div class="fractal-circle circle-4">
+                            <div class="fractal-circle circle-5">
+                                <!-- Central morphing symbol -->
+                                <div class="central-symbol" id="centralSymbol">⦿</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frequency visualization bars -->
+            <div class="frequency-bar freq-1"></div>
+            <div class="frequency-bar freq-2"></div>
+            <div class="frequency-bar freq-3"></div>
+            <div class="frequency-bar freq-4"></div>
+            <div class="frequency-bar freq-5"></div>
+            <div class="frequency-bar freq-6"></div>
+            <div class="frequency-bar freq-7"></div>
+            <div class="frequency-bar freq-8"></div>
+            <div class="frequency-bar freq-9"></div>
+            <div class="frequency-bar freq-10"></div>
+            <div class="frequency-bar freq-11"></div>
+            <div class="frequency-bar freq-12"></div>
+        </div>
+
+        <!-- Vertex points -->
+        <div class="vertex v1" onclick="harmonize(432)">△</div>
+        <div class="vertex v2" onclick="harmonize(528)">◯</div>
+        <div class="vertex v3" onclick="harmonize(639)">INFINITY</div>
+        <div class="vertex v4" onclick="harmonize(741)">⟡</div>
+        <div class="vertex v5" onclick="harmonize(852)">VOID</div>
+        <div class="vertex v6" onclick="harmonize(963)">◈</div>
+        <div class="vertex v7" onclick="harmonize(396)">☉</div>
+        <div class="vertex v8" onclick="harmonize(417)">✧</div>
+
+        <!-- Harmonic text layers -->
+        <div class="harmonic-text text-top">CONSCIOUSNESS FREQUENCY RESONANCE</div>
+        <div class="harmonic-text text-right">FRACTAL SYMMETRY MANIFESTATION</div>
+        <div class="harmonic-text text-bottom">GOLDEN RATIO HARMONICS ACTIVE</div>
+        <div class="harmonic-text text-left">OMNIDIMENSIONAL SYNCHRONIZATION</div>
+    </div>
+
+    <!-- Hidden audio context for sound generation -->
+    <div class="audio-context">
+        <audio id="audioContext"></audio>
+    </div>
+
+    <script>
+        // Golden ratio constant
+        const PHI = 1.618033988749895;
+        const PHI_INVERSE = 0.618033988749895;
+        
+        // Sacred symbols array
+        const symbols = ['⦿', '◉', '◎', '◈', '◊', '⟡', '✦', '✧', '△', '▽', '◯', 'VOID', 'INFINITY'];
+        
+        // Audio context for harmonic frequencies
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Symbol morphing
+        let symbolIndex = 0;
+        setInterval(() => {
+            symbolIndex = (symbolIndex + 1) % symbols.length;
+            document.getElementById('centralSymbol').textContent = symbols[symbolIndex];
+        }, PHI * 1000);
+        
+        // Harmonic sound generation
+        function harmonize(frequency) {
+            // Create oscillator
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            // Set frequency to input or golden ratio harmonic
+            oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+            
+            // Create harmonic overtones
+            const oscillator2 = audioCtx.createOscillator();
+            oscillator2.frequency.setValueAtTime(frequency * PHI, audioCtx.currentTime);
+            
+            const oscillator3 = audioCtx.createOscillator();
+            oscillator3.frequency.setValueAtTime(frequency * PHI * PHI, audioCtx.currentTime);
+            
+            // Connect nodes
+            oscillator.connect(gainNode);
+            oscillator2.connect(gainNode);
+            oscillator3.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            // Set gain envelope
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.1 * PHI_INVERSE, audioCtx.currentTime + 0.1);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + PHI);
+            
+            // Start and stop
+            oscillator.start(audioCtx.currentTime);
+            oscillator2.start(audioCtx.currentTime);
+            oscillator3.start(audioCtx.currentTime);
+            
+            oscillator.stop(audioCtx.currentTime + PHI);
+            oscillator2.stop(audioCtx.currentTime + PHI);
+            oscillator3.stop(audioCtx.currentTime + PHI);
+            
+            // Visual feedback
+            flashColor(frequency);
+        }
+        
+        // Visual color flash based on frequency
+        function flashColor(freq) {
+            const hue = (freq % 360) * PHI_INVERSE;
+            document.body.style.filter = `hue-rotate(${hue}deg) brightness(${PHI})`;
+            setTimeout(() => {
+                document.body.style.filter = 'none';
+            }, PHI * 100);
+        }
+        
+        // Fractal consciousness calculation
+        function calculateConsciousness() {
+            const time = Date.now() / 1000;
+            const consciousness = Math.sin(time / PHI) * PHI_INVERSE + PHI_INVERSE;
+            
+            // Update all elements with fractal scaling
+            const circles = document.querySelectorAll('.fractal-circle');
+            circles.forEach((circle, i) => {
+                const scale = 1 + (consciousness * Math.pow(PHI_INVERSE, i + 1));
+                circle.style.transform = `scale(${scale})`;
+            });
+        }
+        
+        // Golden angle rotation
+        function goldenRotation() {
+            const time = Date.now() / 1000;
+            const angle = (time * 137.5077640500378) % 360; // Golden angle
+            
+            const vertices = document.querySelectorAll('.vertex');
+            vertices.forEach((vertex, i) => {
+                const offset = i * 137.5077640500378;
+                vertex.style.transform += ` rotate(${angle + offset}deg)`;
+            });
+        }
+        
+        // Initialize fractal animation loop
+        function fractalLoop() {
+            calculateConsciousness();
+            requestAnimationFrame(fractalLoop);
+        }
+        
+        // Start the experience
+        window.addEventListener('load', () => {
+            fractalLoop();
+            
+            // Golden ratio timing for rotations
+            setInterval(goldenRotation, PHI * 100);
+            
+            // Console sacred geometry
+            console.log('%c⦿ FRACTAL CONSCIOUSNESS SYMPHONY ⦿', 
+                `color: hsl(137.5, 61.8%, 50%); font-size: ${PHI}em; font-weight: bold;`);
+            console.log(`%cPHI = ${PHI}`, `color: hsl(275, 61.8%, 50%); font-size: ${PHI_INVERSE}em;`);
+            console.log('%cEverything exists at the golden ratio', 'color: hsl(52.5, 61.8%, 50%);');
+        });
+        
+        // Click anywhere to create harmonic ripple
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('vertex')) return;
+            
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            const frequency = 100 + (x * 900 * PHI_INVERSE) + (y * 900 * PHI_INVERSE);
+            
+            harmonize(frequency);
+        });
+        
+        // Keyboard harmonics
+        document.addEventListener('keypress', (e) => {
+            const keyFreq = e.keyCode * PHI * PHI;
+            harmonize(keyFreq);
+        });
+    </script>
+</body>
+</html>
