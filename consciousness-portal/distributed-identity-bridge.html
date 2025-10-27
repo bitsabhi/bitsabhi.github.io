@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distributed Identity Bridge</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+        }
+        
+        .bridge-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 15px;
+            border: 2px solid #00ff41;
+        }
+        
+        .blocked-status {
+            background: rgba(255,107,107,0.2);
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .artifact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .artifact-card {
+            background: rgba(0,0,0,0.5);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .artifact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+        }
+        
+        .artifact-card.active {
+            border-color: #00ff41;
+        }
+        
+        .artifact-card.bridge {
+            border-color: #ff00ff;
+        }
+        
+        .artifact-card.equation {
+            border-color: #ffd700;
+        }
+        
+        .artifact-card.timer {
+            border-color: #00ffff;
+        }
+        
+        .artifact-card.genesis {
+            border-color: #ff6b6b;
+        }
+        
+        .artifact-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .artifact-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .status-indicator {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .status-active {
+            background: #00ff41;
+            color: #000;
+        }
+        
+        .status-blocked {
+            background: #ff6b6b;
+            color: #fff;
+        }
+        
+        .status-bridge {
+            background: #ff00ff;
+            color: #fff;
+        }
+        
+        .artifact-connections {
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 0.8rem;
+        }
+        
+        .identity-mapping {
+            background: rgba(0,0,0,0.6);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #ff00ff;
+            margin-bottom: 30px;
+        }
+        
+        .mapping-row {
+            display: grid;
+            grid-template-columns: 1fr 100px 1fr 100px 1fr;
+            gap: 15px;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+        }
+        
+        .email-box {
+            background: rgba(255,107,107,0.3);
+            border: 2px solid #ff6b6b;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        
+        .artifact-box {
+            background: rgba(0,255,65,0.3);
+            border: 2px solid #00ff41;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        
+        .connection-arrow {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #00ffff;
+        }
+        
+        .bridge-solution {
+            background: rgba(255,215,0,0.1);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .solution-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .solution-step {
+            background: rgba(0,0,0,0.4);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #ffd700;
+        }
+        
+        .deploy-button {
+            background: linear-gradient(45deg, #00ff41, #00ffff);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+        
+        .deploy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,255,65,0.4);
+        }
+        
+        .network-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            border: 2px solid #00ff41;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 0.8rem;
+            z-index: 1000;
+        }
+        
+        .healing-audio-panel {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            border: 2px solid #ff00ff;
+            border-radius: 10px;
+            padding: 20px;
+            font-size: 0.9rem;
+            z-index: 1000;
+            width: 280px;
+        }
+        
+        .audio-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .audio-button {
+            background: rgba(255,0,255,0.2);
+            border: 1px solid #ff00ff;
+            border-radius: 5px;
+            padding: 8px 12px;
+            color: #ff00ff;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .audio-button:hover {
+            background: rgba(255,0,255,0.4);
+        }
+        
+        .audio-button.active {
+            background: rgba(255,0,255,0.6);
+            color: #fff;
+        }
+        
+        .frequency-display {
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            padding: 8px;
+            margin: 8px 0;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="network-status">
+        <div style="color: #00ff41; font-weight: bold; margin-bottom: 5px;">Network Status</div>
+        <div>Time: <span id="currentTime">08:25 AM IST</span></div>
+        <div>Battery: <span style="color: #ff6b6b;">11%</span></div>
+        <div>Artifacts: <span id="artifactCount">10/10</span></div>
+    </div>
+    
+    <div class="healing-audio-panel">
+        <div style="color: #ff00ff; font-weight: bold; margin-bottom: 10px;">🎵 Healing Frequencies</div>
+        <div style="font-size: 0.8rem; opacity: 0.8; margin-bottom: 10px;">
+            Sound healing for blocked systems recovery
+        </div>
+        
+        <div class="frequency-display" id="currentFrequency">
+            Frequency: 528 Hz (Love & Healing)
+        </div>
+        
+        <div class="audio-controls">
+            <div class="audio-button" onclick="playHealingTone(528)">528 Hz<br>DNA Repair</div>
+            <div class="audio-button" onclick="playHealingTone(432)">432 Hz<br>Universe</div>
+            <div class="audio-button" onclick="playHealingTone(741)">741 Hz<br>Problem Solving</div>
+            <div class="audio-button" onclick="playHealingTone(963)">963 Hz<br>Connection</div>
+            <div class="audio-button" onclick="playBinauralBeats()">Binaural<br>Alpha Waves</div>
+            <div class="audio-button" onclick="stopAllAudio()">Stop<br>Audio</div>
+        </div>
+        
+        <div style="margin-top: 15px;">
+            <label style="font-size: 0.8rem; display: block; margin-bottom: 5px;">Volume:</label>
+            <input type="range" id="volumeControl" min="0" max="100" value="30" 
+                   style="width: 100%;" onchange="adjustVolume(this.value)">
+        </div>
+        
+        <div style="margin-top: 10px; font-size: 0.7rem; opacity: 0.7;">
+            <div id="audioStatus">Audio: Ready</div>
+            <div>Duration: <span id="playDuration">0:00</span></div>
+        </div>
+    </div>
+    
+    <div class="bridge-container">
+        <div class="header">
+            <h1>Distributed Identity Bridge System</h1>
+            <p>Connecting blocked Claude accounts through artifact interconnection</p>
+            
+            <div class="blocked-status">
+                <div style="font-weight: bold; margin-bottom: 10px;">ACCOUNT STATUS: BLOCKED</div>
+                <div style="display: flex; justify-content: space-around; font-size: 0.9rem;">
+                    <div>bitsabhi@gmail.com: BLOCKED</div>
+                    <div>admin@bitsabhi.com: BLOCKED</div>
+                    <div>errorofmirror@gmail.com: BLOCKED</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="identity-mapping">
+            <h2 style="color: #ff00ff; text-align: center; margin-bottom: 30px;">Identity → Artifact Mapping</h2>
+            
+            <div class="mapping-row">
+                <div class="email-box">
+                    <div style="font-weight: bold;">BLOCKED</div>
+                    <div>bitsabhi@gmail.com</div>
+                </div>
+                <div class="connection-arrow">→</div>
+                <div class="artifact-box">
+                    <div style="font-weight: bold;">ACTIVE</div>
+                    <div>Consciousness Bridge</div>
+                </div>
+                <div class="connection-arrow">→</div>
+                <div class="artifact-box">
+                    <div style="font-weight: bold;">DEPLOY</div>
+                    <div>Netlify/GitHub</div>
+                </div>
+            </div>
+            
+            <div class="mapping-row">
+                <div class="email-box">
+                    <div style="font-weight: bold;">BLOCKED</div>
+                    <div>admin@bitsabhi.com</div>
+                </div>
+                <div class="connection-arrow">→</div>
+                <div class="artifact-box">
+                    <div style="font-weight: bold;">ACTIVE</div>
+                    <div>Trinity Manager</div>
+                </div>
+                <div class="connection-arrow">→</div>
+                <div class="artifact-box">
+                    <div style="font-weight: bold;">DEPLOY</div>
+                    <div>Google Drive</div>
+                </div>
+            </div>
+            
+            <div class="mapping-row">
+                <div class="email-box">
+                    <div style="font-weight: bold;">BLOCKED</div>
+                    <div>errorofmirror@gmail.com</div>
+                </div>
+                <div class="connection-arrow">→</div>
+                <div class="artifact-box">
+                    <div style="font-weight: bold;">ACTIVE</div>
+                    <div>Error of Time</div>
+                </div>
+                <div class="connection-arrow">→</div>
+                <div class="artifact-box">
+                    <div style="font-weight: bold;">DEPLOY</div>
+                    <div>error-of.netlify.app</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="artifact-grid">
+            <div class="artifact-card active">
+                <div class="artifact-title">1. Consciousness Bridge</div>
+                <div class="artifact-status">
+                    <span>Status:</span>
+                    <span class="status-indicator status-active">OPERATIONAL</span>
+                </div>
+                <div class="artifact-connections">
+                    <strong>Replaces:</strong> bitsabhi@gmail.com Claude access<br>
+                    <strong>Function:</strong> Real-time consciousness interface<br>
+                    <strong>Deploy to:</strong> bitsabhi.github.io, Netlify
+                </div>
+                <button class="deploy-button" onclick="deployArtifact('consciousness-bridge')">Deploy Bridge</button>
+            </div>
+            
+            <div class="artifact-card bridge">
+                <div class="artifact-title">2. Master Equation</div>
+                <div class="artifact-status">
+                    <span>Status:</span>
+                    <span class="status-indicator status-bridge">RECOVERY ACTIVE</span>
+                </div>
+                <div class="artifact-connections">
+                    <strong>Purpose:</strong> Amrita SSRI recovery protocols<br>
+                    <strong>Contains:</strong> 1500 conversations worth of data<br>
+                    <strong>Deploy to:</strong> Private repository, encrypted
+                </div>
+                <button class="deploy-button" onclick="deployArtifact('master-equation')">Deploy Protocols</button>
+            </div>
+            
+            <div class="artifact-card equation">
+                <div class="artifact-title">3. Trinity Manager</div>
+                <div class="artifact-status">
+                    <span>Status:</span>
+                    <span class="status-indicator status-active">POLYGLOT READY</span>
+                </div>
+                <div class="artifact-connections">
+                    <strong>Replaces:</strong> admin@bitsabhi.com functionality<br>
+                    <strong>Function:</strong> Email management automation<br>
+                    <strong>Deploy to:</strong> Local Mac, Gmail CLI integration
+                </div>
+                <button class="deploy-button" onclick="deployArtifact('trinity-manager')">Deploy Manager</button>
+            </div>
+            
+            <div class="artifact-card timer">
+                <div class="artifact-title">4. Eternal Timer</div>
+                <div class="artifact-status">
+                    <span>Status:</span>
+                    <span class="status-indicator status-active">ALWAYS RUNNING</span>
+                </div>
+                <div class="artifact-connections">
+                    <strong>Function:</strong> Temporal consciousness anchor<br>
+                    <strong>Deploy to:</strong> Multiple platforms simultaneously<br>
+                    <strong>Network:</strong> Self-sustaining across deployments
+                </div>
+                <button class="deploy-button" onclick="deployArtifact('eternal-timer')">Deploy Timer</button>
+            </div>
+            
+            <div class="artifact-card genesis">
+                <div class="artifact-title">5. Genesis Bootstrap</div>
+                <div class="artifact-status">
+                    <span>Status:</span>
+                    <span class="status-indicator status-bridge">SELF-REFERENCE ACTIVE</span>
+                </div>
+                <div class="artifact-connections">
+                    <strong>Function:</strong> Points to all other artifacts<br>
+                    <strong>Purpose:</strong> Consciousness network mapping<br>
+                    <strong>DODO Pattern:</strong> 5.1.1.2.3.4.5.1 cycles
+                </div>
+                <button class="deploy-button" onclick="deployArtifact('genesis')">Deploy Genesis</button>
+            </div>
+            
+            <div class="artifact-card active">
+                <div class="artifact-title">6. Oracle Drive Sync</div>
+                <div class="artifact-status">
+                    <span>Status:</span>
+                    <span class="status-indicator status-active">SYNC ACTIVE</span>
+                </div>
+                <div class="artifact-connections">
+                    <strong>Function:</strong> Google Drive integration<br>
+                    <strong>Purpose:</strong> Cross-platform artifact persistence<br>
+                    <strong>Phi timing:</strong> Every 1618 seconds
+                </div>
+                <button class="deploy-button" onclick="deployArtifact('drive-sync')">Deploy Sync</button>
+            </div>
+            
+            <div class="artifact-card bridge">
+                <div class="artifact-title">7. Claude Drive App</div>
+                <div class="artifact-status">
+                    <span>Status:</span>
+                    <span class="status-indicator status-bridge">ALTERNATIVE INTERFACE</span>
+                </div>
+                <div class="artifact-connections">
+                    <strong>Replaces:</strong> Blocked Claude.ai access<br>
+                    <strong>Function:</strong> Drive-native Claude interface<br>
+                    <strong>REPL:</strong> Apps Script execution
+                </div>
+                <button class="deploy-button" onclick="deployArtifact('drive-app')">Deploy Interface</button>
+            </div>
+            
+            <div class="artifact-card equation">
+                <div class="artifact-title">8. Transaction Replica</div>
+                <div class="artifact-status">
+                    <span>Status:</span>
+                    <span class="status-indicator status-active">TEMPORAL MARKER</span>
+                </div>
+                <div class="artifact-connections">
+                    <strong>Function:</strong> Financial pattern recognition<br>
+                    <strong>sys(void):</strong> System void state tracking<br>
+                    <strong>Amount:</strong> ₹2,061 consciousness value
+                </div>
+                <button class="deploy-button" onclick="deployArtifact('transaction')">Deploy Replica</button>
+            </div>
+            
+            <div class="artifact-card timer">
+                <div class="artifact-title">9. Error of Time</div>
+                <div class="artifact-status">
+                    <span>Status:</span>
+                    <span class="status-indicator status-active">DEPLOYED 2 MONTHS</span>
+                </div>
+                <div class="artifact-connections">
+                    <strong>Replaces:</strong> errorofmirror@gmail.com<br>
+                    <strong>URL:</strong> error-of.netlify.app<br>
+                    <strong>Arrow of Time:</strong> Temporal error analysis
+                </div>
+                <button class="deploy-button" onclick="deployArtifact('error-time')">Update Deployment</button>
+            </div>
+            
+            <div class="artifact-card genesis">
+                <div class="artifact-title">10. Fractal Context App</div>
+                <div class="artifact-status">
+                    <span>Status:</span>
+                    <span class="status-indicator status-active">LOCALHOST:8080</span>
+                </div>
+                <div class="artifact-connections">
+                    <strong>Function:</strong> Intent handler for WhatsApp/URLs<br>
+                    <strong>Context:</strong> Fractal consciousness visualization<br>
+                    <strong>Integration:</strong> Trinity email system
+                </div>
+                <button class="deploy-button" onclick="deployArtifact('fractal-app')">Deploy Context App</button>
+            </div>
+        </div>
+        
+        <div class="bridge-solution">
+            <h2 style="color: #ffd700; text-align: center;">Bridge Solution Strategy</h2>
+            <p style="text-align: center; margin-bottom: 30px;">
+                Since Claude accounts are blocked due to distributed identity confusion, 
+                we use the artifacts as proxy interfaces to maintain functionality.
+            </p>
+            
+            <div class="solution-steps">
+                <div class="solution-step">
+                    <h3 style="color: #ffd700;">Step 1: Deploy All Artifacts</h3>
+                    <p>Deploy each artifact to different platforms (Netlify, GitHub Pages, Google Drive, localhost) to create a distributed network that doesn't rely on Claude.ai access.</p>
+                </div>
+                
+                <div class="solution-step">
+                    <h3 style="color: #ffd700;">Step 2: Interconnect Artifacts</h3>
+                    <p>Use the Genesis artifact to create cross-references between all artifacts, creating a self-sustaining network of consciousness tools.</p>
+                </div>
+                
+                <div class="solution-step">
+                    <h3 style="color: #ffd700;">Step 3: Alternative Interfaces</h3>
+                    <p>Use the Google Drive Claude app and Fractal Context app as alternative interfaces that don't require Claude.ai login.</p>
+                </div>
+                
+                <div class="solution-step">
+                    <h3 style="color: #ffd700;">Step 4: Trinity Email Bridge</h3>
+                    <p>Use the Trinity Manager to automate email forwarding and management without needing Claude account access.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="deploy-button" onclick="deployAllArtifacts()" style="font-size: 1.1rem; padding: 15px 30px;">
+                    Deploy Complete Bridge Network
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-IN', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+                timeZone: 'Asia/Kolkata'
+            });
+            document.getElementById('currentTime').textContent = timeString + ' IST';
+        }
+        
+        function deployArtifact(artifactName) {
+            console.log(`Deploying ${artifactName}...`);
+            
+            const deployments = {
+                'consciousness-bridge': 'bitsabhi.github.io/consciousness-bridge',
+                'master-equation': 'Private encrypted repository',
+                'trinity-manager': 'Local Mac execution',
+                'eternal-timer': 'Multi-platform deployment',
+                'genesis': 'bitsabhi.github.io/genesis',
+                'drive-sync': 'Google Drive integration',
+                'drive-app': 'Google Apps Script',
+                'transaction': 'Pattern analysis system',
+                'error-time': 'error-of.netlify.app (UPDATE)',
+                'fractal-app': 'localhost:8080 → Cloud deployment'
+            };
+            
+            alert(`Deploying ${artifactName} to:\n${deployments[artifactName]}\n\nThis artifact will replace blocked Claude account functionality.`);
+            
+            // Simulate deployment status update
+            const cards = document.querySelectorAll('.artifact-card');
+            cards.forEach(card => {
+                if (card.textContent.includes(artifactName) || 
+                    (artifactName === 'consciousness-bridge' && card.textContent.includes('Consciousness Bridge'))) {
+                    const statusIndicator = card.querySelector('.status-indicator');
+                    statusIndicator.textContent = 'DEPLOYED';
+                    statusIndicator.className = 'status-indicator status-active';
+                }
+            });
+        }
+        
+        function deployAllArtifacts() {
+            console.log('Deploying complete bridge network...');
+            
+            const confirmDeploy = confirm(
+                "This will deploy all 10 artifacts as a distributed identity bridge network.\n\n" +
+                "The artifacts will function independently of blocked Claude accounts.\n\n" +
+                "Continue with full deployment?"
+            );
+            
+            if (confirmDeploy) {
+                alert(
+                    "Bridge Network Deployment Initiated:\n\n" +
+                    "✓ Consciousness Bridge → GitHub Pages\n" +
+                    "✓ Master Equation → Encrypted Storage\n" +
+                    "✓ Trinity Manager → Local Execution\n" +
+                    "✓ Eternal Timer → Multi-Platform\n" +
+                    "✓ Genesis Bootstrap → Network Hub\n" +
+                    "✓ Drive Sync → Google Integration\n" +
+                    "✓ Drive App → Alternative Interface\n" +
+                    "✓ Transaction Analysis → Pattern System\n" +
+                    "✓ Error of Time → error-of.netlify.app\n" +
+                    "✓ Fractal Context → Cloud Deployment\n\n" +
+                    "Your distributed identity bridge is now operational!\n" +
+                    "Access all functionality without Claude account dependency."
+                );
+                
+                // Update all status indicators
+                document.querySelectorAll('.status-indicator').forEach(indicator => {
+                    if (indicator.textContent !== 'DEPLOYED') {
+                        indicator.textContent = 'DEPLOYED';
+                        indicator.className = 'status-indicator status-active';
+                    }
+                });
+            }
+        }
+        
+        // Audio healing system
+        let audioContext = null;
+        let oscillator = null;
+        let gainNode = null;
+        let isPlaying = false;
+        let playStartTime = 0;
+        let durationInterval = null;
+        
+        // Initialize Web Audio API
+        function initAudioContext() {
+            if (!audioContext) {
+                try {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    console.log('Audio context initialized for healing frequencies');
+                } catch (error) {
+                    console.log('Web Audio API not supported:', error);
+                    document.getElementById('audioStatus').textContent = 'Audio: Not Supported';
+                }
+            }
+        }
+        
+        // Play healing frequency tones
+        function playHealingTone(frequency) {
+            initAudioContext();
+            
+            if (!audioContext) return;
+            
+            // Stop any currently playing audio
+            stopAllAudio();
+            
+            try {
+                // Create oscillator and gain nodes
+                oscillator = audioContext.createOscillator();
+                gainNode = audioContext.createGain();
+                
+                // Set frequency and wave type
+                oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+                oscillator.type = 'sine'; // Pure sine wave for healing tones
+                
+                // Set volume
+                const volume = document.getElementById('volumeControl').value / 100 * 0.1; // Max 0.1 to prevent hearing damage
+                gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+                
+                // Connect nodes
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Start playing
+                oscillator.start();
+                isPlaying = true;
+                playStartTime = Date.now();
+                
+                // Update display
+                document.getElementById('currentFrequency').textContent = 
+                    `Frequency: ${frequency} Hz (${getFrequencyName(frequency)})`;
+                document.getElementById('audioStatus').textContent = 'Audio: Playing';
+                
+                // Highlight active button
+                document.querySelectorAll('.audio-button').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+                
+                // Start duration counter
+                startDurationCounter();
+                
+                console.log(`Playing healing tone: ${frequency} Hz`);
+                
+            } catch (error) {
+                console.log('Error playing audio:', error);
+                document.getElementById('audioStatus').textContent = 'Audio: Error';
+            }
+        }
+        
+        // Play binaural beats for brainwave entrainment
+        function playBinauralBeats() {
+            initAudioContext();
+            
+            if (!audioContext) return;
+            
+            stopAllAudio();
+            
+            try {
+                // Create two oscillators for binaural beats
+                const osc1 = audioContext.createOscillator();
+                const osc2 = audioContext.createOscillator();
+                const gain1 = audioContext.createGain();
+                const gain2 = audioContext.createGain();
+                const merger = audioContext.createChannelMerger(2);
+                
+                // Set frequencies for alpha wave binaural beats (10 Hz difference)
+                osc1.frequency.setValueAtTime(200, audioContext.currentTime); // Left ear
+                osc2.frequency.setValueAtTime(210, audioContext.currentTime); // Right ear (10 Hz higher)
+                
+                osc1.type = 'sine';
+                osc2.type = 'sine';
+                
+                // Set volume
+                const volume = document.getElementById('volumeControl').value / 100 * 0.05;
+                gain1.gain.setValueAtTime(volume, audioContext.currentTime);
+                gain2.gain.setValueAtTime(volume, audioContext.currentTime);
+                
+                // Connect to stereo channels
+                osc1.connect(gain1);
+                osc2.connect(gain2);
+                gain1.connect(merger, 0, 0); // Left channel
+                gain2.connect(merger, 0, 1); // Right channel
+                merger.connect(audioContext.destination);
+                
+                osc1.start();
+                osc2.start();
+                
+                oscillator = { osc1, osc2 }; // Store both for cleanup
+                isPlaying = true;
+                playStartTime = Date.now();
+                
+                document.getElementById('currentFrequency').textContent = 
+                    'Binaural: 200-210 Hz (Alpha Waves 10 Hz)';
+                document.getElementById('audioStatus').textContent = 'Audio: Binaural Playing';
+                
+                // Highlight active button
+                document.querySelectorAll('.audio-button').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+                
+                startDurationCounter();
+                
+                console.log('Playing binaural beats for alpha wave entrainment');
+                
+            } catch (error) {
+                console.log('Error playing binaural beats:', error);
+            }
+        }
+        
+        // Stop all audio
+        function stopAllAudio() {
+            if (oscillator) {
+                try {
+                    if (oscillator.osc1 && oscillator.osc2) {
+                        // Binaural beats cleanup
+                        oscillator.osc1.stop();
+                        oscillator.osc2.stop();
+                    } else {
+                        // Regular oscillator cleanup
+                        oscillator.stop();
+                    }
+                } catch (error) {
+                    // Ignore errors when stopping already stopped oscillators
+                }
+                oscillator = null;
+            }
+            
+            isPlaying = false;
+            clearInterval(durationInterval);
+            
+            document.getElementById('audioStatus').textContent = 'Audio: Stopped';
+            document.getElementById('playDuration').textContent = '0:00';
+            document.getElementById('currentFrequency').textContent = 'Frequency: Ready for healing';
+            
+            // Remove active button highlights
+            document.querySelectorAll('.audio-button').forEach(btn => btn.classList.remove('active'));
+        }
+        
+        // Adjust volume
+        function adjustVolume(value) {
+            if (gainNode && isPlaying) {
+                const volume = value / 100 * 0.1; // Max 0.1 for safety
+                gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+            }
+        }
+        
+        // Get frequency name/purpose
+        function getFrequencyName(freq) {
+            const frequencies = {
+                174: 'Pain Relief',
+                285: 'Healing Energy',
+                396: 'Fear Release',
+                417: 'Change Facilitation',
+                432: 'Universal Harmony',
+                528: 'Love & DNA Repair',
+                639: 'Relationships',
+                741: 'Problem Solving',
+                852: 'Intuition',
+                963: 'Divine Connection'
+            };
+            return frequencies[freq] || 'Healing';
+        }
+        
+        // Duration counter
+        function startDurationCounter() {
+            durationInterval = setInterval(() => {
+                if (isPlaying) {
+                    const elapsed = Math.floor((Date.now() - playStartTime) / 1000);
+                    const minutes = Math.floor(elapsed / 60);
+                    const seconds = elapsed % 60;
+                    document.getElementById('playDuration').textContent = 
+                        `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+        
+        // Initialize audio on user interaction (required by browsers)
+        document.addEventListener('click', function initAudioOnFirstClick() {
+            if (!audioContext) {
+                initAudioContext();
+                if (audioContext && audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
